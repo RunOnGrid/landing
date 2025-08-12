@@ -1,0 +1,13 @@
+name: Deploy dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-dev:
+    uses: RunOnGrid/deploy-workflow/.github/workflows/deploy-dev-1p.yml@main
+    secrets:
+      OP_SERVICE_ACCOUNT_TOKEN_DEV: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN_DEV }}
+      OP_ITEM_ENVFILE_NAME: ${{ secrets.OP_ITEM_ENVFILE_NAME }}
