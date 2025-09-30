@@ -10,7 +10,7 @@ import Enterprise from "@/components/Enterprise";
 export default function OldComponents() {
   return (
     <>
-      <div className="container-homePrincipal">
+      <div className="">
         <NavBar />
 
         <Banner

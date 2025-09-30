@@ -1,7 +1,8 @@
+// src/components/Enterprise.tsx
 import Image from "next/image";
 import React from "react";
 
-const Enterprise = () => {
+export default function Enterprise() {
   return (
     <section className="grid">
       <svg
@@ -9,7 +10,7 @@ const Enterprise = () => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMin"
-        className="hidden lg:block absolute inset-0 h-3/4 lg:w-full z-0 pointer-events-none select-none "
+        className="hidden lg:block absolute inset-0 h-3/4 lg:w-full z-0 pointer-events-none select-none"
       >
         <defs>
           <linearGradient
@@ -34,11 +35,12 @@ const Enterprise = () => {
           fill="url(#paint0_linear_1101_27)"
         />
       </svg>
+
       <div className="bg-[#EDEDED]">
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-16 max-w-7xl mx-auto lg:pt-32">
           {/* Texto */}
           <div className="flex flex-col lg:items-start items-center justify-center pt-32 pb-8 lg:pb-0 lg:pt-0">
-            <div className=" grid">
+            <div className="grid">
               <h1 className="title font-semibold tracking-wider">Enterprise</h1>
               <p className="subtitle">
                 We help you migrate to DePIN with the
@@ -52,36 +54,36 @@ const Enterprise = () => {
             </div>
           </div>
 
+          {/* Imagen */}
           <div className="overflow-hidden z-10">
             <Image
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5617ce26-8cff-4fa0-416f-e7cbf9829000/public"
               width={979}
               height={487}
               alt="nodes info"
-              className=""
               priority
             />
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 py-16 max-w-7xl pt-16 lg:pt-32 w-full">
-        <div className="flex flex-col mx-auto lg:items-start lg:justify-start  font-semibold lg:w-full max-w-7xl">
-          <div class="space-y-0 text-3xl">
-            <p>Enhance your cloud </p>
-            <p> operations with</p>
-            <p className="text-primary"> decentralized cloud </p>
+        <div className="flex flex-col mx-auto lg:items-start lg:justify-start font-semibold lg:w-full max-w-7xl">
+          <div className="space-y-0 text-3xl">
+            <p>Enhance your cloud</p>
+            <p>operations with</p>
+            <p className="text-primary">decentralized cloud</p>
             <p className="text-primary">providers.</p>
           </div>
+
           <div className="mt-8 font-normal space-y-6">
             <p>CI/CD Pipelines</p>
             <p>Disaster recovery service</p>
-            <p>Database </p>
+            <p>Database</p>
             <p>Monitoring and Logging</p>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default Enterprise;
+}

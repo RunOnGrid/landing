@@ -5,7 +5,7 @@ const Banner = ({ title, subtitle, subtitle2 }) => {
   return (
     <div className="banner-container">
       <div className="textosBanner">
-        <div className=" text-red-700">Hola</div>
+        <div className=" text-red-700">{title}</div>
         <div className="subtituloBanner">{subtitle}</div>
         <div className="subtituloBanner2">{subtitle2}</div>
         <div className="container-botones">

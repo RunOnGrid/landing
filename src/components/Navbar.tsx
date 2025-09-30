@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
@@ -19,19 +21,19 @@ export default function Navbar() {
           : "bg-[#0c1317d9]",
       ].join(" ")}
     >
-      <nav className="w-full ">
+      <nav className="w-full">
         <div className="mx-auto flex w-full items-center justify-between px-4 py-2">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
-              alt="logo"
+              alt="Grid logo"
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
-              className="w-[120px] h-auto"
+              className="h-auto w-[120px]"
             />
           </Link>
 
           {/* Acciones derecha */}
-          <div className="flex items-center justify-between w-full max-w-xs">
+          <div className="flex w-full max-w-xs items-center justify-between">
             {/* CTA principal — oculto <=550px */}
             <Link href="#" className="max-[550px]:hidden">
               <button className="btn-primary">Deploy Now</button>
@@ -40,7 +42,7 @@ export default function Navbar() {
             {/* Docs con subrayado */}
             <Link
               href="https://documentation.ongrid.run/"
-              className="inline-flex ml-auto"
+              className="ml-auto inline-flex"
             >
               <span className="subtitle text-white underline">Docs</span>
             </Link>
