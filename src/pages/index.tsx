@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <div className="bg-foreground mx-auto">
+      <div className="bg-foreground mx-auto max-w-screen">
         <NavBar />
         <Enterprise />
         <Footer />

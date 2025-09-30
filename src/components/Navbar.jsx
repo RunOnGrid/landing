@@ -19,8 +19,8 @@ export default function Navbar() {
           : "bg-[#0c1317d9]",
       ].join(" ")}
     >
-      <nav className="w-full border-2 ">
-        <div className="mx-auto flex w-full items-center justify-between px-8 py-2">
+      <nav className="w-full ">
+        <div className="mx-auto flex w-full items-center justify-between px-4 py-2">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
@@ -34,7 +34,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between w-full max-w-xs">
             {/* CTA principal — oculto <=550px */}
             <Link href="#" className="max-[550px]:hidden">
-              <button className="btn-secondary">DEPLOY NOW</button>
+              <button className="btn-primary">Deploy Now</button>
             </Link>
 
             {/* Docs con subrayado */}
