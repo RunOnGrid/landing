@@ -35,8 +35,11 @@ export default function Navbar() {
           {/* Acciones derecha */}
           <div className="flex w-full max-w-xs items-center justify-between">
             {/* CTA principal — oculto <=550px */}
-            <Link href="#" className="max-[550px]:hidden">
-              <button className="btn-primary">Deploy Now</button>
+            <Link
+              href="/enterprise"
+              className="max-[550px]:hidden btn-secondary"
+            >
+              Enterprise
             </Link>
 
             {/* Docs con subrayado */}

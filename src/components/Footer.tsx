@@ -12,7 +12,7 @@ export default function Footer({ className = "" }: FooterProps) {
       {/* container-footer */}
       <section className="flex flex-col z-0 mx-auto">
         {/* columnas (90% como en tu CSS) */}
-        <div className="columnas text-white grid grid-cols-1 md:grid-cols-2 place-items-center max-w-7xl w-full mx-auto mb-[4%]">
+        <div className="columnas text-white grid grid-cols-1 md:grid-cols-2 place-items-center max-w-7xl w-full mx-auto ">
           {/* columna-principal */}
           <div className="columna-principal flex flex-col items-center md:items-start text-left text-[1.1rem] mt-[50px]">
             <h2 className="footer-titulo-principal text-white text-[1.7rem]">

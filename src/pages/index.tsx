@@ -1,19 +1,27 @@
+import dynamic from "next/dynamic";
+import Footer from "@/components/Footer";
+import Banner from "@/components/Banner";
+import BestFeatures from "@/components/BestFeatures";
+import DeployChoice from "@/components/DeployChoice";
+import InfoLanding from "@/components/InfoLanding";
 import NavBar from "@/components/Navbar";
 import Enterprise from "@/components/Enterprise";
-import Footer from "@/components/Footer";
-import SolutionsPicker from "@/components/SolutionsShowcase";
-import WhyChooseGrid from "@/components/WhyChooseUs";
-import TrustedPartners from "@/components/TrustedPartners";
 
-export default function Home() {
+export default function OldComponents() {
   return (
     <>
-      <div className="bg-foreground mx-auto max-w-screen">
+      <div className="container-home">
         <NavBar />
-        <Enterprise />
-        <SolutionsPicker />
-        <WhyChooseGrid />
-        <TrustedPartners />
+
+        <Banner
+          title="Just focus on building."
+          subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
+          subtitle2="Build, connect, deploy."
+        />
+
+        <BestFeatures />
+        <DeployChoice />
+        <InfoLanding />
         <Footer />
       </div>
     </>
