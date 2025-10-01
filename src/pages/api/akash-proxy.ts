@@ -1,39 +1,73 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
+type AkashTotalsDto = {
+  totalSsd: number; // TB
+  totalRam: number; // TB
+  totalStorage: number; // millones de vCPU (o M millicores)
+  totalNodes: number; // providers activos
+};
+
 export default async function handler(
-  _req: NextApiRequest,
-  res: NextApiResponse
+  req: NextApiRequest,
+  res: NextApiResponse<AkashTotalsDto | { error: string; details?: string }>
 ) {
   try {
-    const url = process.env.AKASH_TOTALS_URL;
-    if (!url) {
-      return res.status(500).json({ error: "Missing AKASH_TOTALS_URL" });
-    }
+    const upstream = "https://console-api.akash.network/v1/network-capacity";
+    const r = await fetch(upstream, { cache: "no-store" });
 
-    const r = await fetch(url, { cache: "no-store" });
     if (!r.ok) {
+      const body = await r.text();
       return res
         .status(r.status)
-        .json({ error: "Upstream error", status: r.status });
+        .json({ error: "Upstream error", details: body.slice(0, 200) });
     }
+
+    // Intentamos leer valores desde varias rutas posibles
     const raw = await r.json();
 
-    // Soporta ambas formas: plana o anidada en raw.data
-    const g = (k: string) => raw?.[k] ?? raw?.data?.[k] ?? 0;
+    const totalNodes = Number(
+      raw?.activeProviderCount ??
+        raw?.providers?.active ??
+        raw?.activeProviders ??
+        0
+    );
 
-    const totalSsd = Number(g("availableStorage")) / 1_000_000_000_000; // TB
-    const totalRam = Number(g("availableMemory")) / 1_000_000_000_000; // TB
-    const totalStorage = Number(g("availableCPU")) / 1_000_000; // “millones” de CPU
-    const totalNodes = Number(g("activeProviderCount"));
+    const ramBytes = Number(
+      raw?.clusterCapacity?.memory?.available ??
+        raw?.available?.memory ??
+        raw?.availableMemory ??
+        0
+    );
 
-    // Enviamos ya normalizado con los nombres que usa el front
+    const storageBytes = Number(
+      raw?.clusterCapacity?.storage?.available ??
+        raw?.available?.storage ??
+        raw?.availableStorage ??
+        0
+    );
+
+    const cpuUnits = Number(
+      raw?.clusterCapacity?.cpu?.available ??
+        raw?.available?.cpu ??
+        raw?.availableCPU ??
+        0
+    );
+
+    // Normalizamos unidades
+    const totalSsd = storageBytes / 1_000_000_000_000; // TB (de bytes)
+    const totalRam = ramBytes / 1_000_000_000_000; // TB (de bytes)
+    const totalStorage = cpuUnits / 1_000_000; // "millones" (p.ej. millicores -> millones)
+
     return res.status(200).json({
-      totalSsd: isFinite(totalSsd) ? totalSsd : 0,
-      totalRam: isFinite(totalRam) ? totalRam : 0,
-      totalStorage: isFinite(totalStorage) ? totalStorage : 0,
-      totalNodes: isFinite(totalNodes) ? totalNodes : 0,
+      totalSsd,
+      totalRam,
+      totalStorage,
+      totalNodes,
     });
   } catch (e: any) {
-    return res.status(500).json({ error: e?.message ?? "Unknown error" });
+    return res.status(500).json({
+      error: "Failed to fetch Akash",
+      details: e?.message ?? String(e),
+    });
   }
 }

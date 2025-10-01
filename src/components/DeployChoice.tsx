@@ -54,11 +54,10 @@ export default function DeployChoice() {
 
     const fetchAkash = async () => {
       try {
-        const res = await fetch("/api/akash-proxy", { cache: "no-store" });
+        const res = await fetch("/api/akash-proxy");
         if (!res.ok) throw new Error(`Akash API error: ${res.statusText}`);
-        const { totalSsd, totalRam, totalStorage, totalNodes } =
-          await res.json();
-        setAkashData({ totalSsd, totalRam, totalStorage, totalNodes });
+        const dto = (await res.json()) as AkashTotals; // { totalSsd, totalRam, totalStorage, totalNodes }
+        setAkashData(dto);
       } catch (err) {
         console.error(err);
       }
