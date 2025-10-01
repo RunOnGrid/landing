@@ -9,7 +9,7 @@ type Props = {
   data: {
     totalSsd: number; // TB
     totalRam: number; // TB
-    totalStorage: number; // Millones de vCPU
+    totalCpu: number; // Millones de vCPU
     totalNodes: number;
   };
   nodes: number; // redundante, pero si lo querés separado, OK
@@ -62,10 +62,10 @@ const DeployOption2: React.FC<Props> = ({
             <p className="text-center text-3xl -mt-1">
               {/* totalStorage está en “millones” → uso sufijo M */}
               <CountUp
-                end={Number(safe(data.totalStorage).toFixed(1))}
-                decimals={1}
+                end={Number(safe(data.totalCpu))/1000}
+                decimals={0}
+                suffix=" K"
                 duration={1.6}
-                suffix=" M"
               />
             </p>
           </div>
@@ -76,7 +76,7 @@ const DeployOption2: React.FC<Props> = ({
               <CountUp
                 end={Math.round(safe(data.totalSsd))}
                 duration={1.6}
-                suffix=" TB"
+                suffix=" PB"
               />
             </p>
           </div>

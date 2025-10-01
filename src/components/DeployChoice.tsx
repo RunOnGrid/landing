@@ -8,8 +8,8 @@ import DeployOption2 from "./DeployOption2";
 export type CommonTotals = {
   totalSsd: number; // TB
   totalRam: number; // TB
-  totalStorage: number; // cores o “millones”, según la API
-};
+  totalCpu: number; // cores 
+}
 
 export type FluxNodes = { totalNodes: number };
 
@@ -30,11 +30,11 @@ export default function DeployChoice() {
         setFluxData({
           totalSsd: Number(data.totalSsd) || 0,
           totalRam: Number(data.totalRam) || 0,
-          totalStorage: Number(data.totalStorage) || 0,
+          totalCpu: Number(data.totalCpu) || 0,
         });
       } catch (err) {
         console.error("Flux totals:", err);
-        setFluxData({ totalSsd: 0, totalRam: 0, totalStorage: 0 }); // fallback para que renderice
+        setFluxData({ totalSsd: 0, totalRam: 0, totalCpu: 0 }); // fallback para que renderice
       }
     };
 

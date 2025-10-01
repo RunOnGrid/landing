@@ -53,7 +53,7 @@ export default function DeployOption({
             <MetricCard label="Total Nodes" value={nodes.totalNodes} />
             <MetricCard
               label="Total RAM"
-              value={Math.floor(data.totalRam)}
+              value={Math.floor(data.totalRam)/1000}
               suffix=" TB"
             />
           </div>
@@ -62,13 +62,13 @@ export default function DeployOption({
         <div className="flex justify-center">
           <MetricCard
             label="Total CPU"
-            value={Math.floor(data.totalStorage / 1000)}
+            value={Math.floor(data.totalCpu)/1000}
             suffix=" K"
           />
           <MetricCard
-            label="Total SSD"
-            value={Math.floor(data.totalSsd)}
-            suffix=" TB"
+            label="Total Storage"
+            value={Math.floor(data.totalSsd)/1000}
+            suffix=" PB"
           />
         </div>
 

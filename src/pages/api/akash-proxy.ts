@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type AkashTotalsDto = {
   totalSsd: number; // TB
   totalRam: number; // TB
-  totalStorage: number; // millones de vCPU (o M millicores)
+  totalCpu: number; // millones de vCPU (o M millicores)
   totalNodes: number; // providers activos
 };
 
@@ -24,7 +24,7 @@ export default async function handler(
 
     // Intentamos leer valores desde varias rutas posibles
     const raw = await r.json();
-
+    
     const totalNodes = Number(
       raw?.activeProviderCount ??
         raw?.providers?.active ??
@@ -33,35 +33,29 @@ export default async function handler(
     );
 
     const ramBytes = Number(
-      raw?.clusterCapacity?.memory?.available ??
-        raw?.available?.memory ??
-        raw?.availableMemory ??
+      raw?.totalMemory??
         0
     );
 
     const storageBytes = Number(
-      raw?.clusterCapacity?.storage?.available ??
-        raw?.available?.storage ??
-        raw?.availableStorage ??
+      raw?.totalStorage ??
         0
     );
 
     const cpuUnits = Number(
-      raw?.clusterCapacity?.cpu?.available ??
-        raw?.available?.cpu ??
-        raw?.availableCPU ??
+      raw?.totalCPU ??
         0
     );
 
     // Normalizamos unidades
-    const totalSsd = storageBytes / 1_000_000_000_000; // TB (de bytes)
+    const totalSsd = storageBytes / 1_000_000_000_000; // PB (de bytes)
     const totalRam = ramBytes / 1_000_000_000_000; // TB (de bytes)
-    const totalStorage = cpuUnits / 1_000_000; // "millones" (p.ej. millicores -> millones)
+    const totalCpu = cpuUnits / 1000
 
     return res.status(200).json({
       totalSsd,
       totalRam,
-      totalStorage,
+      totalCpu,
       totalNodes,
     });
   } catch (e: any) {
@@ -71,3 +65,7 @@ export default async function handler(
     });
   }
 }
+function Round(arg0: number) {
+  throw new Error("Function not implemented.");
+}
+
