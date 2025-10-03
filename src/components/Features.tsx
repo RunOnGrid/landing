@@ -20,7 +20,7 @@ export default function Features({
         // Card base
         "mx-auto text-center",
 
-        "p-6 sm:p-8 shadow-lg hover:shadow-xl",
+        "p-6 sm:px-8 hover:shadow-xl",
         "transition-transform duration-300 hover:-translate-y-1",
         className,
       ].join(" ")}

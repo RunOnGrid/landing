@@ -11,7 +11,6 @@ function useReveal<T extends HTMLElement>(direction: "left" | "right") {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -21,18 +20,15 @@ function useReveal<T extends HTMLElement>(direction: "left" | "right") {
       },
       { rootMargin: "0px 0px -20% 0px", threshold: 0.1 }
     );
-
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  // Clases de animación equivalentes a .scroll2-in-left/right
   const base =
-    "opacity-0 transition-all duration-[1500ms] ease-out will-change-transform";
+    "opacity-0 transition-all duration-[1200ms] ease-out will-change-transform";
   const before =
     direction === "left" ? "translate-x-[-120px]" : "translate-x-[120px]";
   const after = "opacity-100 translate-x-0";
-
   return { ref, cls: `${base} ${visible ? after : before}` };
 }
 
@@ -74,89 +70,52 @@ export default function InfoLanding() {
   ];
 
   return (
-    <section
-      className="
-        text-white max-h-[90vh] w-[80%] mx-auto mb-[200px]
-        max-[650px]:w-[90%] max-[650px]:mb-[50px]
-      "
-    >
+    <section className="text-white max-w-[1400px] mx-auto px-6 mb-36 max-[650px]:px-4 max-[650px]:mb-12">
       {/* Row 1 */}
       <div
         ref={left.ref}
-        className={[
-          "flex items-start justify-between gap-8",
-          "mb-12",
-          left.cls,
-        ].join(" ")}
+        className={`grid grid-cols-12 lg:gap-24 items-start mb-12 ${left.cls}`}
       >
-        <div className="flex-1">
-          <h1
-            className="
-              text-[3rem] max-[1450px]:text-[2rem] max-[650px]:text-[1.2rem]
-              w-[70%] max-[650px]:w-full
-            "
-          >
+        <div className="col-span-12 md:col-span-6">
+          <h1 className="title text-3xl md:text-4xl font-semibold leading-tight">
             Seamlessly transition from any cloud provider
           </h1>
         </div>
-
-        <span
-            className="
-              text-white/80 text-[0.9rem] w-[40%] mx-auto
-              max-[1450px]:w-[60%]
-              max-[650px]:w-full max-[650px]:text-[0.8rem]
-            "
-        >
+        <p className="mt2 lg:mt-0col-span-12 md:col-span-6 text-md md:text-lg text-white/80 leading-relaxed font-extralight">
           Decentralized infrastructures use containers, allowing for seamless
           transitions from any cloud provider.
-        </span>
+        </p>
       </div>
 
       {/* Row 2 */}
       <div
         ref={right.ref}
-        className={[
-          "flex items-start justify-between gap-8",
-          "mb-6",
-          right.cls,
-        ].join(" ")}
+        className={`grid grid-cols-12 lg:gap-24 items-start mb-12 ${right.cls}`}
       >
-        <span
-          className="
-            text-white/80 text-[0.9rem] w-[40%] mx-auto
-            max-[1450px]:w-[60%]
-            max-[650px]:w-full max-[650px]:text-[0.8rem]
-          "
-        >
+        <p className="mt-2 lg:mt-0 col-span-12 md:col-span-6 order-2 md:order-1 text-md md:text-lg text-white/80 leading-relaxed font-extralight">
           Connect your GitHub repository to Grid and use our Buildpacks solution
           to deploy your applications with ease. Our automated process takes
-          care of the build, deployment, and scaling, so you can focus
-          on writing code.
-        </span>
-
-        <div className="flex-1">
-          <h2
-            className="
-              text-[3rem] max-[1450px]:text-[2rem] max-[650px]:text-[1.2rem]
-              w-[70%] ml-auto max-[650px]:w-full max-[650px]:ml-0
-            "
-          >
+          care of the build, deployment, and scaling, so you can focus on
+          writing code.
+        </p>
+        <div className="col-span-12 md:col-span-6 order-1 md:order-2">
+          <h2 className="title text-3xl md:text-4xl font-semibold leading-tight">
             From code to deployment in minutes
           </h2>
         </div>
       </div>
 
       {/* Logos */}
-      <div
-        className="
-          hidden max-[650px]:hidden
-          md:flex w-[80%] mx-auto justify-around items-center
-          h-[250px]
-        "
-      >
+      <div className="hidden md:grid grid-cols-5 gap-6 max-w-[1100px] mx-auto place-items-center h-[220px]">
         {logos.map((l) => (
-          <Image key={l.src} src={l.src} alt={l.alt} width={l.w} height={l.h}
-                 className="max-[1450px]:h-[60px] w-auto" />
+          <Image
+            key={l.src}
+            src={l.src}
+            alt={l.alt}
+            width={l.w}
+            height={l.h}
+            className="h-[70px] max-[1450px]:h-[60px] w-auto"
+          />
         ))}
       </div>
     </section>

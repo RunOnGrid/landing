@@ -74,13 +74,13 @@ export default function BestFeatures() {
   return (
     <section
       className="
-        w-[90%] text-white mx-auto text-center "
+        w-[90%] text-white mx-auto text-center py-24 lg:py-32"
     >
       {/* h3: ABOUT US (font-size 1rem, fade-in) */}
       <h3
         ref={h3.ref}
         className={[
-          "text-[1rem] mb-[10px]",
+          "subtitle mb-4",
           "opacity-0 transition-opacity duration-1000 ease-out",
           h3.visible ? "opacity-100" : "",
         ].join(" ")}
@@ -92,8 +92,7 @@ export default function BestFeatures() {
       <h1
         ref={h1.ref}
         className={[
-          "mt-[-20px] mb-[30px]",
-          "text-[3rem] max-[650px]:text-[2rem]",
+          "title font-semibold",
           "opacity-0 transition-opacity duration-1000 ease-out",
           h1.visible ? "opacity-100" : "",
         ].join(" ")}
@@ -102,7 +101,7 @@ export default function BestFeatures() {
       </h1>
 
       {/* .features-container -> flex row, column en mobile */}
-      <div className="flex flex-col md:flex-row md:items-stretch md:justify-center gap-8">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-center">
         {items.map((it, idx) => {
           // Cada item se revela con translateY + fade y delay creciente
           const [shown, setShown] = useState(false);
@@ -138,7 +137,7 @@ export default function BestFeatures() {
                 // hover scale (icon-hover / scale-hover equivalentes)
                 "hover:scale-[1.03] md:hover:scale-105 transition-transform",
                 // Para ayudar a que el contenido no se desborde en mobile
-                "max-w-[540px] w-full",
+                "max-w-7xl w-full",
               ].join(" ")}
             >
               <Features
