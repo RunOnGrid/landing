@@ -74,7 +74,7 @@ export default function BestFeatures() {
   return (
     <section
       className="
-        w-[90%] text-white mx-auto text-center pb-16"
+        w-[90%] text-white mx-auto text-center "
     >
       {/* h3: ABOUT US (font-size 1rem, fade-in) */}
       <h3

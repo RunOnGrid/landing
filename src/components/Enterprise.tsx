@@ -40,7 +40,7 @@ export default function Enterprise() {
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-16 max-w-7xl mx-auto lg:pt-32">
           {/* Texto */}
           <div className="flex flex-col lg:items-start items-center justify-center pt-32 pb-8 lg:pb-0 lg:pt-0">
-            <div className="grid">
+            <div className="grid gap-4">
               <h1 className="title font-semibold tracking-wider">Enterprise</h1>
               <p className="subtitle">
                 We help you migrate to DePIN with the

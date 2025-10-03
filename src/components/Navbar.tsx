@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [isSticky, setIsSticky] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsSticky(window.scrollY > 0);
+    const onScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -15,9 +15,9 @@ export default function Navbar() {
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-[1000] transition-colors duration-300",
-        isSticky
-          ? "bg-gray-800 backdrop-blur-md shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
+        "sticky top-0 z-[1000] w-full transition-colors duration-300",
+        scrolled
+          ? "bg-transparent backdrop-blur-xl shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
           : "bg-[#0c1317d9]",
       ].join(" ")}
     >
@@ -32,9 +32,8 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Acciones derecha */}
+          {/* Acciones */}
           <div className="flex w-full max-w-xs items-center justify-between">
-            {/* CTA principal — oculto <=550px */}
             <Link
               href="/enterprise"
               className="max-[550px]:hidden btn-secondary"
@@ -42,7 +41,6 @@ export default function Navbar() {
               Enterprise
             </Link>
 
-            {/* Docs con subrayado */}
             <Link
               href="https://documentation.ongrid.run/"
               className="ml-auto inline-flex"

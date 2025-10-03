@@ -10,71 +10,25 @@ type Props = {
 
 export default function Banner({ title, subtitle, subtitle2 }: Props) {
   return (
-    <section className="relative flex w-full overflow-hidden">
-      {/* .banner-container */}
-      {/* Texto = .textosBanner */}
-      <div
-        className="
-          z-10 text-left
-          mt-[250px] w-1/2 ml-[10%]
-          max-[650px]:w-[80%] max-[650px]:ml-[5%] max-[650px]:mt-40
-        "
-      >
-        {/* .tituloBanner */}
-        <h1
-          className="
-            text-[3rem] text-white leading-tight mb-[3%]
-            max-[650px]:text-[1.8rem] max-[650px]:font-light
-          "
-        >
-          {title}
-        </h1>
-
-        {/* .subtituloBanner */}
+    <section className="relative flex justify-around overflow-hidden py-16 lg:py-48">
+      <div className="grid place-items-start gap-4 z-10 lg:w-1/2 px-8 lg:px-0">
+        <h1 className="title text-white mb-2 lg:mb-4">{title}</h1>
         {subtitle && (
-          <p
-            className="
-              text-[1.2rem] text-white w-[90%] mb-5
-              max-[650px]:text-[1rem] max-[650px]:flex max-[650px]:justify-center max-[650px]:m-0
-            "
-          >
-            {subtitle}
-          </p>
+          <p className="subtitle text-white max-w-2xl">{subtitle}</p>
         )}
-
-        {/* .subtituloBanner2 */}
         {subtitle2 && (
-          <p
-            className="
-              flex font-bold text-[1.1rem] text-white w-full
-              mt-[15px] mb-[50px] max-[650px]:text-[0.9rem]
-            "
-          >
-            {subtitle2}
-          </p>
+          <p className="subtitle text-white font-bold mt-2 mb-4">{subtitle2}</p>
         )}
 
-        {/* .container-botones */}
-        <div
-          className="
-            flex mt-[50px] mb-[100px]
-            max-[650px]:flex-col
-          "
-        >
-          {/* .button-landing-1 */}
-          <Link
-            href="#"
-            className="
-              btn-primary
-            "
-          >
+        <div className="">
+          <Link href="#" className="btn-primary">
             DEPLOY NOW
           </Link>
         </div>
       </div>
-
-      {/* Fondo / figuras animadas */}
-      <Triangles />
+      <div>
+        <Triangles />
+      </div>
     </section>
   );
 }

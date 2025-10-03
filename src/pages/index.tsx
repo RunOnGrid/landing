@@ -13,15 +13,17 @@ export default function OldComponents() {
       <div className="container-home">
         <NavBar />
 
-        <Banner
-          title="Just focus on building."
-          subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
-          subtitle2="Build, connect, deploy."
-        />
+        <div className="mx-auto">
+          <Banner
+            title="Just focus on building."
+            subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
+            subtitle2="Build, connect, deploy."
+          />
 
-        <BestFeatures />
-        <DeployChoice />
-        <InfoLanding />
+          <BestFeatures />
+          <DeployChoice />
+          <InfoLanding />
+        </div>
         <Footer />
       </div>
     </>
