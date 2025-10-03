@@ -26,10 +26,8 @@ export default async function handler(
     const raw = await r.json();
     
     const totalNodes = Number(
-      raw?.activeProviderCount ??
-        raw?.providers?.active ??
-        raw?.activeProviders ??
-        0
+      raw?.activeProviderCount??
+      0
     );
 
     const ramBytes = Number(

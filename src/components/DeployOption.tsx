@@ -2,14 +2,14 @@
 
 import React from "react";
 import CountUp from "react-countup";
-import type { CommonTotals, FluxNodes } from "./DeployChoice";
+import type { AkashProviders, CommonTotals, FluxNodes } from "./DeployChoice";
 
 type Props = {
   image: string;
   title: string;
   text: string;
   data: CommonTotals;
-  nodes: FluxNodes;
+  nodes: FluxNodes | AkashProviders;
   className?: string;
 };
 
@@ -53,8 +53,8 @@ export default function DeployOption({
             <MetricCard label="Total Nodes" value={nodes.totalNodes} />
             <MetricCard
               label="Total RAM"
-              value={Math.floor(data.totalRam)/1000}
-              suffix=" TB"
+              value={Math.floor(data.totalRam)/100}
+              suffix=" PB"
             />
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function DeployOption({
           />
           <MetricCard
             label="Total Storage"
-            value={Math.floor(data.totalSsd)/1000}
+            value={Math.floor(data.totalSsd)/100}
             suffix=" PB"
           />
         </div>

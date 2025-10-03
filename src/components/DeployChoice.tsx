@@ -3,21 +3,29 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import DeployOption from "./DeployOption";
-import DeployOption2 from "./DeployOption2";
 
 export type CommonTotals = {
   totalSsd: number; // TB
   totalRam: number; // TB
   totalCpu: number; // cores 
 }
+export type CommonTotalsAkash = {
+  totalSsd: number; // TB
+  totalRam: number; // TB
+  totalCpu: number;
+  totalNodes: number; // cores 
+}
+
 
 export type FluxNodes = { totalNodes: number };
+export type AkashProviders = { totalNodes: number };
 
-export type AkashTotals = CommonTotals & { totalNodes: number };
+export type AkashTotals = CommonTotalsAkash;
 
 export default function DeployChoice() {
   const [fluxData, setFluxData] = useState<CommonTotals | null>(null);
   const [fluxNodes, setFluxNodes] = useState<FluxNodes | null>(null);
+  const [akashProviders, setAkashProviders] = useState<AkashProviders | null>(null);
   const [akashData, setAkashData] = useState<AkashTotals | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -56,10 +64,12 @@ export default function DeployChoice() {
       try {
         const res = await fetch("/api/akash-proxy");
         if (!res.ok) throw new Error(`Akash API error: ${res.statusText}`);
-        const dto = (await res.json()) as AkashTotals; // { totalSsd, totalRam, totalStorage, totalNodes }
+        const dto = (await res.json()); // { totalSsd, totalRam, totalStorage, totalNodes }
         setAkashData(dto);
+        setAkashProviders({ totalNodes: dto.totalNodes });
       } catch (err) {
         console.error(err);
+        setAkashProviders({ totalNodes: 0});
       }
     };
 
@@ -108,12 +118,12 @@ export default function DeployChoice() {
         />
 
         {akashData && (
-          <DeployOption2
+          <DeployOption
             image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a1957f28-d510-41b8-254a-2188ea92de00/public"
             title="Supercloud"
             text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
             data={akashData}
-            nodes={akashData.totalNodes}
+            nodes={akashProviders!}
           />
         )}
       </div>
