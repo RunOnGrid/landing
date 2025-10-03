@@ -13,14 +13,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={[
-        "sticky top-0 z-[1000] w-full transition-colors duration-300",
-        scrolled
-          ? "bg-transparent backdrop-blur-xl shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
-          : "bg-[#0c1317d9]",
-      ].join(" ")}
-    >
+    <header className="sticky top-0 z-[1000] w-full transition-colors duration-300 bg-black">
       <nav className="w-full">
         <div className="mx-auto flex w-full items-center justify-between px-4 py-2">
           {/* Logo */}
