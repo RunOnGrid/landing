@@ -7,15 +7,14 @@ import DeployOption from "./DeployOption";
 export type CommonTotals = {
   totalSsd: number; // TB
   totalRam: number; // TB
-  totalCpu: number; // cores 
-}
+  totalCpu: number; // cores
+};
 export type CommonTotalsAkash = {
   totalSsd: number; // TB
   totalRam: number; // TB
   totalCpu: number;
-  totalNodes: number; // cores 
-}
-
+  totalNodes: number; // cores
+};
 
 export type FluxNodes = { totalNodes: number };
 export type AkashProviders = { totalNodes: number };
@@ -25,7 +24,9 @@ export type AkashTotals = CommonTotalsAkash;
 export default function DeployChoice() {
   const [fluxData, setFluxData] = useState<CommonTotals | null>(null);
   const [fluxNodes, setFluxNodes] = useState<FluxNodes | null>(null);
-  const [akashProviders, setAkashProviders] = useState<AkashProviders | null>(null);
+  const [akashProviders, setAkashProviders] = useState<AkashProviders | null>(
+    null
+  );
   const [akashData, setAkashData] = useState<AkashTotals | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -64,12 +65,12 @@ export default function DeployChoice() {
       try {
         const res = await fetch("/api/akash-proxy");
         if (!res.ok) throw new Error(`Akash API error: ${res.statusText}`);
-        const dto = (await res.json()); // { totalSsd, totalRam, totalStorage, totalNodes }
+        const dto = await res.json(); // { totalSsd, totalRam, totalStorage, totalNodes }
         setAkashData(dto);
         setAkashProviders({ totalNodes: dto.totalNodes });
       } catch (err) {
         console.error(err);
-        setAkashProviders({ totalNodes: 0});
+        setAkashProviders({ totalNodes: 0 });
       }
     };
 
@@ -108,10 +109,10 @@ export default function DeployChoice() {
       </span>
 
       {/* Opciones */}
-      <div className="flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-10">
+      <div className="flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-10 max-w-7xl mx-auto">
         <DeployOption
           image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c61ff49d-574b-4546-bd53-fadb83f03e00/public"
-          title="The largest decentralized computing network"
+          title="Decentralized computing network"
           text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
           data={fluxData}
           nodes={fluxNodes}

@@ -35,10 +35,10 @@ export default function DeployOption({
           src={image}
           width={220}
           height={150}
-          className="mx-auto"
+          className="mx-auto h-24"
           loading="lazy"
         />
-        <h2 className="mx-auto text-center mb-3 font-normal text-2xl md:text-[1.6rem]">
+        <h2 className=" mx-auto text-center font-bold tracking-wide text-xl pt-2 pb-6">
           {title}
         </h2>
         <span className="mx-auto text-center text-sm md:text-base text-white/90 block max-w-[80%]">
@@ -53,7 +53,7 @@ export default function DeployOption({
             <MetricCard label="Total Nodes" value={nodes.totalNodes} />
             <MetricCard
               label="Total RAM"
-              value={Math.floor(data.totalRam)/100}
+              value={Math.floor(data.totalRam) / 10}
               suffix=" PB"
             />
           </div>
@@ -62,12 +62,12 @@ export default function DeployOption({
         <div className="flex justify-center">
           <MetricCard
             label="Total CPU"
-            value={Math.floor(data.totalCpu)/1000}
+            value={Math.floor(data.totalCpu) / 1000}
             suffix=" K"
           />
           <MetricCard
             label="Total Storage"
-            value={Math.floor(data.totalSsd)/100}
+            value={Math.floor(data.totalSsd) / 100}
             suffix=" PB"
           />
         </div>
@@ -88,9 +88,9 @@ function MetricCard({
   suffix?: string;
 }) {
   return (
-    <div className="bg-white/20 rounded-xl w-[180px] h-[100px] m-2">
-      <h4 className="flex justify-center text-lg mt-2">{label}</h4>
-      <p className="flex justify-center -mt-1 text-2xl">
+    <div className="bg-white/20 rounded-xl w-[160px] m-2 py-2">
+      <h4 className="flex justify-center text-lg">{label}</h4>
+      <p className="flex justify-center  text-lg">
         <CountUp start={0} end={value} duration={2.0} suffix={suffix} />
       </p>
     </div>
