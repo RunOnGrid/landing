@@ -34,7 +34,7 @@ export default function DeployChoice() {
     const fetchFlux = async () => {
       try {
         const res = await fetch("/api/flux-proxy", { cache: "no-store" });
-        if (!res.ok) throw new Error(`Flux totals ${res.status}`);
+        // if (!res.ok) throw new Error(`Flux totals ${res.status}`);
         const data: CommonTotals = await res.json();
         setFluxData({
           totalSsd: Number(data.totalSsd) || 0,
@@ -52,7 +52,7 @@ export default function DeployChoice() {
         const url =
           process.env.NEXT_PUBLIC_FLUX_NODES_PROXY || "/api/flux-nodes";
         const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error(`Flux nodes ${res.status}`);
+        // if (!res.ok) throw new Error(`Flux nodes ${res.status}`);
         const data: { totalNodes: number } = await res.json();
         setFluxNodes({ totalNodes: Number(data.totalNodes) || 0 });
       } catch (err) {
