@@ -11,6 +11,7 @@ type Props = {
   data: CommonTotals;
   nodes: FluxNodes | AkashProviders;
   className?: string;
+  countries?: number;
 };
 
 export default function DeployOption({
@@ -20,6 +21,7 @@ export default function DeployOption({
   data,
   nodes,
   className,
+  countries,
 }: Props) {
   return (
     <div
@@ -72,7 +74,9 @@ export default function DeployOption({
           />
         </div>
 
-        <h5 className="text-xl mt-4">Countries : 78</h5>
+        {countries ? (
+          <h5 className="text-xl mt-4">Countries: {countries}</h5>
+        ) : null}
       </div>
     </div>
   );

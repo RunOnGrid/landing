@@ -116,6 +116,7 @@ export default function DeployChoice() {
           text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
           data={fluxData}
           nodes={fluxNodes}
+          countries={78}
         />
 
         {akashData && (
