@@ -81,7 +81,7 @@ export default function InfoLanding() {
             Seamlessly transition from any cloud provider
           </h1>
         </div>
-        <p className="mt2 lg:mt-0col-span-12 md:col-span-6 text-md md:text-lg text-white/80 leading-relaxed font-extralight">
+        <p className="mt2 lg:mt-0 col-span-12 md:col-span-6 text-md md:text-lg text-white/80 leading-relaxed font-extralight">
           Decentralized infrastructures use containers, allowing for seamless
           transitions from any cloud provider.
         </p>
