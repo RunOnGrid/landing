@@ -126,6 +126,7 @@ export default function DeployChoice() {
             text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
             data={akashData}
             nodes={akashProviders!}
+            countries={0}
           />
         )}
       </div>
