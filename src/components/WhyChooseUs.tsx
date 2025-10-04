@@ -68,7 +68,7 @@ export default function WhyChooseGrid({
         </div>
 
         {/* Grid de features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-10 lg:gap-12 lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 place-items-start gap-10 lg:gap-12 lg:px-10">
           {items.map(({ title, description, imageSrc, imageAlt }, i) => (
             <article key={i} className="max-w-xl">
               {/* Imagen/visual */}
