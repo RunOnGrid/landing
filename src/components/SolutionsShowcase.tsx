@@ -18,7 +18,7 @@ export default function SolutionsPicker({
 }) {
   return (
     <section className="bg-background2 py-12 sm:py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-0">
+      <div className="mx-auto max-w-7xl px-6 lg:px-4">
         {/* título */}
         <h2 className="text-center font-heading text-2xl sm:text-3xl font-semibold text-black/80">
           {title}

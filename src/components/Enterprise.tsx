@@ -10,7 +10,7 @@ export default function Enterprise() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMin"
-        className="hidden lg:block absolute inset-0 h-3/4 lg:w-full z-0 pointer-events-none select-none"
+        className="hidden lg:block absolute inset-0 h-full lg:w-full z-0 pointer-events-none select-none"
       >
         <defs>
           <linearGradient
@@ -37,9 +37,9 @@ export default function Enterprise() {
       </svg>
 
       <div className="bg-[#EDEDED]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 pb-16 max-w-7xl mx-auto lg:pt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 pb-16 max-w-7xl mx-auto lg:pt-16 lg:pl-4">
           {/* Texto */}
-          <div className="flex flex-col lg:items-start items-center justify-center pt-32 pb-8 lg:pb-0 lg:pt-0">
+          <div className="flex flex-col lg:items-start items-center justify-center pt-16 pb-8 lg:pb-0 lg:pt-0">
             <div className="grid gap-4">
               <h1 className="title font-semibold tracking-wider">Enterprise</h1>
               <p className="subtitle">
@@ -68,7 +68,7 @@ export default function Enterprise() {
       </div>
 
       <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 py-16 max-w-7xl pt-16 lg:pt-32 w-full">
-        <div className="flex flex-col mx-auto lg:items-start lg:justify-start font-semibold lg:w-full max-w-7xl">
+        <div className="flex flex-col mx-auto lg:items-start lg:justify-start font-semibold lg:w-full max-w-7xl lg:pl-4">
           <div className="space-y-0 text-3xl">
             <p>Enhance your cloud</p>
             <p>operations with</p>

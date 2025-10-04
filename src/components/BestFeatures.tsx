@@ -101,7 +101,7 @@ export default function BestFeatures() {
       </h1>
 
       {/* .features-container -> flex row, column en mobile */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-center">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-center">
         {items.map((it, idx) => {
           // Cada item se revela con translateY + fade y delay creciente
           const [shown, setShown] = useState(false);

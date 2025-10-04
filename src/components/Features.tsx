@@ -39,7 +39,7 @@ export default function Features({
       </h2>
 
       {/* Texto (≈20vw en desktop como tu CSS) */}
-      <span className="mt-3 block text-white/80 text-sm md:text-base leading-relaxed mx-auto w-full md:w-[20vw]">
+      <span className="mt-3 block text-white/80 text-sm md:text-base leading-relaxed mx-auto w-full max-w-lg">
         {subtitle}
       </span>
     </article>
