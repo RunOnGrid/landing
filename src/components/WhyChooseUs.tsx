@@ -1,5 +1,8 @@
 // src/components/WhyChooseGrid.tsx
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 type Feature = {
   title: string;
@@ -9,8 +12,8 @@ type Feature = {
 };
 
 type Props = {
-  headingLeft?: string; // "WHY"
-  headingRight?: string; // "CHOOSE GRID?"
+  headingLeft?: string;
+  headingRight?: string;
   items?: Feature[];
 };
 
@@ -45,16 +48,40 @@ const DEFAULT_ITEMS: Feature[] = [
   },
 ];
 
+/** Hook: observa un contenedor con altura y expone isVisible */
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          io.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
 export default function WhyChooseGrid({
   headingLeft = "WHY",
   headingRight = "CHOOSE GRID?",
   items = DEFAULT_ITEMS,
 }: Props) {
   return (
-    <section className="bg-primary py-16 ">
+    <section className="bg-primary py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Heading */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 pb-16 ">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 pb-16">
           <div className="lg:col-start-2 lg:col-span-9">
             <div className="flex flex-wrap items-baseline gap-x-6">
               <span className="font-heading leading-none text-7xl sm:text-8xl lg:text-9xl text-secondary/90">
@@ -69,30 +96,48 @@ export default function WhyChooseGrid({
 
         {/* Grid de features */}
         <div className="grid grid-cols-1 md:grid-cols-2 place-items-start gap-10 lg:gap-12 lg:px-10">
-          {items.map(({ title, description, imageSrc, imageAlt }, i) => (
-            <article key={i} className="max-w-xl">
-              {/* Imagen/visual */}
-              <div className="rounded-xl bg-[#EDEDED] shadow-[0_15px_40px_rgba(0,0,0,0.35)] overflow-hidden">
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt ?? title}
-                  width={560}
-                  height={350}
-                  className="h-auto w-full"
-                  priority={i < 2}
-                  unoptimized
-                />
-              </div>
+          {items.map(({ title, description, imageSrc, imageAlt }, i) => {
+            const reveal = useReveal<HTMLDivElement>();
+            return (
+              <article key={i} className="max-w-xl w-full space-y-3">
+                {/* Card con altura reservada (aspect) */}
+                <div className="rounded-xl bg-[#EDEDED] shadow-[0_15px_40px_rgba(0,0,0,0.35)] overflow-hidden">
+                  {/* El ref va en el contenedor con altura */}
+                  <div
+                    ref={reveal.ref}
+                    className="relative w-full aspect-[8/5]"
+                  >
+                    {/* Animación en overlay absoluto que no afecta el layout */}
+                    <div
+                      className={`absolute inset-0 transition-all duration-[900ms] ease-out will-change-transform ${
+                        reveal.isVisible
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-4"
+                      }`}
+                    >
+                      <Image
+                        src={imageSrc}
+                        alt={imageAlt ?? title}
+                        fill
+                        sizes="(min-width: 768px) 560px, 100vw"
+                        className="object-contain block" /* SVGs → mejor contain para no recortar */
+                        priority={i < 2}
+                        unoptimized /* necesario para SVG externo/Cloudflare */
+                      />
+                    </div>
+                  </div>
+                </div>
 
-              {/* Texto */}
-              <h3 className="mt-4 font-heading text-xl font-semibold text-black/80">
-                {title}
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-black/70">
-                {description}
-              </p>
-            </article>
-          ))}
+                {/* Texto */}
+                <h3 className="font-heading text-xl font-semibold text-black/80">
+                  {title}
+                </h3>
+                <p className="text-base leading-relaxed text-black/70">
+                  {description}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
