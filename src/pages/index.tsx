@@ -11,7 +11,10 @@ export default function OldComponents() {
   return (
     <>
       <div className="container-home">
-        <NavBar />
+        <NavBar
+        logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+        button="Enterprise"        
+        />
 
         <div className="mx-auto">
           <Banner
@@ -19,12 +22,13 @@ export default function OldComponents() {
             subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
             subtitle2="Build, connect, deploy."
           />
-
           <BestFeatures />
           <DeployChoice />
           <InfoLanding />
         </div>
-        <Footer />
+        <Footer 
+        logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ca632650-5de1-46bd-88f4-03c847c04200/public"
+        />
       </div>
     </>
   );

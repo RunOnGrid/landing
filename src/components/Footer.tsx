@@ -2,9 +2,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type FooterProps = { className?: string };
+type FooterProps = { 
+  className?: string,
+  logo: string
 
-export default function Footer({ className = "" }: FooterProps) {
+};
+
+
+
+export default function Footer({ className = "", logo }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -29,7 +35,7 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="segunda-columna flex flex-col items-center md:items-end text-center md:text-right text-[1.1rem] mt-[50px]">
             <Image
               alt="Grid Cloud"
-              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ca632650-5de1-46bd-88f4-03c847c04200/public"
+              src=  {logo}
               width={180}
               height={100}
               className="flex mx-auto"

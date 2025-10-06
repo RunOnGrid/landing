@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Navbar() {
+type Props = {
+  logo: string;
+  button: string;
+};
+
+export default function Navbar({ logo, button }: Props) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -11,7 +16,6 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
   return (
     <header className="sticky top-0 z-[1000] w-full transition-colors duration-300 bg-black">
       <nav className="w-full">
@@ -20,7 +24,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center">
             <img
               alt="Grid logo"
-              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+              src={logo}
               className="h-auto w-[120px]"
             />
           </Link>
@@ -31,7 +35,7 @@ export default function Navbar() {
               href="/enterprise"
               className="max-[550px]:hidden btn-secondary"
             >
-              Enterprise
+              {button}
             </Link>
 
             <Link

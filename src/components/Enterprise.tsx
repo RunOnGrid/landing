@@ -48,7 +48,7 @@ export default function Enterprise() {
               </p>
               <div className="mt-4">
                 <a href="#deploy" className="btn-primary">
-                  Deploy Now
+                  Contact us
                 </a>
               </div>
             </div>

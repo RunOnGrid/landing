@@ -9,12 +9,16 @@ export default function Home() {
   return (
     <>
       <div className="bg-foreground mx-auto max-w-screen">
-        <NavBar />
+        <NavBar
+          logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/dbd067e8-885c-4520-1470-390da8ea6800/public"
+          button="Contact us"/>
         <Enterprise />
         <SolutionsPicker />
         <WhyChooseGrid />
         <TrustedPartners />
-        <Footer />
+        <Footer
+        logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/101231d5-aba3-4fb5-4146-7f27d34c6000/public"
+        />
       </div>
     </>
   );
