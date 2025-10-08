@@ -1,9 +1,33 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import ContactFormModal from "./Form";
 import ProviderDuo from "./Providers";
 
 export default function Enterprise() {
   const [open, setOpen] = useState(false);
+=======
+// src/components/Enterprise.tsx
+import Image from "next/image";
+import React from "react";
+export default function Enterprise() {
+
+
+  const sendEmail = async () => {
+    try {
+      await fetch("/api/emailForm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: "Asistencia tecnica",
+          email: "benja.aguirre2599@gmail.com"
+        }),
+      });
+      
+    } catch (error) {
+      
+    }
+  }
+>>>>>>> Stashed changes
 
   return (
     <section className="grid">
@@ -49,6 +73,7 @@ export default function Enterprise() {
                 <br /> best practices.
               </p>
               <div className="mt-4">
+<<<<<<< Updated upstream
                 <ContactFormModal
                   open={open}
                   onClose={() => setOpen(false)}
@@ -60,6 +85,11 @@ export default function Enterprise() {
                 <button onClick={() => setOpen(true)} className="btn-primary">
                   Contact Us
                 </button>
+=======
+                <a href="#deploy" className="btn-primary" onClick={sendEmail}>
+                  Contact us
+                </a>
+>>>>>>> Stashed changes
               </div>
             </div>
           </div>
