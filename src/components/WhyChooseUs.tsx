@@ -95,13 +95,13 @@ export default function WhyChooseGrid({
         </div>
 
         {/* Grid de features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center lg:place-items-start gap-10 lg:gap-12 lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center lg:place-items-center gap-10 lg:gap-12 lg:px-10">
           {items.map(({ title, description, imageSrc, imageAlt }, i) => {
             const reveal = useReveal<HTMLDivElement>();
             return (
-              <article key={i} className="max-w-xl w-full space-y-3">
+              <article key={i} className="max-w-sm w-full space-y-8">
                 {/* Card con altura reservada (aspect) */}
-                <div className="rounded-xl bg-[#EDEDED] shadow-[0_15px_40px_rgba(0,0,0,0.35)] overflow-hidden">
+                <div className="bg-[#EDEDED] overflow-hidden max-w-sm">
                   {/* El ref va en el contenedor con altura */}
                   <div
                     ref={reveal.ref}
@@ -119,7 +119,6 @@ export default function WhyChooseGrid({
                         src={imageSrc}
                         alt={imageAlt ?? title}
                         fill
-                        sizes="(min-width: 768px) 560px, 100vw"
                         className="object-contain block" /* SVGs → mejor contain para no recortar */
                         priority={i < 2}
                         unoptimized /* necesario para SVG externo/Cloudflare */
@@ -129,10 +128,10 @@ export default function WhyChooseGrid({
                 </div>
 
                 {/* Texto */}
-                <h3 className="font-heading text-xl font-semibold text-black/80">
+                <h3 className="title text-4xl font-semibold text-black/80">
                   {title}
                 </h3>
-                <p className="text-base leading-relaxed text-black/70">
+                <p className="text-base leading-relaxed text-black/70 -mt-2">
                   {description}
                 </p>
               </article>
