@@ -9,22 +9,6 @@ export default function Enterprise() {
   const [open, setOpen] = useState(false);
 
 
-  const sendEmail = async () => {
-    try {
-      await fetch("/api/emailForm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "Asistencia tecnica",
-          email: "benja.aguirre2599@gmail.com"
-        }),
-      });
-      
-    } catch (error) {
-      
-    }
-  }
-
 
   return (
     <section className="grid">
@@ -109,6 +93,14 @@ export default function Enterprise() {
           </div>
         </div>
       </div>
+      <div className="flex items-center justify-center lg:justify-center">
+          <button
+            onClick={() => setOpen(true)}
+            className="btn-secondary px-6 py-3 text-sm rounded-full bg-transparent "
+          >
+            Contact Us
+          </button>
+        </div>
     </section>
   );
 }

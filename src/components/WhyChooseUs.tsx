@@ -127,7 +127,7 @@ export default function WhyChooseGrid({
                 </div>
 
                 {/* Texto */}
-                <h3 className="title text-4xl font-semibold text-black/80">
+                <h3 className="title text-3xl font-medium text-black/80">
                   {title}
                 </h3>
                 <p className="text-base leading-relaxed text-black/70 -mt-2">

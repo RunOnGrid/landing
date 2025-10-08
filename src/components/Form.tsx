@@ -15,6 +15,35 @@ const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
     phone: "",
     intent: "",
   });
+  const [loading, setLoading] = useState(false);
+
+
+
+const sendEmail = async () => {
+  try {
+    setLoading(true);
+    const data = {...form};
+    setForm(
+      Object.fromEntries(Object.keys(form).map((key) => [key, ""])) as typeof form
+    );
+    await fetch("/api/emailForm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.firstName,
+        lastName: data.lastName,
+        intent: data.intent,
+        email: data.email,
+        phone: data.phone
+      }),
+    });
+    console.log(form);
+  } catch (error) {
+    console.error(error);
+  }finally{
+    setLoading(false)
+  }
+}
 
   // Close on ESC
   useEffect(() => {
@@ -107,7 +136,6 @@ const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
                 onChange={handleChange}
                 placeholder="First Name"
                 className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none ring-0 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                required
               />
             </div>
             <div className="col-span-1">
@@ -124,18 +152,14 @@ const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
                 onChange={handleChange}
                 placeholder="Last Name"
                 className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                required
               />
             </div>
           </div>
-
           <div>
-            <label
-              htmlFor="email"
-              className="mb-1 block text-sm font-medium text-zinc-800"
-            >
-              Email
-            </label>
+          <legend className="mb-2 text-sm font-medium text-zinc-800">
+              Email{" "}
+              <span className="text-green-500">*</span>
+            </legend>
             <input
               id="email"
               name="email"
@@ -169,14 +193,13 @@ const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
 
           <fieldset className="mt-2">
             <legend className="mb-2 text-sm font-medium text-zinc-800">
-              What would you like to do on Akash?{" "}
-              <span className="text-red-500">*</span>
+              What would you like to do with Grid?{" "}
+              <span className="text-green-500">*</span>
             </legend>
             <div className="space-y-2">
               {[
-                ["Rent GPUs", "rent"],
-                ["Provide GPUs", "provide"],
                 ["Get technical support", "support"],
+                ["Rent GPUs", "rent"],
                 ["Other", "other"],
               ].map(([label, value]) => (
                 <label key={value} className="flex items-center gap-2 text-sm">
@@ -196,10 +219,14 @@ const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
           </fieldset>
 
           <button
-            type="submit"
-            className="mt-4 w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-300"
-          >
-            Next
+              type="submit"
+              disabled={loading}
+              className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white ${
+                loading ? "bg-zinc-500 cursor-not-allowed" : "bg-zinc-900 hover:bg-zinc-800"
+              }`}
+              onClick={sendEmail}
+            >
+              {loading ? "Sending..." : "Next"}
           </button>
         </form>
       </div>
