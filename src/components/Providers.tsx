@@ -198,7 +198,7 @@ export default function ProvidersDuo({
   }
 
   return (
-    <div className="mx-auto w-full flex flex-col items-center justify-start space-y-8 lg:space-y-0 lg:block scale-75 md:scale-65 lg:h-[487px] lg:mt-16">
+    <div className="mx-auto w-full flex flex-col items-center justify-start space-y-8 lg:space-y-0 lg:block scale-75 md:scale-65 xl:scale-80 lg:h-[487px] lg:mt-16">
       {/* Superior (Flux) */}
       <div>
         <ProviderCard
