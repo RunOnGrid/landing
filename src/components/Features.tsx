@@ -1,4 +1,3 @@
-// src/components/Features.tsx
 import React from "react";
 
 type FeaturesProps = {

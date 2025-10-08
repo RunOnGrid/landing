@@ -1,4 +1,3 @@
-// src/components/Banner.tsx
 import Link from "next/link";
 import Triangles from "./Triangles";
 

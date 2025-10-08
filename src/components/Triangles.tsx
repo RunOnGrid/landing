@@ -1,4 +1,3 @@
-// src/components/Triangles.tsx
 import React from "react";
 
 const Triangles: React.FC = () => {

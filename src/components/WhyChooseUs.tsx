@@ -1,4 +1,3 @@
-// src/components/WhyChooseGrid.tsx
 "use client";
 
 import Image from "next/image";

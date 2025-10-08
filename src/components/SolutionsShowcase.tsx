@@ -1,4 +1,3 @@
-// src/components/SolutionsPicker.tsx
 import Link from "next/link";
 
 type Solution = { title: string; href?: string };

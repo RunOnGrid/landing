@@ -1,5 +1,3 @@
-// src/components/Enterprise.tsx
-import Image from "next/image";
 import React, { useState } from "react";
 import ContactFormModal from "./Form";
 import ProviderDuo from "./Providers";

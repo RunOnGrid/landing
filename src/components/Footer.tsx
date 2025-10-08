@@ -1,14 +1,10 @@
-// src/components/Footer.tsx
 import Image from "next/image";
 import Link from "next/link";
 
-type FooterProps = { 
-  className?: string,
-  logo: string
-
+type FooterProps = {
+  className?: string;
+  logo: string;
 };
-
-
 
 export default function Footer({ className = "", logo }: FooterProps) {
   const year = new Date().getFullYear();
@@ -35,7 +31,7 @@ export default function Footer({ className = "", logo }: FooterProps) {
           <div className="segunda-columna flex flex-col items-center md:items-end text-center md:text-right text-[1.1rem] mt-[50px]">
             <Image
               alt="Grid Cloud"
-              src=  {logo}
+              src={logo}
               width={180}
               height={100}
               className="flex mx-auto"
