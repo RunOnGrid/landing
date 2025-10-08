@@ -209,7 +209,7 @@ export default function ProvidersDuo({
       </div>
 
       {/* Inferior (Akash) */}
-      <div className="translate-x-5 -translate-y-10 lg:-translate-y-3 lg:absolute lg:translate-x-15  2xl:translate-x-32">
+      <div className="translate-x-5 -translate-y-10 lg:-translate-y-3 lg:absolute lg:translate-x-15  2xl:translate-x-28">
         <ProviderCard
           logoSrc="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/60682d18-d4c4-4db9-29f9-88547214cc00/public"
           totals={akashTotals}
