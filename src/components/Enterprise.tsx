@@ -1,8 +1,11 @@
 // src/components/Enterprise.tsx
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import ContactFormModal from "./Form";
 
 export default function Enterprise() {
+  const [open, setOpen] = useState(false);
+
   return (
     <section className="grid">
       <svg
@@ -47,9 +50,17 @@ export default function Enterprise() {
                 <br /> best practices.
               </p>
               <div className="mt-4">
-                <a href="#deploy" className="btn-primary">
-                  Contact us
-                </a>
+                <ContactFormModal
+                  open={open}
+                  onClose={() => setOpen(false)}
+                  onSubmit={(data) => {
+                    console.log("Form data", data);
+                    setOpen(false);
+                  }}
+                />
+                <button onClick={() => setOpen(true)} className="btn-primary">
+                  Contact Us
+                </button>
               </div>
             </div>
           </div>

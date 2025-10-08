@@ -35,7 +35,7 @@ const DEFAULT_ITEMS: Feature[] = [
   {
     title: "Significant Cost Savings",
     description:
-      "With Grid, cut your cloud costs by up to 60% compare to traditional Platforms-as-a-service",
+      "With Grid, cut your cloud costs by up to 60% compare to traditional Platforms-as-a-service.",
     imageSrc:
       "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a7f34cf5-b571-4fc2-cd02-0f6832a6fb00/public",
   },
