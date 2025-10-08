@@ -104,7 +104,7 @@ export default function DeployChoice() {
       </h1>
 
       {/* Subtítulo */}
-      <span className="text-2xl flex justify-center text-white/80 pt-4 pb-8">
+      <span className="subtitle flex justify-center text-white/80 pt-4 pb-8">
         Access computing with the best providers
       </span>
 

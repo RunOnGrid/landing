@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import ContactFormModal from "./Form";
+import ProviderDuo from "./Providers";
 
 export default function Enterprise() {
   const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function Enterprise() {
       </svg>
 
       <div className="bg-[#EDEDED]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 pb-16 max-w-7xl mx-auto lg:pt-16 lg:pl-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 lg:pb- max-w-7xl mx-auto lg:pt-16 lg:pl-4">
           {/* Texto */}
           <div className="flex flex-col lg:items-start items-center justify-center pt-16 pb-8 lg:pb-0 lg:pt-0">
             <div className="grid gap-4">
@@ -67,13 +68,7 @@ export default function Enterprise() {
 
           {/* Imagen */}
           <div className="overflow-hidden z-10">
-            <Image
-              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5617ce26-8cff-4fa0-416f-e7cbf9829000/public"
-              width={979}
-              height={487}
-              alt="nodes info"
-              priority
-            />
+            <ProviderDuo />
           </div>
         </div>
       </div>
