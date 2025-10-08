@@ -1,15 +1,12 @@
-<<<<<<< Updated upstream
 import React, { useState } from "react";
 import ContactFormModal from "./Form";
 import ProviderDuo from "./Providers";
+import Image from "next/image";
+
+
 
 export default function Enterprise() {
   const [open, setOpen] = useState(false);
-=======
-// src/components/Enterprise.tsx
-import Image from "next/image";
-import React from "react";
-export default function Enterprise() {
 
 
   const sendEmail = async () => {
@@ -27,7 +24,7 @@ export default function Enterprise() {
       
     }
   }
->>>>>>> Stashed changes
+
 
   return (
     <section className="grid">
@@ -73,7 +70,6 @@ export default function Enterprise() {
                 <br /> best practices.
               </p>
               <div className="mt-4">
-<<<<<<< Updated upstream
                 <ContactFormModal
                   open={open}
                   onClose={() => setOpen(false)}
@@ -85,11 +81,6 @@ export default function Enterprise() {
                 <button onClick={() => setOpen(true)} className="btn-primary">
                   Contact Us
                 </button>
-=======
-                <a href="#deploy" className="btn-primary" onClick={sendEmail}>
-                  Contact us
-                </a>
->>>>>>> Stashed changes
               </div>
             </div>
           </div>
@@ -121,3 +112,4 @@ export default function Enterprise() {
     </section>
   );
 }
+
