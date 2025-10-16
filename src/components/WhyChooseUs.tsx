@@ -22,7 +22,7 @@ const DEFAULT_ITEMS: Feature[] = [
     description:
       "Grid supports the complete software lifecycle through three core pillars — Proactive, Anticipation, and Strategic Foresight — ensuring seamless and scalable integration with DePIN technologies.",
     imageSrc:
-      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/edee45c7-f1fb-43da-f13b-c7c0bbc0c200/public",
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7f863974-9900-4e52-92c8-b69ad9eaf400/public",
   },
   {
     title: "Scalable",
@@ -100,7 +100,7 @@ export default function WhyChooseGrid({
             return (
               <article key={i} className="max-w-sm w-full space-y-8">
                 {/* Card con altura reservada (aspect) */}
-                <div className="bg-[#EDEDED] overflow-hidden max-w-sm">
+                <div className="overflow-hidden max-w-sm">
                   {/* El ref va en el contenedor con altura */}
                   <div
                     ref={reveal.ref}
@@ -130,7 +130,7 @@ export default function WhyChooseGrid({
                 <h3 className="title text-3xl font-medium text-black/80">
                   {title}
                 </h3>
-                <p className="text-base leading-relaxed text-black/70 -mt-2">
+                <p className="text-base leading-relaxed font-medium text-black/100 -mt-2">
                   {description}
                 </p>
               </article>

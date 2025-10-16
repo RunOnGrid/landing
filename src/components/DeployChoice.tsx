@@ -100,12 +100,12 @@ export default function DeployChoice() {
     <section className="text-white w-[90%] mx-auto mb-24 flex flex-col">
       {/* Título */}
       <h1 className="flex justify-center text-center text-[2.5rem] md:text-[3.5rem] font-medium leading-12">
-        Deploy on the cloud of your choice
+        Our providers
       </h1>
 
       {/* Subtítulo */}
       <span className="subtitle flex justify-center text-white/80 pt-4 pb-8">
-        Access computing with the best providers
+        Truly decentralized compute
       </span>
 
       {/* Opciones */}

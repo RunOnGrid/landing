@@ -76,7 +76,7 @@ export default function Enterprise() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 py-16 max-w-7xl pt-16 lg:pt-32 w-full">
+      <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 py-16 max-w-7xl pt-16 lg:pt-32 w-full items-center">
         <div className="flex flex-col mx-auto lg:items-start lg:justify-start font-semibold lg:w-full max-w-7xl lg:pl-4">
           <div className="space-y-0 text-3xl">
             <p>Enhance your cloud</p>
@@ -84,23 +84,29 @@ export default function Enterprise() {
             <p className="text-primary">decentralized cloud</p>
             <p className="text-primary">providers.</p>
           </div>
-
-          <div className="mt-8 font-normal space-y-6">
-            <p>CI/CD Pipelines</p>
-            <p>Disaster recovery service</p>
-            <p>Database</p>
-            <p>Monitoring and Logging</p>
-          </div>
+        
+            <div className="mt-8 font-normal space-y-6">
+              <p>CI/CD Pipelines</p>
+              <p>Disaster recovery service</p>
+              <p>Database</p>
+              <p>Monitoring and Logging</p>
+            </div>               
+              <img
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/32571243-1c5f-4953-d3a3-68c47834c000/public"
+                className="w-[120px]"
+                alt="CI/CD Pipelines Illustration"
+              />
         </div>
       </div>
+
       <div className="flex items-center justify-center lg:justify-center">
-          <button
-            onClick={() => setOpen(true)}
-            className="btn-secondary px-6 py-3 text-sm rounded-full bg-transparent "
-          >
-            Contact Us
-          </button>
-        </div>
+        <button
+          onClick={() => setOpen(true)}
+          className="btn-secondary px-6 py-3 text-sm rounded-full bg-transparent "
+        >
+          Contact Us
+        </button>
+      </div>
     </section>
   );
 }
