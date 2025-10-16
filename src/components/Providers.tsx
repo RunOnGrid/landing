@@ -11,14 +11,21 @@ type Nodes = { totalNodes: number };
 const fmtCompact = (n: number) =>
   new Intl.NumberFormat("en-US", {
     notation: "compact",
-    maximumFractionDigits: 1,
+    maximumFractionDigits: 0,
   }).format(n);
 
-/** Normaliza respuesta del proxy a Totals */
-const toTotals = (raw: any): Totals => ({
+/** Normaliza respuesta del proxy Flux a Totals */
+const toFluxTotals = (raw: any): Totals => ({
   totalCpu: Number(raw.totalCpu ?? 0), // cores
-  totalRam: Number(raw.totalRam ?? (raw.totalRamGB ?? 0) / 1024), // TB si vino en GB
-  totalSsd: Number(raw.totalSsd ?? (raw.totalSsdGB ?? 0) / 1024), // TB
+  totalRam: Math.floor(Number(raw.totalRam ?? (raw.totalRamGB ?? 0)) / 1024), // TB si vino en GB
+  totalSsd: Math.floor(Number(raw.totalSsd ?? (raw.totalSsdGB ?? 0)) / 1024), // TB
+});
+
+/** Normaliza respuesta del proxy Akash a Totals */
+const toAkashTotals = (raw: any): Totals => ({
+  totalCpu: Number(raw.totalCpu ?? 0), // cores
+  totalRam: Number(raw.totalRam ?? 0), // TB (ya viene procesado de la API)
+  totalSsd: Number(raw.totalSsd ?? 0), // TB (ya viene procesado de la API)
 });
 
 /** ==== Card de métricas ==== */
@@ -42,7 +49,7 @@ function Stat({
             <CountUp
               end={value as number}
               duration={1.2}
-              decimals={(value as number) % 1 ? 1 : 0}
+              decimals={0}
               suffix={suffix}
             />
           ) : (
@@ -71,10 +78,10 @@ function ProviderCard({
   totals: Totals;
   nodes: Nodes;
 }) {
-  // CPU: floor antes de dividir para decimales más chicos
-  const cpuK = Math.floor(totals.totalCpu) / 1000; // cores → K
-  const ramTB = totals.totalRam ?? 0; // TB
-  const ssdPB = (totals.totalSsd ?? 0) / 100; // TB / 100 → PB (como tu UI)
+  // CPU: floor antes de dividir para números enteros
+  const cpuK = Math.floor(Math.floor(totals.totalCpu) / 1000); // cores → K (entero)
+  const ramTB = Math.floor(totals.totalRam); // TB (entero)
+  const ssdPB = Math.floor(Math.floor((totals.totalSsd ?? 0)) / 100); // TB / 100 → PB (entero)
 
   return (
     <div
@@ -104,13 +111,13 @@ function ProviderCard({
       <div className="mt-2 flex items-center justify-evenly">
         <Stat value={cpuK} suffix="K" subtitle="CPU CORES" withDivider />
         <Stat
-          value={Math.round(ramTB)}
+          value={ramTB}
           suffix="TB"
           subtitle="RAM"
           withDivider
         />
         <Stat
-          value={Number(ssdPB.toFixed(1))}
+          value={ssdPB}
           suffix="PB"
           subtitle="SSD DISK"
         />
@@ -156,14 +163,14 @@ export default function ProvidersDuo({
 
         if (!alive) return;
 
-        setFluxTotals(toTotals(fluxTotalsJson));
+        setFluxTotals(toFluxTotals(fluxTotalsJson));
         setFluxNodes({
           totalNodes: Number(
             fluxNodesJson.totalNodes ?? fluxNodesJson.count ?? 0
           ),
         });
 
-        setAkashTotals(toTotals(akashTotalsJson));
+        setAkashTotals(toAkashTotals(akashTotalsJson));
         setAkashNodes({
           totalNodes: Number(
             akashNodesJson.totalNodes ?? akashNodesJson.count ?? 0
@@ -172,10 +179,10 @@ export default function ProvidersDuo({
       } catch {
         if (!alive) return;
         // Fallbacks del mock
-        setFluxTotals({ totalCpu: 99_800, totalRam: 243, totalSsd: 660 });
-        setFluxNodes({ totalNodes: 12_100 });
-        setAkashTotals({ totalCpu: 99_800, totalRam: 243, totalSsd: 660 });
-        setAkashNodes({ totalNodes: 12_100 });
+        setFluxTotals({ totalCpu: 99800, totalRam: 243, totalSsd: 660 });
+        setFluxNodes({ totalNodes: 12100 });
+        setAkashTotals({ totalCpu: 99800, totalRam: 243, totalSsd: 660 });
+        setAkashNodes({ totalNodes: 12100 });
       }
     })();
     return () => {
