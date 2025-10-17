@@ -129,7 +129,7 @@ export const ServicesSelect = () => {
       </div>
 
       {/* CTA */}
-      <div className="flex items-center justify-center mt-12">
+      <div className="flex items-center justify-center lg:mt-4">
         <button
           onClick={() => setOpen(true)}
           className="btn-primary px-6 py-3 text-sm rounded-full"
