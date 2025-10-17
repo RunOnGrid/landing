@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import ContactFormModal from "./Form";
+import { useState } from "react";
 
 type Partner = {
   name: string;
@@ -22,6 +24,7 @@ export default function TrustedPartners({
   title = "Trusted partners",
   partners = DEFAULT_PARTNERS,
 }: Props) {
+  const [open, setOpen] = useState(false);
   return (
     <section className="bg-white py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -69,6 +72,25 @@ export default function TrustedPartners({
             );
           })}
         </ul>
+      </div>
+      {/* CTA */}
+      <div className="mt-4">
+        <ContactFormModal
+          open={open}
+          onClose={() => setOpen(false)}
+          onSubmit={(data) => {
+            console.log("Form data", data);
+            setOpen(false);
+          }}
+        />
+      </div>
+      <div className="flex items-center justify-center mt-8">
+        <button
+          onClick={() => setOpen(true)}
+          className="btn-secondary px-6 py-3 text-sm rounded-full"
+        >
+          Contact Us
+        </button>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import ContactFormModal from "./Form";
 
 /** ---- Datos del acordeón ---- */
 const features = [
@@ -129,6 +130,16 @@ export const ServicesSelect = () => {
       </div>
 
       {/* CTA */}
+      <div className="mt-4">
+        <ContactFormModal
+          open={open}
+          onClose={() => setOpen(false)}
+          onSubmit={(data) => {
+            console.log("Form data", data);
+            setOpen(false);
+          }}
+        />
+      </div>
       <div className="flex items-center justify-center lg:mt-4">
         <button
           onClick={() => setOpen(true)}
