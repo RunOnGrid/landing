@@ -1,11 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
 
-type Solution = { title: string; href?: string };
+type Solution = { title: string; href?: string; image: string };
 
 const DEFAULT_ITEMS: Solution[] = [
-  { title: "Cloud consulting", href: "#" },
-  { title: "Cloud migration", href: "#" },
-  { title: "Cloud management", href: "#" },
+  {
+    title: "Cloud consulting",
+    href: "#",
+    image:
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6daa1e48-d4ab-46cb-3c0c-df72bb27c600/public",
+  },
+  {
+    title: "Cloud migration",
+    href: "#",
+    image:
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6e00fb1a-021b-40b0-9f62-12ac431d8700/public",
+  },
+  {
+    title: "Cloud management",
+    href: "#",
+    image:
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/4a77a9d1-3e38-4bd2-b71d-baf7bdd6cf00/public",
+  },
 ];
 
 export default function SolutionsPicker({
@@ -33,16 +49,14 @@ export default function SolutionsPicker({
               aria-label={item.title}
             >
               {/* card */}
-              <div
-                className="
-                  aspect-[4/3] w-full rounded-2xl
-                  bg-black
-                  shadow-[0_12px_30px_rgba(0,0,0,0.25)]
-                  ring-1 ring-black/40
-                  transition
-                  group-hover:-translate-y-0.5
-                  group-hover:ring-primary/40
-                "
+              <Image
+                alt={`${title} illustration`}
+                src={item.image}
+                width={720}
+                height={560}
+                className="w-96"
+                priority
+                unoptimized
               />
               {/* label */}
               <div className="mt-3 text-center text-sm sm:text-base text-black/70 group-hover:text-black font-medium">
