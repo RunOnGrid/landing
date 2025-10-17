@@ -16,8 +16,12 @@ type Props = {
 };
 
 const DEFAULT_PARTNERS: Partner[] = [
-  { name: "Akash Ecosystem", featured: true },
-  { name: "Influx Technologies Partners" },
+  {
+    name: "Akash Ecosystem",
+    featured: false,
+    logoSrc:
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/78e9a213-b3c1-4165-54f1-76ba5e961600/public",
+  },
 ];
 
 export default function TrustedPartners({
@@ -32,7 +36,7 @@ export default function TrustedPartners({
           {title}
         </h2>
 
-        <ul className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 place-items-center">
+        <ul className="mt-8 sm:mt-10 grid grid-cols-1 gap-6 sm:gap-8 place-items-center">
           {partners.map((p) => {
             const ringClasses = p.featured
               ? "ring-2 ring-sky-500"
@@ -58,8 +62,8 @@ export default function TrustedPartners({
                           src={p.logoSrc}
                           alt={p.name}
                           width={320}
-                          height={120}
-                          className="h-auto w-auto max-h-full max-w-full object-contain"
+                          height={320}
+                          className="w-full"
                         />
                       </div>
                     )}
@@ -84,7 +88,7 @@ export default function TrustedPartners({
           }}
         />
       </div>
-      <div className="flex items-center justify-center mt-8">
+      <div className="flex items-center justify-center mt-16">
         <button
           onClick={() => setOpen(true)}
           className="btn-secondary px-6 py-3 text-sm rounded-full"
