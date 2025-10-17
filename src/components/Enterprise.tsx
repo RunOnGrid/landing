@@ -3,15 +3,12 @@ import ContactFormModal from "./Form";
 import ProviderDuo from "./Providers";
 import Image from "next/image";
 
-
-
 export default function Enterprise() {
   const [open, setOpen] = useState(false);
 
-
-
   return (
     <section className="grid">
+      {/* BG ellipse */}
       <svg
         viewBox="0 0 1230 1509"
         fill="none"
@@ -32,7 +29,6 @@ export default function Enterprise() {
             <stop offset="1" stopColor="#037050" />
           </linearGradient>
         </defs>
-
         <ellipse
           cx="1039.24"
           cy="506.664"
@@ -43,8 +39,9 @@ export default function Enterprise() {
         />
       </svg>
 
+      {/* Hero */}
       <div className="bg-[#EDEDED]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 lg:pb- max-w-7xl mx-auto lg:pt-16 lg:pl-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 pb-4 max-w-7xl mx-auto lg:pt-16 lg:pl-4">
           {/* Texto */}
           <div className="flex flex-col lg:items-start items-center justify-center pt-16 pb-8 lg:pb-0 lg:pt-0">
             <div className="grid gap-4">
@@ -70,44 +67,11 @@ export default function Enterprise() {
           </div>
 
           {/* Imagen */}
-          <div className="overflow-hidden z-10">
+          <div className="overflow-hidden z-10 -mt-8 ">
             <ProviderDuo />
           </div>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 mx-auto lg:grid-cols-2 py-16 max-w-7xl pt-16 lg:pt-32 w-full items-center">
-        <div className="flex flex-col mx-auto lg:items-start lg:justify-start font-semibold lg:w-full max-w-7xl lg:pl-4">
-          <div className="space-y-0 text-3xl">
-            <p>Enhance your cloud</p>
-            <p>operations with</p>
-            <p className="text-primary">decentralized cloud</p>
-            <p className="text-primary">providers.</p>
-          </div>
-        
-            <div className="mt-8 font-normal space-y-6">
-              <p>CI/CD Pipelines</p>
-              <p>Disaster recovery service</p>
-              <p>Database</p>
-              <p>Monitoring and Logging</p>
-            </div>               
-              <img
-                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/32571243-1c5f-4953-d3a3-68c47834c000/public"
-                className="w-[120px]"
-                alt="CI/CD Pipelines Illustration"
-              />
-        </div>
-      </div>
-
-      <div className="flex items-center justify-center lg:justify-center">
-        <button
-          onClick={() => setOpen(true)}
-          className="btn-secondary px-6 py-3 text-sm rounded-full bg-transparent "
-        >
-          Contact Us
-        </button>
-      </div>
     </section>
   );
 }
-

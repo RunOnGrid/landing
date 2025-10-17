@@ -17,8 +17,8 @@ const fmtCompact = (n: number) =>
 /** Normaliza respuesta del proxy Flux a Totals */
 const toFluxTotals = (raw: any): Totals => ({
   totalCpu: Number(raw.totalCpu ?? 0), // cores
-  totalRam: Math.floor(Number(raw.totalRam ?? (raw.totalRamGB ?? 0)) / 1024), // TB si vino en GB
-  totalSsd: Math.floor(Number(raw.totalSsd ?? (raw.totalSsdGB ?? 0)) / 1024), // TB
+  totalRam: Math.floor(Number(raw.totalRam ?? raw.totalRamGB ?? 0) / 1024), // TB si vino en GB
+  totalSsd: Math.floor(Number(raw.totalSsd ?? raw.totalSsdGB ?? 0) / 1024), // TB
 });
 
 /** Normaliza respuesta del proxy Akash a Totals */
@@ -81,7 +81,7 @@ function ProviderCard({
   // CPU: floor antes de dividir para números enteros
   const cpuK = Math.floor(Math.floor(totals.totalCpu) / 1000); // cores → K (entero)
   const ramTB = Math.floor(totals.totalRam); // TB (entero)
-  const ssdPB = Math.floor(Math.floor((totals.totalSsd ?? 0)) / 100); // TB / 100 → PB (entero)
+  const ssdPB = Math.floor(Math.floor(totals.totalSsd ?? 0) / 100); // TB / 100 → PB (entero)
 
   return (
     <div
@@ -110,17 +110,8 @@ function ProviderCard({
 
       <div className="mt-2 flex items-center justify-evenly">
         <Stat value={cpuK} suffix="K" subtitle="CPU CORES" withDivider />
-        <Stat
-          value={ramTB}
-          suffix="TB"
-          subtitle="RAM"
-          withDivider
-        />
-        <Stat
-          value={ssdPB}
-          suffix="PB"
-          subtitle="SSD DISK"
-        />
+        <Stat value={ramTB} suffix="TB" subtitle="RAM" withDivider />
+        <Stat value={ssdPB} suffix="PB" subtitle="SSD DISK" />
       </div>
     </div>
   );
@@ -204,7 +195,7 @@ export default function ProvidersDuo({
   }
 
   return (
-    <div className="mx-auto w-full flex flex-col items-center justify-start space-y-8 lg:space-y-0 lg:block scale-75 md:scale-65 xl:scale-80 lg:h-[487px] lg:mt-16">
+    <div className="mx-auto w-full flex flex-col items-center justify-start space-y-8 lg:space-y-0 lg:block scale-65 md:scale-65 xl:scale-80 lg:h-[487px] mt-2 lg:mt-16">
       {/* Superior (Flux) */}
       <div>
         <ProviderCard
@@ -215,7 +206,7 @@ export default function ProvidersDuo({
       </div>
 
       {/* Inferior (Akash) */}
-      <div className="translate-x-5 -translate-y-10 lg:-translate-y-3 lg:absolute lg:translate-x-15  2xl:translate-x-28">
+      <div className="translate-x-0 sm:translate-x-5 sm:-translate-y-10 lg:-translate-y-3 lg:absolute lg:translate-x-15  2xl:translate-x-28">
         <ProviderCard
           logoSrc="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/60682d18-d4c4-4db9-29f9-88547214cc00/public"
           totals={akashTotals}

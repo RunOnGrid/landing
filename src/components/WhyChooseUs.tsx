@@ -22,7 +22,7 @@ const DEFAULT_ITEMS: Feature[] = [
     description:
       "Grid supports the complete software lifecycle through three core pillars — Proactive, Anticipation, and Strategic Foresight — ensuring seamless and scalable integration with DePIN technologies.",
     imageSrc:
-      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7f863974-9900-4e52-92c8-b69ad9eaf400/public",
+      "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/4c3e8571-46ce-4f67-da15-d30204b62700/public",
   },
   {
     title: "Scalable",
