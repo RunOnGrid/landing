@@ -49,17 +49,10 @@ export default function BestFeatures() {
   const items = [
     {
       image:
-        "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/fae77dbc-fe25-47e9-3653-f28ffce7aa00/public",
-      title: "NO EXPERIENCE NEEDED",
-      subtitle:
-        "Discover the freedom of managing a cloud without stress or DevOps expertise. Our Automatic Builds system lets you focus on your project, while we take care of implementation and deployment in a fast and secure way.",
-    },
-    {
-      image:
         "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ac6dd116-8f8c-422d-1bf8-876b70036500/public",
-      title: "ORGANIZE AND UPSCALE",
+      title: "Simple management",
       subtitle:
-        "Manage your project efficiently with our platform. Group services, configure environments, and receive real-time notifications via Slack. Assign roles and permissions to ensure security and control.",
+        "Deploy and manage PostgreSQL and Redis databases with just a few clicks. No complex configurations or manual setup—everything you need for production is handled automatically.",
     },
     {
       image:

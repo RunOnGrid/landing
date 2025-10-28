@@ -100,7 +100,7 @@ export default function DeployChoice() {
     <section className="text-white w-[90%] mx-auto mb-24 flex flex-col">
       {/* Título */}
       <h1 className="flex justify-center text-center text-[2.5rem] md:text-[3.5rem] font-medium leading-12">
-        Our providers
+        Our provider
       </h1>
 
       {/* Subtítulo */}
@@ -110,14 +110,14 @@ export default function DeployChoice() {
 
       {/* Opciones */}
       <div className="flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-10 max-w-7xl mx-auto">
-        <DeployOption
+        {/* <DeployOption
           image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c61ff49d-574b-4546-bd53-fadb83f03e00/public"
           title="Decentralized computing network"
           text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
           data={fluxData}
           nodes={fluxNodes}
           countries={78}
-        />
+        /> */}
 
         {akashData && (
           <DeployOption

@@ -18,12 +18,10 @@ export default function Footer({ className = "", logo }: FooterProps) {
           {/* columna-principal */}
           <div className="columna-principal flex flex-col items-center md:items-start text-left text-[1.1rem] mt-[50px]">
             <h2 className="footer-titulo-principal text-white text-[1.7rem]">
-              GRID CLOUD
+              GRID
             </h2>
             <p className="footer-parrafo w-[320px] text-white text-[0.8rem] py-[10px] text-center lg:text-start">
-              Grid Cloud is a decentralized Web3 cloud infrastructure comprised
-              of user-operated, scalable and globally distributed computational
-              nodes.
+            The decentralized database development platform.
             </p>
           </div>
 

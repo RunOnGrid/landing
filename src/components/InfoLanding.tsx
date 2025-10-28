@@ -36,35 +36,18 @@ export default function InfoLanding() {
   const right = useReveal<HTMLDivElement>("right");
 
   const logos = [
+  
     {
-      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/4b703d3a-9c54-4639-dd70-b46c544e7f00/public",
-      w: 170,
+      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/bd77b9a9-36bd-4290-46da-17b8b3207100/public",
+      w: 150,
       h: 70,
       alt: "Logo 1",
     },
     {
-      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e929561a-7618-4e11-9b34-4662c399de00/public",
-      w: 80,
-      h: 70,
-      alt: "Logo 2",
-    },
-    {
-      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/3c3700bf-6c3e-4b90-9029-a5dff93fff00/public",
-      w: 150,
-      h: 70,
-      alt: "Logo 3",
-    },
-    {
-      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e1fd7391-46c2-429a-1e39-fecd94eb7e00/public",
-      w: 180,
-      h: 70,
-      alt: "Logo 4",
-    },
-    {
-      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/21cd7431-b97f-4b26-6752-cd62a2c63800/public",
+      src: "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/eea3eb79-10a9-4008-f8a4-3b6db3824d00/public",
       w: 160,
       h: 70,
-      alt: "Logo 5",
+      alt: "Logo 2",
     },
   ];
 
@@ -77,12 +60,12 @@ export default function InfoLanding() {
       >
         <div className="col-span-12 lg:col-span-6">
           <h1 className="title text-3xl lg:text-4xl font-semibold leading-tight">
-            Seamlessly transition from any cloud provider
+            Deploy PostgreSQL and Redis with one click
           </h1>
         </div>
-        <p className="mt2 lg:mt-0 col-span-12 lg:col-span-6 text-md lg:text-lg text-white/80 leading-relaxed font-extralight">
-          Decentralized infrastructures use containers, allowing for seamless
-          transitions from any cloud provider.
+        <p className="mt2 lg:mt-0 col-span-12 lg:col-span-6 text-md lg:text-lg text-white/80 leading-relaxed font-light">
+          Don't worry about decentralization and configurations—we handle it all. 
+          Deploy your databases with the simplicity you need and the power you deserve.
         </p>
       </div>
 
@@ -91,21 +74,20 @@ export default function InfoLanding() {
         ref={right.ref}
         className={`grid grid-cols-12 lg:gap-24 items-start mb-12 ${right.cls}`}
       >
-        <p className="mt-2 lg:mt-0 col-span-12 lg:col-span-6 order-2 lg:order-1 text-md lg:text-lg text-white/80 leading-relaxed font-extralight">
-          Connect your GitHub repository to Grid and use our Buildpacks solution
-          to deploy your applications with ease. Our automated process takes
-          care of the build, deployment, and scaling, so you can focus on
-          writing code.
+        <p className="mt-2 lg:mt-0 col-span-12 lg:col-span-6 order-2 lg:order-1 text-md lg:text-lg text-white/80 leading-relaxed font-light">
+          We handle all the complex setup, replication, and maintenance behind the scenes. 
+          Your databases run on a decentralized network with enterprise-grade performance 
+          and reliability, without you managing a thing.
         </p>
         <div className="col-span-12 lg:col-span-6 order-1 lg:order-2">
           <h2 className="title text-3xl lg:text-4xl font-semibold leading-tight">
-            From code to deployment in minutes
+            We help you scale for millions of users
           </h2>
         </div>
       </div>
 
       {/* Logos */}
-      <div className="hidden lg:grid grid-cols-5 gap-6 max-w-[1100px] mx-auto place-items-center h-[220px]">
+      {/* <div className="hidden lg:flex gap-20 max-w-[1100px] mx-auto items-center justify-center h-[220px]">
         {logos.map((l) => (
           <Image
             key={l.src}
@@ -116,7 +98,7 @@ export default function InfoLanding() {
             className="h-[70px] max-[1450px]:h-[60px] w-auto"
           />
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }

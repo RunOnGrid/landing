@@ -26,7 +26,7 @@ export default function DeployOption({
   return (
     <div
       className={[
-        "flex flex-col items-center w-full md:w-[48%]",
+        "flex flex-col items-center w-full md:w-[100%]",
         className ?? "",
       ].join(" ")}
     >
@@ -43,7 +43,7 @@ export default function DeployOption({
         <h2 className=" mx-auto text-center font-bold tracking-wide text-xl pt-2 pb-6">
           {title}
         </h2>
-        <span className="mx-auto text-center text-sm md:text-base text-white/90 block max-w-[80%]">
+        <span className="mx-auto text-center text-sm md:text-base text-white/90 block max-w-[100%]">
           {text}
         </span>
       </div>

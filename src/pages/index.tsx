@@ -19,8 +19,8 @@ export default function OldComponents() {
         <div className="mx-auto">
           <Banner
             title="Just focus on building."
-            subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
-            subtitle2="Build, connect, deploy."
+            subtitle="Grid is the database development platform. Scale your postgre and redis with just a few clicks."
+            subtitle2="Deploy, scale."  
           />
           <BestFeatures />
           <DeployChoice />
