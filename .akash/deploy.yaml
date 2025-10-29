@@ -4,6 +4,9 @@ version: "2.0"
 metadata:
   name: landing
   description: "GridCloud Landing Page"
+  version: "1.0.0"
+  author: "RunOnGrid"
+  website: "https://ongrid.run"
 
 services:
   web:
