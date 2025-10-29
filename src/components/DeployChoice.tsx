@@ -4,26 +4,17 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import DeployOption from "./DeployOption";
 
-export type CommonTotals = {
-  totalSsd: number; // TB
-  totalRam: number; // TB
-  totalCpu: number; // cores
-};
-export type CommonTotalsAkash = {
+export type AkashTotals = {
   totalSsd: number; // TB
   totalRam: number; // TB
   totalCpu: number;
-  totalNodes: number; // cores
+  totalNodes: number;
 };
 
-export type FluxNodes = { totalNodes: number };
 export type AkashProviders = { totalNodes: number };
 
-export type AkashTotals = CommonTotalsAkash;
 
 export default function DeployChoice() {
-  const [fluxData, setFluxData] = useState<CommonTotals | null>(null);
-  const [fluxNodes, setFluxNodes] = useState<FluxNodes | null>(null);
   const [akashProviders, setAkashProviders] = useState<AkashProviders | null>(
     null
   );
@@ -31,36 +22,6 @@ export default function DeployChoice() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFlux = async () => {
-      try {
-        const res = await fetch("/api/flux-proxy", { cache: "no-store" });
-        // if (!res.ok) throw new Error(`Flux totals ${res.status}`);
-        const data: CommonTotals = await res.json();
-        setFluxData({
-          totalSsd: Number(data.totalSsd) || 0,
-          totalRam: Number(data.totalRam) || 0,
-          totalCpu: Number(data.totalCpu) || 0,
-        });
-      } catch (err) {
-        console.error("Flux totals:", err);
-        setFluxData({ totalSsd: 0, totalRam: 0, totalCpu: 0 }); // fallback para que renderice
-      }
-    };
-
-    const fetchFluxNodes = async () => {
-      try {
-        const url =
-          process.env.NEXT_PUBLIC_FLUX_NODES_PROXY || "/api/flux-nodes";
-        const res = await fetch(url, { cache: "no-store" });
-        // if (!res.ok) throw new Error(`Flux nodes ${res.status}`);
-        const data: { totalNodes: number } = await res.json();
-        setFluxNodes({ totalNodes: Number(data.totalNodes) || 0 });
-      } catch (err) {
-        console.error("Flux nodes:", err);
-        setFluxNodes({ totalNodes: 0 }); // fallback
-      }
-    };
-
     const fetchAkash = async () => {
       try {
         const res = await fetch("/api/akash-proxy");
@@ -71,24 +32,24 @@ export default function DeployChoice() {
       } catch (err) {
         console.error(err);
         setAkashProviders({ totalNodes: 0 });
+        setAkashData({ totalSsd: 0, totalRam: 0, totalCpu: 0, totalNodes: 0 });
       }
     };
 
     (async () => {
       setLoading(true);
-      await Promise.all([fetchFlux(), fetchFluxNodes(), fetchAkash()]);
+      await fetchAkash();
       setLoading(false);
     })();
   }, []);
 
-  if (loading || !fluxData || !fluxNodes) {
+  if (loading || !akashData) {
     return (
       <div className="text-white w-[90%] mx-auto my-24">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-white/10 rounded w-1/3 mx-auto" />
           <div className="h-4 bg-white/10 rounded w-1/4 mx-auto" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-            <div className="h-64 bg-white/5 rounded-2xl" />
             <div className="h-64 bg-white/5 rounded-2xl" />
           </div>
         </div>
@@ -110,15 +71,6 @@ export default function DeployChoice() {
 
       {/* Opciones */}
       <div className="flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-10 max-w-7xl mx-auto">
-        {/* <DeployOption
-          image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c61ff49d-574b-4546-bd53-fadb83f03e00/public"
-          title="Decentralized computing network"
-          text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
-          data={fluxData}
-          nodes={fluxNodes}
-          countries={78}
-        /> */}
-
         {akashData && (
           <DeployOption
             image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a1957f28-d510-41b8-254a-2188ea92de00/public"

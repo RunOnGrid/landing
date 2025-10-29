@@ -1,0 +1,80 @@
+server {
+    listen ${NGINX_PORT};
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied expired no-cache no-store private must-revalidate auth;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/javascript
+        application/xml+rss
+        application/json;
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    
+    # CORS headers (configurable via environment)
+    add_header Access-Control-Allow-Origin "${CORS_ORIGIN}" always;
+    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+    add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization" always;
+
+    # Cache static assets with configurable max-age
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires ${CACHE_MAX_AGE}s;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # Handle Next.js static files
+    location /_next/static/ {
+        expires ${CACHE_MAX_AGE}s;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # Handle API routes (Next.js API routes are built into static files)
+    location /api/ {
+        try_files $uri $uri.html $uri/ =404;
+        
+        # Add CORS headers for API calls
+        add_header Access-Control-Allow-Origin "${CORS_ORIGIN}" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization" always;
+        
+        # Handle preflight requests
+        if ($request_method = 'OPTIONS') {
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+    }
+
+    # Handle Next.js pages with trailing slash support
+    location / {
+        try_files $uri $uri.html $uri/ /index.html;
+    }
+
+    # Handle 404 errors
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    # Handle 50x errors
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+}

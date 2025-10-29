@@ -2,14 +2,14 @@
 
 import React from "react";
 import CountUp from "react-countup";
-import type { AkashProviders, CommonTotals, FluxNodes } from "./DeployChoice";
+import type { AkashProviders, AkashTotals } from "./DeployChoice";
 
 type Props = {
   image: string;
   title: string;
   text: string;
-  data: CommonTotals;
-  nodes: FluxNodes | AkashProviders;
+  data: AkashTotals;
+  nodes: AkashProviders;
   className?: string;
   countries?: number;
 };
