@@ -1,0 +1,160 @@
+name: Deploy to Akash Testnet
+
+on:
+  push:
+    branches: [ dev ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  AKASH_CHAIN_ID: sandbox-01
+  AKASH_NODE: https://rpc.sandbox-01.aksh.pw:443
+  AKASH_KEYRING_BACKEND: test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: .docker/Dockerfile
+        push: true
+        tags: |
+          ghcr.io/${{ github.repository }}:develop
+          ghcr.io/${{ github.repository }}:testnet-latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Install Akash CLI
+      run: |
+        echo "🧪 Installing Akash CLI for TESTNET deployment"
+        # Download and install Akash CLI
+        AKASH_VERSION=$(curl -s https://api.github.com/repos/akash-network/node/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+        curl -L "https://github.com/akash-network/node/releases/download/${AKASH_VERSION}/akash_${AKASH_VERSION#v}_linux_amd64.zip" -o akash.zip
+        unzip akash.zip
+        sudo mv akash /usr/local/bin/
+        chmod +x /usr/local/bin/akash
+
+    - name: Setup Akash wallet
+      run: |
+        echo "🔑 Setting up wallet for TESTNET"
+        # Create temporary keyring directory
+        mkdir -p ~/.akash
+        
+        # Import wallet from mnemonic (use testnet mnemonic if different)
+        echo "${{ secrets.AKASH_TESTNET_MNEMONIC }}" | akash keys add deploy-wallet --recover --keyring-backend test
+        
+        # Set environment variables
+        echo "AKASH_KEY_NAME=deploy-wallet" >> $GITHUB_ENV
+        echo "AKASH_WALLET_ADDRESS=$(akash keys show deploy-wallet -a --keyring-backend test)" >> $GITHUB_ENV
+
+    - name: Setup certificate
+      run: |
+        echo "📜 Setting up certificate for TESTNET"
+        # Create certificate files from secrets (use testnet cert if different)
+        echo "${{ secrets.AKASH_TESTNET_CERT_PEM }}" > ~/.akash/${AKASH_WALLET_ADDRESS}.pem
+        echo "${{ secrets.AKASH_TESTNET_CERT_KEY }}" > ~/.akash/${AKASH_WALLET_ADDRESS}.key
+        chmod 600 ~/.akash/${AKASH_WALLET_ADDRESS}.*
+
+    - name: Deploy to Akash Testnet
+      run: |
+        echo "🚀 Deploying to TESTNET (sandbox-01)"
+        
+        # Update deploy.yaml with develop image tag
+        sed -i "s|ghcr.io/runongrid/landing:latest|ghcr.io/${{ github.repository }}:develop|g" .akash/deploy.yaml
+        
+        # Create deployment
+        DEPLOYMENT_TX=$(akash tx deployment create .akash/deploy.yaml \
+          --from $AKASH_KEY_NAME \
+          --node $AKASH_NODE \
+          --chain-id $AKASH_CHAIN_ID \
+          --gas-prices="0.025uakt" \
+          --gas="auto" \
+          --gas-adjustment="1.15" \
+          --keyring-backend test \
+          -y --output json)
+        
+        # Extract DSEQ from transaction
+        DSEQ=$(echo $DEPLOYMENT_TX | jq -r '.logs[0].events[] | select(.type=="akash.deployment.v1.EventDeploymentCreated") | .attributes[] | select(.key=="id") | .value' | jq -r '.dseq')
+        echo "📋 DSEQ: $DSEQ"
+        echo "DSEQ=$DSEQ" >> $GITHUB_ENV
+        
+        # Wait for bids
+        echo "⏳ Waiting for testnet bids..."
+        sleep 45
+        
+        # Get first available bid
+        BIDS=$(akash query market bid list \
+          --owner $AKASH_WALLET_ADDRESS \
+          --node $AKASH_NODE \
+          --chain-id $AKASH_CHAIN_ID \
+          --output json)
+        
+        # Extract provider from first bid
+        PROVIDER=$(echo $BIDS | jq -r '.bids[0].bid.bid_id.provider // empty')
+        
+        if [ -n "$PROVIDER" ]; then
+          echo "🤝 Creating lease with testnet provider: $PROVIDER"
+          akash tx market lease create \
+            --owner $AKASH_WALLET_ADDRESS \
+            --dseq $DSEQ \
+            --gseq 1 \
+            --oseq 1 \
+            --provider $PROVIDER \
+            --from $AKASH_KEY_NAME \
+            --node $AKASH_NODE \
+            --chain-id $AKASH_CHAIN_ID \
+            --gas-prices="0.025uakt" \
+            --gas="auto" \
+            --gas-adjustment="1.15" \
+            --keyring-backend test \
+            -y
+          
+          echo "✅ Testnet deployment successful!"
+          echo "🧪 Network: TESTNET (sandbox-01)"
+          echo "📋 DSEQ: $DSEQ"
+          echo "🏢 Provider: $PROVIDER"
+        else
+          echo "❌ No bids received on testnet"
+          echo "💡 Testnet may have fewer providers available"
+          exit 1
+        fi
+
+    - name: Get testnet deployment URL
+      run: |
+        echo "⏳ Waiting for testnet deployment to be ready..."
+        sleep 60
+        
+        # Get lease status
+        LEASE_STATUS=$(akash provider lease-status \
+          --node $AKASH_NODE \
+          --from $AKASH_KEY_NAME \
+          --dseq $DSEQ \
+          --gseq 1 \
+          --oseq 1 \
+          --provider $PROVIDER \
+          --keyring-backend test)
+        
+        echo "🧪 Testnet Deployment Status:"
+        echo "$LEASE_STATUS"
+        echo ""
+        echo "🎯 This is a TESTNET deployment for testing purposes"
