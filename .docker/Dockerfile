@@ -28,6 +28,11 @@ RUN npm run build
 # Production stage with nginx
 FROM nginx:alpine
 
+# Add labels to link with GitHub repository
+LABEL org.opencontainers.image.source=https://github.com/RunOnGrid/landing
+LABEL org.opencontainers.image.description="GridCloud Landing Page"
+LABEL org.opencontainers.image.licenses=MIT
+
 # Install gettext for envsubst (environment variable substitution)
 RUN apk add --no-cache gettext
 
