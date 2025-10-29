@@ -4,23 +4,32 @@ import Banner from "@/components/Banner";
 import BestFeatures from "@/components/BestFeatures";
 import DeployChoice from "@/components/DeployChoice";
 import InfoLanding from "@/components/InfoLanding";
-import NavBar from "@/components/Navbar"
+import NavBar from "@/components/Navbar";
+import Enterprise from "@/components/Enterprise";
 
-export default function Home() {
+export default function OldComponents() {
   return (
-    <div className="container-homePrincipal">
-      <NavBar/>
+    <>
+      <div className="container-home">
+        <NavBar
+        logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+        button="Enterprise"        
+        />
 
-      <Banner
-        title="Just focus on building."
-        subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
-        subtitle2="Build, connect, deploy."
-      />
-
-      <BestFeatures />
-      <DeployChoice />
-      <InfoLanding />
-      <Footer />
-    </div>
+        <div className="mx-auto">
+          <Banner
+            title="Just focus on building."
+            subtitle="Grid is the database development platform. Scale your postgre and redis with just a few clicks."
+            subtitle2="Deploy, scale."  
+          />
+          <BestFeatures />
+          <DeployChoice />
+          <InfoLanding />
+        </div>
+        <Footer 
+        logo="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ca632650-5de1-46bd-88f4-03c847c04200/public"
+        />
+      </div>
+    </>
   );
 }
