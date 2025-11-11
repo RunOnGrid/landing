@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Triangles from "./Triangles";
+import ContactFormModal from "./Form";
+import { useState } from "react";
+
 
 type Props = {
   title: string;
@@ -8,6 +11,7 @@ type Props = {
 };
 
 export default function Banner({ title, subtitle, subtitle2 }: Props) {
+  const [open, setOpen] = useState(false);
   return (
     <section className="relative flex justify-around overflow-hidden py-16 lg:py-48 lg:mt-4">
       <div className="grid place-items-start gap-4 z-10 lg:w-1/2 px-8 lg:px-0">
@@ -19,10 +23,27 @@ export default function Banner({ title, subtitle, subtitle2 }: Props) {
           <p className="subtitle text-white font-bold mt-2 mb-4">{subtitle2}</p>
         )}
 
-        <div className="">
-          <Link href="#" className="btn-primary">
-            DEPLOY NOW
+        <div className="flex items-center gap-4">
+          <Link href="https://console.ongrid.run" className="btn-primary px-10">
+            Deploy now
           </Link>
+          <ContactFormModal
+            open={open}
+            onClose={() => setOpen(false)}
+            onSubmit={(data) => {
+              console.log("Form data", data);
+              setOpen(false);
+            }}
+            intent={[["Get technical support", "support"],
+            ["Contact the CEO", "CEO"],]}
+          />
+          <button
+            onClick={() => setOpen(true)}
+            className="btn-secondary px-10 py-2"
+          >
+            Contact us
+          </button>
+
         </div>
       </div>
       <div>
