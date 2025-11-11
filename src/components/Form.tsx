@@ -4,9 +4,21 @@ type Props = {
   open: boolean;
   onClose: () => void;
   onSubmit?: (data: Record<string, string>) => void;
+  intent?: Array<[string, string]>;
 };
 
-const ContactFormModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
+const DEFAULT_INTENT_OPTIONS: Array<[string, string]> = [
+  ["Get technical support", "support"],
+  ["Rent GPUs", "rent"],
+  ["Other", "other"],
+];
+
+const ContactFormModal: React.FC<Props> = ({
+  open,
+  onClose,
+  onSubmit,
+  intent = DEFAULT_INTENT_OPTIONS,
+}) => {
   const dialogRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState({
     firstName: "",
@@ -26,18 +38,19 @@ const sendEmail = async () => {
     setForm(
       Object.fromEntries(Object.keys(form).map((key) => [key, ""])) as typeof form
     );
+
+    
     await fetch("/api/emailForm", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: data.firstName,
         lastName: data.lastName,
-        intent: data.intent,
         email: data.email,
-        phone: data.phone
+        intent: form.intent,
       }),
     });
-    console.log(form);
+    setLoading(false);
   } catch (error) {
     console.error(error);
   }finally{
@@ -70,8 +83,9 @@ const sendEmail = async () => {
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await sendEmail()
     onSubmit?.(form);
   };
 
@@ -79,7 +93,7 @@ const sendEmail = async () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 absolute z-100 flex items-center justify-center"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -172,36 +186,13 @@ const sendEmail = async () => {
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="phone"
-              className="mb-1 block text-sm font-medium text-zinc-800"
-            >
-              Phone Number
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              inputMode="tel"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="+1 (555) 000-0000"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-            />
-          </div>
-
           <fieldset className="mt-2">
             <legend className="mb-2 text-sm font-medium text-zinc-800">
               What would you like to do with Grid?{" "}
               <span className="text-green-500">*</span>
             </legend>
             <div className="space-y-2">
-              {[
-                ["Get technical support", "support"],
-                ["Rent GPUs", "rent"],
-                ["Other", "other"],
-              ].map(([label, value]) => (
+              {intent.map(([label, value]) => (
                 <label key={value} className="flex items-center gap-2 text-sm">
                   <input
                     type="radio"
@@ -224,7 +215,7 @@ const sendEmail = async () => {
               className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white ${
                 loading ? "bg-zinc-500 cursor-not-allowed" : "bg-zinc-900 hover:bg-zinc-800"
               }`}
-              onClick={sendEmail}
+              onClick={submit}
             >
               {loading ? "Sending..." : "Next"}
           </button>

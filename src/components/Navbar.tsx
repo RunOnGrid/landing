@@ -19,7 +19,7 @@ export default function Navbar({ logo, button }: Props) {
   return (
     <header className="sticky top-0 z-[1000] w-full transition-colors duration-300 bg-black">
       <nav className="w-full">
-        <div className="mx-auto flex w-full items-center justify-between px-4 py-2">
+        <div className="mx-auto flex w-full items-center px-4 py-2">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
@@ -30,21 +30,24 @@ export default function Navbar({ logo, button }: Props) {
           </Link>
 
           {/* Acciones */}
-          <div className="flex w-full max-w-xs items-center justify-between">
+          <div className="flex flex-1 items-center justify-center gap-6">
             <Link
               href="/enterprise"
-              className="max-[550px]:hidden btn-secondary"
+              className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors"
             >
               {button}
             </Link>
-
-            <Link
-              href="https://documentation.ongrid.run/"
-              className="ml-auto inline-flex"
-            >
-              <span className="subtitle text-white underline">Docs</span>
+            <Link href="https://documentation.ongrid.run/" className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors">
+              <span>Docs</span>
             </Link>
           </div>
+
+          <Link
+            href="https://console.ongrid.run/"
+            className="max-[550px]:hidden btn-primary px-6 ml-auto"
+          >
+            Deploy now
+          </Link>
         </div>
       </nav>
     </header>
