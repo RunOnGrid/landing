@@ -123,8 +123,6 @@ export default function ProvidersDuo({
 }: {
   className?: string;
 }) {
-  const [fluxTotals, setFluxTotals] = useState<Totals | null>(null);
-  const [fluxNodes, setFluxNodes] = useState<Nodes | null>(null);
   const [akashTotals, setAkashTotals] = useState<Totals | null>(null);
   const [akashNodes, setAkashNodes] = useState<Nodes | null>(null);
 
@@ -153,13 +151,8 @@ export default function ProvidersDuo({
             : { totalNodes: akashTotalsJson.totalNodes ?? 0 }; // fallback
 
         if (!alive) return;
-
-        setFluxTotals(toFluxTotals(fluxTotalsJson));
-        setFluxNodes({
-          totalNodes: Number(
-            fluxNodesJson.totalNodes ?? fluxNodesJson.count ?? 0
-          ),
-        });
+       
+    
 
         setAkashTotals(toAkashTotals(akashTotalsJson));
         setAkashNodes({
@@ -170,10 +163,8 @@ export default function ProvidersDuo({
       } catch {
         if (!alive) return;
         // Fallbacks del mock
-        setFluxTotals({ totalCpu: 99800, totalRam: 243, totalSsd: 660 });
-        setFluxNodes({ totalNodes: 12100 });
-        setAkashTotals({ totalCpu: 99800, totalRam: 243, totalSsd: 660 });
-        setAkashNodes({ totalNodes: 12100 });
+        setAkashTotals({ totalCpu: 19130, totalRam: 132, totalSsd: 11});
+        setAkashNodes({ totalNodes: 64 });
       }
     })();
     return () => {
@@ -181,7 +172,7 @@ export default function ProvidersDuo({
     };
   }, []);
 
-  if (!fluxTotals || !fluxNodes || !akashTotals || !akashNodes) {
+  if (!akashTotals || !akashNodes) {
     return (
       <div
         className={[
@@ -196,14 +187,6 @@ export default function ProvidersDuo({
 
   return (
     <div className="mx-auto w-full flex flex-col items-center justify-start space-y-8 lg:space-y-0 lg:block scale-65 md:scale-65 xl:scale-80 lg:h-[487px] mt-2 lg:mt-16">
-      {/* Superior (Flux) */}
-      <div>
-        <ProviderCard
-          logoSrc="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/b6b5bab0-1747-4182-e01f-8f42470d3a00/public"
-          totals={fluxTotals}
-          nodes={fluxNodes}
-        />
-      </div>
 
       {/* Inferior (Akash) */}
       <div className="translate-x-0 sm:translate-x-5 sm:-translate-y-10 lg:-translate-y-3 lg:absolute lg:translate-x-15  2xl:translate-x-28">

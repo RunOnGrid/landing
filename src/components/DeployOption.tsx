@@ -7,7 +7,6 @@ import type { AkashProviders, AkashTotals } from "./DeployChoice";
 type Props = {
   image: string;
   title: string;
-  text: string;
   data: AkashTotals;
   nodes: AkashProviders;
   className?: string;
@@ -17,7 +16,6 @@ type Props = {
 export default function DeployOption({
   image,
   title,
-  text,
   data,
   nodes,
   className,
@@ -43,9 +41,6 @@ export default function DeployOption({
         <h2 className=" mx-auto text-center font-bold tracking-wide text-xl pt-2 pb-6">
           {title}
         </h2>
-        <span className="mx-auto text-center text-sm md:text-base text-white/90 block max-w-[100%]">
-          {text}
-        </span>
       </div>
 
       {/* métricas */}

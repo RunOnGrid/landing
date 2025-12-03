@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 type Props = {
   logo: string;
-  button: string;
+  button?: string;
 };
 
 export default function Navbar({ logo, button }: Props) {
@@ -31,12 +31,12 @@ export default function Navbar({ logo, button }: Props) {
 
           {/* Acciones */}
           <div className="flex flex-1 items-center justify-center gap-6">
-            <Link
+            {/* <Link
               href="/enterprise"
               className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors"
             >
               {button}
-            </Link>
+            </Link> */}
             <Link href="https://documentation.ongrid.run/" className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors">
               <span>Docs</span>
             </Link>
@@ -46,7 +46,7 @@ export default function Navbar({ logo, button }: Props) {
             href="https://console.ongrid.run/"
             className="max-[550px]:hidden btn-primary px-6 ml-auto"
           >
-            Deploy now
+            Start project
           </Link>
         </div>
       </nav>

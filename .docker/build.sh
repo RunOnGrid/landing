@@ -18,7 +18,7 @@ docker tag gridcloud-landing:latest ghcr.io/runongrid/landing:latest
 
 # Push to GitHub Container Registry
 echo "Pushing to GitHub Container Registry..."
-docker push ghcr.io/runongrid/landing:latest
+docker tag gridcloud-landing:latest ghcr.io/runongrid/landing:latest
 
 echo ""
 echo "✅ Image published to: ghcr.io/runongrid/landing:latest"

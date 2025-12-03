@@ -86,7 +86,7 @@ export default function DeployChoice() {
       {/* CTA */}
       <div className="flex justify-center mt-10">
         <Link href="#" className="btn-primary px-10 py-3 rounded-full">
-          DEPLOY NOW
+          START PROJECT
         </Link>
       </div>
     </section>

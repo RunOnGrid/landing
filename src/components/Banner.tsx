@@ -25,7 +25,7 @@ export default function Banner({ title, subtitle, subtitle2 }: Props) {
 
         <div className="flex items-center gap-4">
           <Link href="https://console.ongrid.run" className="btn-primary px-10">
-            Deploy now
+            Start project
           </Link>
           <ContactFormModal
             open={open}

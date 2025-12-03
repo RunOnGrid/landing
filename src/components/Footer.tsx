@@ -14,7 +14,7 @@ export default function Footer({ className = "", logo }: FooterProps) {
       {/* container-footer */}
       <section className="flex flex-col z-0 mx-auto">
         {/* columnas (90% como en tu CSS) */}
-        <div className="columnas text-white grid grid-cols-1 md:grid-cols-2 place-items-center max-w-7xl w-full mx-auto ">
+        <div className="columnas text-white grid grid-cols-1 md:grid-cols-3 place-items-center max-w-7xl w-full mx-auto ">
           {/* columna-principal */}
           <div className="columna-principal flex flex-col items-center md:items-start text-left text-[1.1rem] mt-[50px]">
             <h2 className="footer-titulo-principal text-white text-[1.7rem]">
@@ -25,8 +25,38 @@ export default function Footer({ className = "", logo }: FooterProps) {
             </p>
           </div>
 
+          {/* Resources column */}
+          <div className="flex flex-col items-center md:items-center text-center text-[1.1rem] mt-[50px]">
+            <h3 className="text-white text-[1.2rem] font-semibold mb-4">
+              Resources
+            </h3>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="https://documentation.ongrid.run/"
+                className="text-white/80 text-[0.9rem] hover:text-white hover:underline underline-offset-4 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Documentation
+              </Link>
+            </div>
+            <h3 className="text-white text-[1.2rem] font-semibold mb-4 mt-6">
+              Tools
+            </h3>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="https://console.ongrid.run/"
+                className="text-white/80 text-[0.9rem] hover:text-white hover:underline underline-offset-4 transition-colors mb-5"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Grid console
+              </Link>
+            </div>
+          </div>
+
           {/* segunda-columna */}
-          <div className="segunda-columna flex flex-col items-center md:items-end text-center md:text-right text-[1.1rem] mt-[50px]">
+          <div className="segunda-columna flex flex-col items-center md:items-end text-center md:text-right text-[1.1rem] mt-[50px] md:col-start-3">
             <Image
               alt="Grid Cloud"
               src={logo}

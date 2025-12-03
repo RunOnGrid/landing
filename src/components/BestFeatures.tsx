@@ -59,7 +59,7 @@ export default function BestFeatures() {
         "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7f7eda15-ce83-46b9-ca7f-5baf97c8cb00/public",
       title: "DECENTRALIZATION",
       subtitle:
-        "Access to low cost computing power and democratized deployment of secure, censorship-resistant apps, available to all developers.",
+        "Access to low cost computing power with up to 80% cost reduction and democratized deployment of secure, censorship-resistant apps, available to all developers.",
     },
   ];
 
