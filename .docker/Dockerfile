@@ -1,5 +1,5 @@
 # Multi-stage build for Next.js standalone server
-FROM node:23.5.0-alpine AS builder
+FROM node:lts-alpine AS builder
 
 WORKDIR /app
 

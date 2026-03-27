@@ -112,7 +112,7 @@ const sendEmail = async () => {
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 hover:bg-zinc-100"
+          className="absolute right-4 top-4 rounded-lg p-2 hover:bg-zinc-100"
           aria-label="Close"
           type="button"
         >

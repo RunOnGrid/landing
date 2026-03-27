@@ -4,17 +4,34 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-          rel="stylesheet"
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@akashnet_" />
+        <meta
+          name="twitter:title"
+          content="Akash DB - The CLI for database deployments built for AI agents"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet"
+        <meta
+          name="twitter:description"
+          content="One CLI tool. Give your agent the ability to deploy databases for storing and reading data."
         />
-         <link rel="icon" href="/favicon-new.ico" />
+        <meta name="twitter:image" content="https://akashdb.com/og-image.png" />
+
+        {/* Open Graph Meta Tags (for Facebook, LinkedIn, etc.) */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Akash DB - The CLI for database deployments built for AI agents"
+        />
+        <meta
+          property="og:description"
+          content="One CLI tool. Give your agent the ability to deploy databases for storing and reading data."
+        />
+        <meta property="og:image" content="https://akashdb.com/og-image.png" />
+
+        <link rel="icon" type="image/png" href="/favicon-akash.jpeg" />
+        <link rel="shortcut icon" href="/favicon-akash.jpeg" />
+        <link rel="apple-touch-icon" href="/favicon-akash.jpeg" />
       </Head>
       <body>
         <Main />

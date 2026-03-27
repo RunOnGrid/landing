@@ -91,7 +91,7 @@ export default function TrustedPartners({
       <div className="flex items-center justify-center mt-16">
         <button
           onClick={() => setOpen(true)}
-          className="btn-secondary px-6 py-3 text-sm rounded-full"
+          className="btn-secondary px-6 py-3 text-sm rounded-lg"
         >
           Contact Us
         </button>

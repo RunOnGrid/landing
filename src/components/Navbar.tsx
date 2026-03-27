@@ -1,52 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 type Props = {
-  logo: string;
-  button?: string;
+  logo?: string;
 };
 
-export default function Navbar({ logo, button }: Props) {
-  const [scrolled, setScrolled] = useState(false);
+export default function Navbar({ logo }: Props) {
+  const brandLogo = logo ?? "/favicon-akash.jpeg";
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
   return (
-    <header className="sticky top-0 z-[1000] w-full transition-colors duration-300 bg-black">
+    <header className="sticky top-0 z-[1000] w-full bg-[#070a14]/80 backdrop-blur-md border-b border-white/5">
       <nav className="w-full">
-        <div className="mx-auto flex w-full items-center px-4 py-2">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <img
-              alt="Grid logo"
-              src={logo}
-              className="h-auto w-[120px]"
-            />
+        <div className="mx-auto flex w-full items-center px-4 py-3">
+          <Link href="/" className="flex items-center gap-3 text-white">
+            <img alt="Akash DB" src={brandLogo} className="h-9 w-13 rounded-md" />
+            <span className="font-semibold tracking-tight">Akash DB</span>
           </Link>
 
-          {/* Acciones */}
-          <div className="flex flex-1 items-center justify-center gap-6">
-            {/* <Link
-              href="/enterprise"
-              className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors"
+          <div className="flex flex-1 items-center justify-center gap-6 text-sm font-medium">
+            <Link
+              href="https://akash.network/docs"
+              className="max-[550px]:hidden text-white/80 hover:text-white transition-colors"
             >
-              {button}
-            </Link> */}
-            <Link href="https://documentation.ongrid.run/" className="max-[550px]:hidden text-white underline underline-offset-4 font-medium hover:opacity-80 transition-colors">
-              <span>Docs</span>
+              Docs
+            </Link>
+            <Link
+              href="https://akash.network/blog"
+              className="max-[550px]:hidden text-white/80 hover:text-white transition-colors"
+            >
+              Updates
             </Link>
           </div>
 
           <Link
-            href="https://console.ongrid.run/"
+            href="https://akash.network"
             className="max-[550px]:hidden btn-primary px-6 ml-auto"
           >
-            Start project
+            Get the CLI
           </Link>
         </div>
       </nav>

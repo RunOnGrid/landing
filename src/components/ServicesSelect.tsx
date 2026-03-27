@@ -143,7 +143,7 @@ export const ServicesSelect = () => {
       <div className="flex items-center justify-center lg:mt-4">
         <button
           onClick={() => setOpen(true)}
-          className="btn-primary px-6 py-3 text-sm rounded-full"
+          className="btn-primary px-6 py-3 text-sm rounded-lg"
         >
           Contact Us
         </button>

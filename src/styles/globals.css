@@ -1,50 +1,72 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
-@theme {
-  --color-background: #020b0b;
-  --color-foreground: #ffffff;
-  --color-primary: #3bb079;
+@font-face {
+  font-family: "GeistSans";
+  src: url("https://akashml.com/_next/static/media/27834908180db20f-s.p.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+}
 
-  --font-heading: "Montserrat", ui-sans-serif, system-ui;
-  --font-sans: "Open Sans", ui-sans-serif, system-ui;
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("https://akashml.com/_next/static/media/bb3ef058b751a6ad-s.p.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 800;
+}
+
+@theme {
+  --color-background: #05060d;
+  --color-foreground: #f6f8fb;
+  --color-primary: #ff4337;
+
+  --font-heading: "GeistSans", ui-sans-serif, system-ui;
+  --font-sans: "GeistSans", ui-sans-serif, system-ui;
 }
 
 @layer base {
   body {
     @apply font-heading;
+    background: #000000;
+    color: var(--color-foreground);
   }
+
   .title {
     @apply text-4xl lg:text-5xl;
   }
+
   .subtitle {
     @apply text-base lg:text-xl tracking-wide;
   }
+
   .container-home {
     @apply bg-cover bg-top-right w-full h-full min-h-screen;
-    background-image: url("https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5ff49818-c6d5-4f36-32b1-63538def2500/public");
+    background: #000000;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full border-2 font-light bg-primary border-none text-white px-14 py-2.5 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary;
+    @apply inline-flex items-center justify-center rounded-lg border border-transparent font-medium text-white px-14 py-2.5 shadow-lg shadow-primary/30 transition-transform duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary;
+    background: #ff4337
   }
+
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border-2 border-primary text-primary px-4 py-2 hover:opacity-90 focus:outline-none focus:ring-1 focus:ring-primary;
+    @apply inline-flex items-center justify-center rounded-lg border border-primary/70 text-white px-4 py-2 hover:border-primary hover:text-primary focus:outline-none focus:ring-1 focus:ring-primary/70;
   }
 }
 
 /* === Floating animations (exageradas) === */
 
 @layer utilities {
+
   /* sube y baja suave ~24px */
   @keyframes float-lg {
+
     0%,
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-24px);
     }
@@ -52,17 +74,21 @@
 
   /* sube y baja suave ~48px */
   @keyframes float-xl {
+
     0%,
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-48px);
     }
   }
+
   .animate-floatY-lg {
     animation: floatY-lg 16s ease-in-out infinite;
   }
+
   .animate-floatY-xl {
     animation: floatY-xl 22s ease-in-out infinite;
   }
