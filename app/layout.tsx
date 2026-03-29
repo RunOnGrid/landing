@@ -30,6 +30,11 @@ export const metadata: Metadata = {
       "Provision Postgres on Akash Network with a production-ready operator surface.",
     images: ["/banner.png"],
   },
+  icons: {
+    icon: [{ url: "/icon" }],
+    shortcut: ["/icon"],
+    apple: [{ url: "/icon" }],
+  },
 };
 
 export default function RootLayout({

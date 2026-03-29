@@ -457,9 +457,13 @@ export function LandingPage() {
                         style={{ background: "rgba(255,255,255,0.38)" }}
                       ></span>
                     </div>
+                    <span className="hero-command-label">akashdb / install</span>
                   </div>
 
                   <div className="hero-command-row">
+                    <span className="hero-command-prompt" aria-hidden="true">
+                      $
+                    </span>
                     <code className="hero-command-code" id="heroInstallCommand">
                       {INSTALL_COMMAND}
                     </code>
