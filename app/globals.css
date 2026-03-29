@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: 0 0% 1.2%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 3.5%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 3.5%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 356 100% 62.7%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 8.5%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 7%;
+  --muted-foreground: 0 0% 72.9%;
+  --accent: 356 100% 62.7%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 31.8%;
+  --input: 0 0% 31.8%;
+  --ring: 356 100% 62.7%;
+  --radius: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 65, 76, 0.08), transparent 28%),
+    linear-gradient(180deg, #030303 0%, #030303 100%);
+  color: #ffffff;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.lenis body {
+  overscroll-behavior-y: none;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 0.8px, transparent 0.8px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 26px 26px, 90px 90px, 90px 90px;
+  content: "";
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    transparent 28%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  content: "";
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+::selection {
+  background: rgba(255, 65, 76, 0.35);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 65, 76, 0.45);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .surface-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 92px 92px;
+  }
+
+  .panel-gradient {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      rgba(7, 7, 7, 0.7);
+  }
+
+  .muted-copy {
+    color: #bababa;
+  }
+}

@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DeploymentStatus {
+  DRAFT
+  QUEUED
+  PROVISIONING
+  RUNNING
+  FAILED
+  STOPPED
+}
+
+enum AgentStatus {
+  QUEUED
+  PROVISIONING
+  RUNNING
+  FAILED
+  STOPPED
+}
+
+enum DeploymentProfile {
+  STARTER
+  BALANCED
+  HA
+  ANALYTICS
+}
+
+model User {
+  id           String       @id @default(cuid())
+  name         String?
+  email        String       @unique
+  passwordHash String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  deployments  Deployment[]
+}
+
+model Deployment {
+  id               String            @id @default(cuid())
+  name             String
+  slug             String
+  profile          DeploymentProfile
+  region           String
+  engine           String            @default("PostgreSQL")
+  postgresVersion  String            @default("16")
+  cpu              Int
+  memoryMb         Int
+  storageGb        Int
+  instanceCount    Int
+  exposedPort      Int               @default(5432)
+  status           DeploymentStatus  @default(DRAFT)
+  manifestJson     Json?
+  connectionHost   String?
+  connectionPort   Int?
+  connectionString String?
+  lastDeployedAt   DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  userId           String
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agents           DeploymentAgent[]
+
+  @@unique([userId, slug])
+  @@index([userId, status, createdAt])
+}
+
+model DeploymentAgent {
+  id              String       @id @default(cuid())
+  name            String
+  status          AgentStatus  @default(QUEUED)
+  instanceIndex   Int
+  region          String
+  endpoint        String?
+  lastHeartbeatAt DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  deploymentId    String
+  deployment      Deployment   @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+
+  @@unique([deploymentId, instanceIndex])
+}
