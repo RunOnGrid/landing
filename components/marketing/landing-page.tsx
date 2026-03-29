@@ -1,139 +1,17 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import { AkashNativeCard } from "@/components/marketing/akash-native-card";
 import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider";
 import { useLandingAnimations } from "@/components/animations/use-landing-animations";
 import { AgentFirstCard } from "@/components/marketing/agent-first-card";
+import { CleanHandoffsCard } from "@/components/marketing/clean-handoffs-card";
+import { GuardrailsCard } from "@/components/marketing/guardrails-card";
+import { LowerSpendCard } from "@/components/marketing/lower-spend-card";
+import { SupabaseExtensionsCard } from "@/components/marketing/supabase-extensions-card";
 
 const INSTALL_COMMAND = "npm i cli-akashdb";
-
-function FeatureIconSpend() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path
-        d="M6 16.5L10.2 12l2.6 2.7L18 8.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M15 8.5H18V11.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M5.5 5.5h13"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        opacity="0.65"
-      />
-    </svg>
-  );
-}
-
-function FeatureIconGuardrails() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path
-        d="M12 4l6 2.6v4.8c0 4.1-2.54 6.98-6 8.6-3.46-1.62-6-4.5-6-8.6V6.6L12 4Z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.6 12.2l1.55 1.55L14.8 10.1"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function FeatureIconHandoffs() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path
-        d="M4.5 12h7.5M12 7.5l4.5 4.5L12 16.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <rect
-        x="4.5"
-        y="5"
-        width="15"
-        height="14"
-        rx="3"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        opacity="0.6"
-      />
-    </svg>
-  );
-}
-
-function FeatureIconNetwork() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <circle cx="12" cy="5.5" r="2" stroke="currentColor" strokeWidth="1.3" />
-      <circle cx="6" cy="17.5" r="2" stroke="currentColor" strokeWidth="1.3" />
-      <circle cx="18" cy="17.5" r="2" stroke="currentColor" strokeWidth="1.3" />
-      <path
-        d="M10.8 7.2 7.2 15.8m9.6 0-3.6-8.6M8 17.5h8"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function FeatureIconOps() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path
-        d="M5 8.5h14M5 12h14M5 15.5h9"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <rect
-        x="4.5"
-        y="5"
-        width="15"
-        height="14"
-        rx="3"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        opacity="0.6"
-      />
-      <circle cx="17" cy="15.5" r="1" fill="currentColor" />
-    </svg>
-  );
-}
-
-function CheckGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
-      <path
-        d="m5 12 4 4L19 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 function GithubIcon() {
   return (
@@ -156,39 +34,6 @@ function DiscordIcon() {
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
       <path d="M18.94 5.34A15.85 15.85 0 0 0 14.98 4l-.19.39c1.43.37 2.08.9 2.63 1.39a13.6 13.6 0 0 0-5.39-1.04 13.6 13.6 0 0 0-5.39 1.04c.55-.49 1.2-1.02 2.63-1.39L9.08 4c-1.39.21-2.74.67-3.96 1.34C2.61 9.1 1.94 12.76 2.18 16.37a15.92 15.92 0 0 0 4.85 2.45l1.04-1.71c-.57-.2-1.12-.45-1.63-.75.13.1.27.19.41.28 1.57.95 3.38 1.45 5.15 1.45s3.58-.5 5.15-1.45c.14-.09.28-.18.41-.28-.51.3-1.06.55-1.63.75l1.04 1.71a15.92 15.92 0 0 0 4.85-2.45c.29-4.2-.5-7.83-2.99-11.03ZM9.7 14.17c-.95 0-1.73-.88-1.73-1.97 0-1.09.76-1.97 1.73-1.97.98 0 1.75.89 1.73 1.97 0 1.09-.76 1.97-1.73 1.97Zm4.6 0c-.95 0-1.73-.88-1.73-1.97 0-1.09.76-1.97 1.73-1.97.98 0 1.75.89 1.73 1.97 0 1.09-.76 1.97-1.73 1.97Z" />
     </svg>
-  );
-}
-
-function FeatureCard({
-  icon,
-  number,
-  title,
-  highlight,
-  detail,
-  children,
-}: {
-  icon: ReactNode;
-  number: string;
-  title: string;
-  highlight: string;
-  detail: string;
-  children: ReactNode;
-}) {
-  return (
-    <article className="feature-card">
-      <div className="feature-visual">
-        <div className="feature-meta">
-          <span className="feature-icon">{icon}</span>
-          <span className="feature-number">{number}</span>
-        </div>
-        {children}
-      </div>
-      <div className="feature-card-body">
-        <h3>{title}</h3>
-        <p className="feature-highlight">{highlight}</p>
-        <p className="feature-detail">{detail}</p>
-      </div>
-    </article>
   );
 }
 
@@ -493,150 +338,15 @@ export function LandingPage() {
             <div className="feature-grid">
               <AgentFirstCard />
 
-              <FeatureCard
-                icon={<FeatureIconSpend />}
-                number="02"
-                title="Lower spend"
-                highlight="Infrastructure costs with room to breathe"
-                detail="Move managed Postgres onto Akash Network with materially lower spend"
-              >
-                <div className="feature-scene scene-network">
-                  <div className="scene-network-board"></div>
-                  <span className="scene-cost-pill scene-cost-pill-left">Traditional</span>
-                  <span className="scene-cost-pill scene-cost-pill-right">Akash DB</span>
-                  <div className="scene-cost-stack scene-cost-stack-left">
-                    <span className="scene-cost-bar"></span>
-                    <span className="scene-cost-bar"></span>
-                    <span className="scene-cost-bar"></span>
-                  </div>
-                  <div className="scene-cost-divider"></div>
-                  <div className="scene-cost-stack scene-cost-stack-right">
-                    <span className="scene-cost-bar"></span>
-                    <span className="scene-cost-bar"></span>
-                    <span className="scene-cost-bar"></span>
-                  </div>
-                  <span className="scene-cost-tag">Lower run cost</span>
-                </div>
-              </FeatureCard>
+              <LowerSpendCard />
 
-              <FeatureCard
-                icon={<FeatureIconGuardrails />}
-                number="03"
-                title="Guardrails"
-                highlight="Visibility stays close to the deploy"
-                detail="Logs, and sane defaults stay part of the flow so automation does not hide the system."
-              >
-                <div className="feature-scene scene-guardrails">
-                  <div className="scene-guardrails-panel">
-                    <div className="scene-guardrails-top">
-                    </div>
-                    <div className="scene-guardrails-list">
-                      <div className="scene-guardrails-row">
-                        <strong>Logs</strong>
-                        <span className="scene-guardrails-check">
-                          <CheckGlyph />
-                        </span>
-                      </div>
-                      <div className="scene-guardrails-row">
-                        <strong>Backups</strong>
-                        <span className="scene-guardrails-check">
-                          <CheckGlyph />
-                        </span>
-                      </div>
-                      <div className="scene-guardrails-row">
-                        <strong>Ready for deploy</strong>
-                        <span>42ms</span>
-                      </div>
-                    </div>
-                    <div className="scene-guardrails-glow"></div>
-                  </div>
-                </div>
-              </FeatureCard>
+              <GuardrailsCard />
 
-              <FeatureCard
-                icon={<FeatureIconHandoffs />}
-                number="04"
-                title="Clean handoffs"
-                highlight="A clearer path between operator and agent"
-                detail="Shared steps and predictable outputs keep deploy handoffs readable from request to running database."
-              >
-                <div className="feature-scene scene-migration">
-                  <div className="scene-migration-panel">
-                    <div className="scene-handoff-card scene-handoff-card-left">
-                      <strong>Operator</strong>
-                      <span>Request</span>
-                    </div>
-                    <div className="scene-handoff-card scene-handoff-card-right">
-                      <strong>Agent</strong>
-                      <span>Deploy</span>
-                    </div>
-                    <span className="scene-handoff-pill">postgres.yaml</span>
-                    <span className="scene-handoff-dot scene-handoff-dot-left"></span>
-                    <span className="scene-handoff-dot scene-handoff-dot-right"></span>
-                    <span className="scene-handoff-caption">Shared handoff</span>
-                  </div>
-                </div>
-              </FeatureCard>
+              <CleanHandoffsCard />
 
-              <FeatureCard
-                icon={<FeatureIconNetwork />}
-                number="05"
-                title="Akash-native"
-                highlight="Deployment flows grounded in the network"
-                detail="Provisioning stays aligned with Akash primitives, so scale, placement, and ownership remain legible as footprint grows."
-              >
-                <div className="feature-scene scene-support">
-                  <div className="scene-akash-network">
-                    <span className="scene-akash-link scene-akash-link-a"></span>
-                    <span className="scene-akash-link scene-akash-link-b"></span>
-                    <span className="scene-akash-link scene-akash-link-c"></span>
-                    <span className="scene-akash-link scene-akash-link-d"></span>
-                    <div className="scene-akash-hub">
-                      <img src="/logo.png" alt="" />
-                    </div>
-                    <span className="scene-akash-node scene-akash-node-a">US-East</span>
-                    <span className="scene-akash-node scene-akash-node-b">EU-West</span>
-                    <span className="scene-akash-node scene-akash-node-c">AP-South</span>
-                    <span className="scene-akash-node scene-akash-node-d">Hub</span>
-                    <span className="scene-akash-caption">Akash primitives</span>
-                  </div>
-                </div>
-              </FeatureCard>
+              <AkashNativeCard />
 
-              <FeatureCard
-                icon={<FeatureIconOps />}
-                number="06"
-                title="Production posture"
-                highlight="Sane defaults for real workloads"
-                detail="Backups, observability, and operational checks stay close to the workflow before the system gets complex."
-              >
-                <div className="feature-scene scene-observability">
-                  <div className="scene-ops-panel">
-                    <div className="scene-ops-header">
-                      <span className="scene-ops-title">Runtime posture</span>
-                      <span className="scene-ops-badge">Healthy</span>
-                    </div>
-                    <div className="scene-ops-list">
-                      <div className="scene-ops-row">
-                        <strong>Backups</strong>
-                        <span>Enabled</span>
-                      </div>
-                      <div className="scene-ops-row">
-                        <strong>Health checks</strong>
-                        <span>Live</span>
-                      </div>
-                      <div className="scene-ops-row">
-                        <strong>Logs</strong>
-                        <span>Streaming</span>
-                      </div>
-                    </div>
-                    <div className="scene-ops-footer">
-                      <span className="scene-ops-footer-bar"></span>
-                      <span className="scene-ops-footer-metric">99.9%</span>
-                    </div>
-                  </div>
-                </div>
-              </FeatureCard>
+              <SupabaseExtensionsCard />
             </div>
           </div>
         </section>
