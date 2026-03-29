@@ -535,7 +535,7 @@ export function LandingPage() {
                 number="02"
                 title="Lower spend"
                 highlight="Infrastructure costs with room to breathe"
-                detail="Move managed Postgres onto Akash Network with materially lower spend and a cleaner operational footprint."
+                detail="Move managed Postgres onto Akash Network with materially lower spend"
               >
                 <div className="feature-scene scene-network">
                   <div className="scene-network-board"></div>
@@ -561,23 +561,21 @@ export function LandingPage() {
                 number="03"
                 title="Guardrails"
                 highlight="Visibility stays close to the deploy"
-                detail="Logs, health checks, and sane defaults stay part of the flow so automation does not hide the system."
+                detail="Logs, and sane defaults stay part of the flow so automation does not hide the system."
               >
                 <div className="feature-scene scene-guardrails">
                   <div className="scene-guardrails-panel">
                     <div className="scene-guardrails-top">
-                      <span className="scene-guardrails-title">Health checks</span>
-                      <span className="scene-guardrails-badge">Passing</span>
                     </div>
                     <div className="scene-guardrails-list">
                       <div className="scene-guardrails-row">
-                        <strong>Logs attached</strong>
+                        <strong>Logs</strong>
                         <span className="scene-guardrails-check">
                           <CheckGlyph />
                         </span>
                       </div>
                       <div className="scene-guardrails-row">
-                        <strong>Backups active</strong>
+                        <strong>Backups</strong>
                         <span className="scene-guardrails-check">
                           <CheckGlyph />
                         </span>
@@ -676,107 +674,6 @@ export function LandingPage() {
                   </div>
                 </div>
               </FeatureCard>
-            </div>
-          </div>
-        </section>
-
-        <section className="section section-proof">
-          <div className="section-inner">
-            <div className="proof-intro landing-reveal">
-              <div className="proof-intro-copy">
-                <p className="section-kicker">Why This Direction</p>
-                <h2 className="section-title">
-                  Minimal in the first screen. Credible underneath.
-                </h2>
-                <p className="section-copy">
-                  Esta capa intermedia nos deja validar si la p&aacute;gina,
-                  adem&aacute;s de atm&oacute;sfera, puede sostener se&ntilde;ales de
-                  producto, costo y operaci&oacute;n con la misma calma visual del hero.
-                </p>
-              </div>
-              <div className="proof-intro-note">
-                <span className="proof-intro-chip">Proof Layer</span>
-                <p>
-                  Signals, cost posture, and runtime readiness without empujar la
-                  p&aacute;gina hacia un dashboard pesado.
-                </p>
-              </div>
-            </div>
-
-            <div className="proof-grid">
-              <div className="proof-panel landing-reveal">
-                <div className="proof-panel-header">
-                  <div>
-                    <p className="proof-panel-kicker">Signals</p>
-                    <h3>Operator confidence without dashboard bloat</h3>
-                  </div>
-                  <span className="proof-panel-chip">Calm by design</span>
-                </div>
-                <p className="proof-panel-copy">
-                  Este bloque funciona como una zona de prueba para validar
-                  c&oacute;mo podr&iacute;an convivir benchmarks, arquitectura y screenshots
-                  sin que la p&aacute;gina pierda aire ni se vuelva una consola antes de
-                  tiempo.
-                </p>
-
-                <div className="proof-row">
-                  <div className="proof-item">
-                    <span className="proof-item-label">Surface</span>
-                    <strong>1 CLI</strong>
-                    <span>One clean surface for provisioning and handoff.</span>
-                  </div>
-                  <div className="proof-item">
-                    <span className="proof-item-label">Spend</span>
-                    <strong>80%</strong>
-                    <span>Potential infrastructure savings message placeholder.</span>
-                  </div>
-                  <div className="proof-item">
-                    <span className="proof-item-label">Operations</span>
-                    <strong>24/7</strong>
-                    <span>Operational framing for real workloads and uptime.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="metric-panel landing-reveal">
-                <div className="metric-hero">
-                  <div className="metric-topline">
-                    <span className="metric-chip">Runtime Slice</span>
-                    <span className="metric-status">Live mock</span>
-                  </div>
-                  <h3>Mockup Dashboard Slice</h3>
-                  <p>
-                    No es producto real todav&iacute;a. Es una superficie de prueba para
-                    ver c&oacute;mo conviven los mensajes de costo, provisioning y salud.
-                  </p>
-                </div>
-
-                <div className="metric-stack">
-                  <div className="metric-row">
-                    <span>Provisioning status</span>
-                    <strong className="metric-ready">Ready</strong>
-                  </div>
-                  <div className="metric-row">
-                    <span>Database engine</span>
-                    <strong>Postgres 16</strong>
-                  </div>
-                  <div className="metric-row">
-                    <span>Deploy target</span>
-                    <strong>Akash Network</strong>
-                  </div>
-                  <div className="metric-row">
-                    <span>Observed latency</span>
-                    <strong>42ms</strong>
-                  </div>
-                </div>
-                <div className="metric-footer">
-                  <span className="metric-footer-bar"></span>
-                  <div className="metric-footer-meta">
-                    <span>Health trend</span>
-                    <strong>Stable</strong>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
