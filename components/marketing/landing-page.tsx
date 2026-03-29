@@ -5,29 +5,9 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider";
 import { useLandingAnimations } from "@/components/animations/use-landing-animations";
+import { AgentFirstCard } from "@/components/marketing/agent-first-card";
 
 const INSTALL_COMMAND = "npm i cli-akashdb";
-
-function FeatureIconAgent() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-      <path
-        d="M5 16.5V8.2c0-.72.58-1.3 1.3-1.3h11.4c.72 0 1.3.58 1.3 1.3v8.3"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 12h8M9.5 18h5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <circle cx="8" cy="12" r="0.8" fill="currentColor" />
-      <circle cx="16" cy="12" r="0.8" fill="currentColor" />
-    </svg>
-  );
-}
 
 function FeatureIconSpend() {
   return (
@@ -511,24 +491,7 @@ export function LandingPage() {
             </div>
 
             <div className="feature-grid">
-              <FeatureCard
-                icon={<FeatureIconAgent />}
-                number="01"
-                title="Agent-first"
-                highlight="One command into deployment"
-                detail="A single CLI surface for operators and agents to request, provision, and hand off Postgres without losing context."
-              >
-                <div className="feature-scene scene-poster">
-                  <div className="scene-poster-card">
-                    <div className="scene-poster-core">
-                      <span className="scene-poster-orbit"></span>
-                      <img src="/logo.png" alt="" />
-                    </div>
-                    <span className="scene-poster-spark"></span>
-                    <span className="scene-poster-caption">CLI Surface</span>
-                  </div>
-                </div>
-              </FeatureCard>
+              <AgentFirstCard />
 
               <FeatureCard
                 icon={<FeatureIconSpend />}
