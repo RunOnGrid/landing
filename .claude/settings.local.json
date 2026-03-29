@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r \"prisma\\\\|@prisma\" /Users/benjaminaguirre/Documents/landing --include=*.ts --include=*.tsx --include=*.json --exclude-dir=node_modules)",
+      "Bash(find /Users/benjaminaguirre/Documents/landing -path \"*/app/\\(dashboard\\)*\" -type f)",
+      "Bash(grep -r \"signIn\\\\|signOut\\\\|session\\\\|auth\\\\\\(\" /Users/benjaminaguirre/Documents/landing/app --include=*.ts --include=*.tsx)",
+      "Bash(pnpm install:*)",
+      "Bash(ls /Users/benjaminaguirre/Documents/landing/app/\\\\\\(dashboard\\\\\\)/dashboard/)",
+      "Bash(ls /Users/benjaminaguirre/Documents/landing/app/\\\\\\(dashboard\\\\\\)/)",
+      "Bash(ls:*)",
+      "Bash(rm -f auth.ts proxy.ts types/next-auth.d.ts lib/validation/auth.ts)",
+      "Bash(rm -rf app/api/auth components/auth)",
+      "Bash(cp /Users/benjaminaguirre/Documents/landing/public/logo.png /Users/benjaminaguirre/Documents/landing/app/icon.png)",
+      "Bash(rm /Users/benjaminaguirre/Documents/landing/app/icon.tsx)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

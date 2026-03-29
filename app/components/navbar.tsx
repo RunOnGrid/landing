@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { LogoMark } from "./logo-mark";
 
 const navLinks = [
-  { label: "Docs", href: "#" },
+  { label: "Docs", href: "https://www.npmjs.com/package/cli-akashdb" },
   { label: "Community", href: "#" },
 ];
 

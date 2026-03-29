@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider";
 import { useLandingAnimations } from "@/components/animations/use-landing-animations";
 
-const INSTALL_COMMAND = "curl -s https://akash.network/db-cli.sh | bash";
+const INSTALL_COMMAND = "npm i cli-akashdb";
 
 function FeatureIconAgent() {
   return (
@@ -330,7 +330,7 @@ export function LandingPage() {
           </a>
 
           <nav className="nav-links" aria-label="Primary">
-            <a className="nav-link" href="#cli">
+            <a className="nav-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">
               Docs
             </a>
             <a className="nav-link" href="#updates">
@@ -346,9 +346,9 @@ export function LandingPage() {
                 reduceMotion
                   ? undefined
                   : {
-                      scale: 1.03,
-                      boxShadow: "0 24px 46px rgba(255, 65, 76, 0.34)",
-                    }
+                    scale: 1.03,
+                    boxShadow: "0 24px 46px rgba(255, 65, 76, 0.34)",
+                  }
               }
               whileTap={reduceMotion ? undefined : { scale: 0.985 }}
             >
@@ -380,7 +380,7 @@ export function LandingPage() {
         <div className="mobile-panel-backdrop"></div>
         <div className="mobile-panel-content">
           <nav className="mobile-links" aria-label="Mobile">
-            <a className="mobile-link" href="#cli" onClick={() => setIsMenuOpen(false)}>
+            <a className="mobile-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
               Docs
             </a>
             <a className="mobile-link" href="#updates" onClick={() => setIsMenuOpen(false)}>
@@ -398,9 +398,9 @@ export function LandingPage() {
                 reduceMotion
                   ? undefined
                   : {
-                      scale: 1.01,
-                      boxShadow: "0 20px 40px rgba(255, 65, 76, 0.32)",
-                    }
+                    scale: 1.01,
+                    boxShadow: "0 20px 40px rgba(255, 65, 76, 0.32)",
+                  }
               }
               whileTap={reduceMotion ? undefined : { scale: 0.99 }}
             >
@@ -468,18 +468,17 @@ export function LandingPage() {
                       {INSTALL_COMMAND}
                     </code>
                     <motion.button
-                      className={`hero-copy-button ${
-                        copyLabel === "Copied" ? "is-copied" : ""
-                      }`}
+                      className={`hero-copy-button ${copyLabel === "Copied" ? "is-copied" : ""
+                        }`}
                       type="button"
                       onClick={handleCopy}
                       whileHover={
                         reduceMotion
                           ? undefined
                           : {
-                              scale: 1.03,
-                              boxShadow: "0 22px 42px rgba(255, 65, 76, 0.34)",
-                            }
+                            scale: 1.03,
+                            boxShadow: "0 22px 42px rgba(255, 65, 76, 0.34)",
+                          }
                       }
                       whileTap={reduceMotion ? undefined : { scale: 0.985 }}
                     >
@@ -502,10 +501,10 @@ export function LandingPage() {
             <div className="section-bridge-copy landing-reveal">
               <p className="section-kicker">Deployment Surface</p>
               <h2 className="section-title">
-                Operator-grade primitives beneath the first command
+                Why choose akashDB?
               </h2>
               <p className="section-copy">
-                A calmer operational layer for provisioning, visibility, and cost
+                A operational layer for provisioning, visibility, and cost
                 control, designed to feel as clear and deliberate as the first command
                 itself.
               </p>
@@ -818,7 +817,7 @@ export function LandingPage() {
                 <h3>Resources</h3>
                 <ul className="footer-links">
                   <li>
-                    <a href="#cli">Docs</a>
+                    <a href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">Docs</a>
                   </li>
                   <li>
                     <a href="#updates">Updates</a>
