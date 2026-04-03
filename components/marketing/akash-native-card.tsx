@@ -13,22 +13,11 @@ const AMBIENT_FLOAT = {
   ease: "easeInOut" as const,
   repeat: Infinity,
 };
-const ORBIT_SPIN = {
-  duration: 18,
-  ease: "linear" as const,
-  repeat: Infinity,
-};
 const SOFT_PULSE = {
   duration: 3.8,
   ease: "easeInOut" as const,
   repeat: Infinity,
 };
-
-const REGION_NODES = [
-  { name: "US-East", className: "left-5 top-[2.95rem]" },
-  { name: "EU-West", className: "right-5 top-[2.95rem]" },
-  { name: "AP-South", className: "left-1/2 bottom-[0.55rem] -translate-x-1/2" },
-] as const;
 
 function NetworkGlyph() {
   return (
@@ -155,7 +144,7 @@ export function AkashNativeCard({ className }: AkashNativeCardProps) {
 
           <div
             aria-hidden="true"
-            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-6 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
           >
             <motion.div
               animate={
@@ -173,15 +162,15 @@ export function AkashNativeCard({ className }: AkashNativeCardProps) {
             <motion.div
               animate={reduceMotion ? undefined : { y: [0, -1.5, 0] }}
               transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.4 }}
-              className="relative mx-auto h-[124px] w-[90%] max-w-[24rem] px-0.5 py-1"
+              className="relative grid h-[122px] w-full grid-rows-[auto_78px_auto] gap-1.5 overflow-hidden px-0.5 py-0.5"
             >
               <div className="relative flex items-start justify-between gap-3">
                 <div>
                   <span className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-white/44">
                     Akash mesh
                   </span>
-                  <p className="mt-1 text-[0.94rem] font-medium tracking-[-0.02em] text-white/86">
-                    Placement stays visible
+                  <p className="mt-0.5 text-[0.9rem] font-medium tracking-[-0.02em] text-white/86">
+                    Placement stays visible across peers
                   </p>
                 </div>
 
@@ -190,104 +179,216 @@ export function AkashNativeCard({ className }: AkashNativeCardProps) {
                     reduceMotion
                       ? undefined
                       : {
-                          opacity: [0.82, 1, 0.82],
-                          boxShadow: [
-                            "0 0 0 rgba(255,65,76,0)",
-                            "0 0 18px rgba(255,65,76,0.18)",
-                            "0 0 0 rgba(255,65,76,0)",
-                          ],
+                          opacity: [0.54, 0.82, 0.54],
                         }
                   }
                   transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 3.2 }}
-                  className="rounded-full border border-[#FF414C]/18 bg-[#FF414C]/8 px-2.5 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-white"
+                  className="rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 text-[0.54rem] font-medium uppercase tracking-[0.18em] text-white/68"
                 >
-                  Network
+                  5 peers
                 </motion.span>
               </div>
 
-              <div className="relative mt-2 h-[74px]">
-                <div className="absolute left-1/2 top-[1rem] h-[2.85rem] w-px -translate-x-1/2 bg-gradient-to-b from-[#FF414C]/30 to-white/8" />
-                <div className="absolute left-[4.8rem] top-[1.95rem] h-px w-[2.5rem] bg-gradient-to-r from-white/8 to-[#FF414C]/30" />
-                <div className="absolute right-[4.8rem] top-[1.95rem] h-px w-[2.5rem] bg-gradient-to-l from-white/8 to-[#FF414C]/30" />
-
-                <motion.span
+              <div className="relative h-[78px]">
+                <svg
+                  viewBox="0 0 320 78"
+                  className="pointer-events-none absolute inset-0 h-full w-full"
+                  fill="none"
                   aria-hidden="true"
-                  animate={reduceMotion ? undefined : { rotate: 360 }}
-                  transition={reduceMotion ? undefined : ORBIT_SPIN}
-                  className="absolute left-1/2 top-[1.95rem] h-[3.3rem] w-[3.3rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#FF414C]/18"
-                />
-
-                <motion.div
-                  animate={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          scale: [1, 1.03, 1],
-                          opacity: [0.92, 1, 0.92],
-                        }
-                  }
-                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2 }}
-                  className="absolute left-1/2 top-[1.95rem] flex h-[2.35rem] w-[2.35rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#FF414C]/20 bg-[#FF414C]/[0.06] shadow-[0_0_20px_rgba(255,65,76,0.1)]"
                 >
-                  <span className="h-2 w-2 rounded-full bg-[#FF414C] shadow-[0_0_12px_rgba(255,65,76,0.45)]" />
-                </motion.div>
-
-                {REGION_NODES.map((node, index) => (
-                  <motion.div
-                    key={node.name}
+                  <path
+                    d="M40 56 L92 24"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M40 56 L124 58"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M92 24 L160 18"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M92 24 L124 58"
+                    stroke="rgba(255,255,255,0.12)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M124 58 L178 40"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M160 18 L178 40"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M160 18 L230 28"
+                    stroke="rgba(255,255,255,0.12)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M178 40 L230 28"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M178 40 L280 56"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M230 28 L280 56"
+                    stroke="rgba(255,255,255,0.14)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                  />
+                  <motion.path
+                    d="M40 56 L124 58 L178 40 L280 56"
+                    stroke="rgba(255,65,76,0.34)"
+                    strokeWidth="1.35"
+                    strokeLinecap="round"
+                    strokeDasharray="6 10"
                     animate={
                       reduceMotion
                         ? undefined
                         : {
-                            y: [0, index === 2 ? 1.5 : -1.5, 0],
+                            pathLength: [0.16, 1, 0.16],
+                            opacity: [0.12, 0.46, 0.12],
                           }
                     }
                     transition={
                       reduceMotion
                         ? undefined
+                        : { duration: 5.4, ease: "easeInOut", repeat: Infinity }
+                    }
+                  />
+                  <motion.path
+                    d="M92 24 L160 18 L230 28 L280 56"
+                    stroke="rgba(255,65,76,0.32)"
+                    strokeWidth="1.35"
+                    strokeLinecap="round"
+                    strokeDasharray="6 10"
+                    animate={
+                      reduceMotion
+                        ? undefined
                         : {
-                            duration: 5.6,
-                            ease: "easeInOut",
-                            repeat: Infinity,
-                            delay: index * 0.25,
+                            pathLength: [0.12, 1, 0.12],
+                            opacity: [0.12, 0.48, 0.12],
                           }
                     }
-                    className={cn(
-                      "absolute rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1.5",
-                      node.className,
-                    )}
-                  >
-                    <span className="text-[0.56rem] font-semibold uppercase tracking-[0.16em] text-white/74">
-                      {node.name}
-                    </span>
-                  </motion.div>
-                ))}
+                    transition={
+                      reduceMotion
+                        ? undefined
+                        : { duration: 5.8, ease: "easeInOut", repeat: Infinity, delay: 0.35 }
+                    }
+                  />
+                  <circle cx="40" cy="56" r="3.5" fill="rgba(255,255,255,0.12)" />
+                  <circle cx="92" cy="24" r="3.5" fill="rgba(255,255,255,0.12)" />
+                  <circle cx="124" cy="58" r="3.5" fill="rgba(255,255,255,0.1)" />
+                  <circle cx="160" cy="18" r="3.5" fill="rgba(255,255,255,0.12)" />
+                  <circle cx="230" cy="28" r="3.5" fill="rgba(255,255,255,0.12)" />
+                  <circle cx="280" cy="56" r="3.5" fill="rgba(255,255,255,0.12)" />
+                  <motion.circle
+                    cx="178"
+                    cy="40"
+                    r="7.5"
+                    fill="rgba(255,65,76,0.08)"
+                    stroke="rgba(255,65,76,0.2)"
+                    animate={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            scale: [0.96, 1.06, 0.96],
+                            opacity: [0.7, 1, 0.7],
+                          }
+                    }
+                    transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4 }}
+                    style={{ transformOrigin: "center" }}
+                  />
+                  <circle cx="178" cy="40" r="3.5" fill="#FF414C" />
+                  <motion.circle
+                    cx="40"
+                    cy="56"
+                    r="2.2"
+                    fill="#FF6A72"
+                    animate={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            cx: [40, 124, 178],
+                            cy: [56, 58, 40],
+                            opacity: [0, 1, 0],
+                          }
+                    }
+                    transition={
+                      reduceMotion
+                        ? undefined
+                        : { duration: 4.4, ease: "easeInOut", repeat: Infinity }
+                    }
+                  />
+                  <motion.circle
+                    cx="92"
+                    cy="24"
+                    r="2.2"
+                    fill="#FF6A72"
+                    animate={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            cx: [92, 160, 230, 280],
+                            cy: [24, 18, 28, 56],
+                            opacity: [0, 1, 0.92, 0],
+                          }
+                    }
+                    transition={
+                      reduceMotion
+                        ? undefined
+                        : { duration: 4.9, ease: "easeInOut", repeat: Infinity, delay: 0.4 }
+                    }
+                  />
+                </svg>
 
-                <motion.span
-                  aria-hidden="true"
-                  animate={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          top: ["1.2rem", "4.4rem", "1.2rem"],
-                          opacity: [0.12, 0.8, 0.12],
-                        }
-                  }
-                  transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
-                  className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-[#FF414C] shadow-[0_0_12px_rgba(255,65,76,0.38)]"
-                />
+                <span className="absolute left-0 top-[2.95rem] text-[0.46rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                  US
+                </span>
+                <span className="absolute left-[4.45rem] top-[0.1rem] text-[0.46rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                  US
+                </span>
+                <span className="absolute left-1/2 top-[0.65rem] -translate-x-1/2 text-[0.48rem] font-semibold uppercase tracking-[0.16em] text-[#FF8B92]">
+                  AP-S
+                </span>
+                <span className="absolute right-[3.55rem] top-[0.2rem] text-[0.46rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                  EU
+                </span>
+                <span className="absolute right-0 top-[2.9rem] text-[0.46rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                  EU
+                </span>
               </div>
 
               <motion.div
                 animate={reduceMotion ? undefined : { y: [0, 1.2, 0] }}
                 transition={reduceMotion ? undefined : { duration: 5.8, ease: "easeInOut", repeat: Infinity, delay: 0.55 }}
-                className="relative mt-1.5 flex items-center justify-between px-1"
+                className="relative flex min-h-[18px] items-center justify-between gap-3 px-1"
               >
-                <span className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-white/42">
-                  Hub, region, ownership
+                <span className="text-[0.48rem] font-semibold uppercase tracking-[0.18em] text-white/42">
+                  Mesh topology stays visible
                 </span>
-                <span className="rounded-full border border-[#FF414C]/14 bg-[#FF414C]/8 px-2.5 py-1.5 text-[0.56rem] font-medium uppercase tracking-[0.16em] text-white">
-                  Visible
+                <span className="rounded-full border border-[#FF414C]/14 bg-[#FF414C]/8 px-2 py-0.5 text-[0.48rem] font-medium uppercase tracking-[0.16em] text-white">
+                  Active region
                 </span>
               </motion.div>
             </motion.div>

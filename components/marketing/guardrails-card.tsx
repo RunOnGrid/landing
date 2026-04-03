@@ -162,7 +162,7 @@ export function GuardrailsCard({ className }: GuardrailsCardProps) {
 
           <div
             aria-hidden="true"
-            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-6 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
           >
             <motion.div
               animate={
@@ -180,7 +180,7 @@ export function GuardrailsCard({ className }: GuardrailsCardProps) {
             <motion.div
               animate={reduceMotion ? undefined : { y: [0, -2, 0] }}
               transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.5 }}
-              className="relative mx-auto h-[124px] w-full overflow-hidden px-1 py-1"
+              className="relative h-full w-full overflow-hidden px-1 py-1"
             >
               <motion.span
                 aria-hidden="true"
