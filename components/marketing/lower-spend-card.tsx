@@ -18,6 +18,11 @@ const SOFT_PULSE = {
   ease: "easeInOut" as const,
   repeat: Infinity,
 };
+const COMPARISON_ROWS = [
+  { label: "Compute", traditional: 88, akash: 46, delay: 0 },
+  { label: "Standby", traditional: 72, akash: 24, delay: 0.16 },
+  { label: "Overhead", traditional: 94, akash: 34, delay: 0.3 },
+] as const;
 
 function SpendGlyph() {
   return (
@@ -47,31 +52,81 @@ function SpendGlyph() {
   );
 }
 
-function SpendBar({
-  className,
-  animate,
-  transition,
-}: {
-  className: string;
-  animate?: { scaleY: number[]; opacity?: number[] };
-  transition?: { duration: number; ease: "easeInOut"; repeat: number; delay?: number };
-}) {
-  return (
-    <motion.span
-      animate={animate}
-      transition={transition}
-      className={cn(
-        "block w-3 rounded-full bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
-        className,
-      )}
-      style={{ transformOrigin: "bottom center" }}
-    />
-  );
-}
-
 type LowerSpendCardProps = {
   className?: string;
 };
+
+function ConsumptionTrack({
+  value,
+  tone,
+  delay,
+  reduceMotion,
+}: {
+  value: number;
+  tone: "traditional" | "akash";
+  delay: number;
+  reduceMotion: boolean;
+}) {
+  return (
+    <div className="relative h-4 overflow-hidden rounded-full bg-white/[0.045] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <motion.div
+        animate={
+          reduceMotion
+            ? undefined
+            : {
+                opacity: tone === "akash" ? [0.82, 1, 0.82] : [0.54, 0.74, 0.54],
+                scaleX: [1, 1.015, 1],
+              }
+        }
+        transition={
+          reduceMotion
+            ? undefined
+            : {
+                duration: tone === "akash" ? 3.8 + delay : 4.6 + delay,
+                ease: "easeInOut",
+                repeat: Infinity,
+                delay,
+              }
+        }
+        style={{ width: `${value}%`, transformOrigin: "left center" }}
+        className={cn(
+          "absolute inset-y-0 left-0 overflow-hidden rounded-full",
+          tone === "akash"
+            ? "bg-[linear-gradient(90deg,rgba(255,65,76,0.22),rgba(255,65,76,0.56))] shadow-[0_0_18px_rgba(255,65,76,0.12)]"
+            : "bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.2))]",
+        )}
+      >
+        <motion.span
+          aria-hidden="true"
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  x: [-36, 180, -36],
+                  opacity: tone === "akash" ? [0, 0.9, 0] : [0, 0.55, 0],
+                }
+          }
+          transition={
+            reduceMotion
+              ? undefined
+              : {
+                  duration: tone === "akash" ? 3.2 + delay : 4.1 + delay,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  delay,
+                }
+          }
+          className={cn(
+            "absolute inset-y-0 w-10 rounded-full blur-[6px]",
+            tone === "akash"
+              ? "bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.58),transparent)]"
+              : "bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.24),transparent)]",
+          )}
+        />
+      </motion.div>
+    </div>
+  );
+}
 
 export function LowerSpendCard({ className }: LowerSpendCardProps) {
   const reduceMotion = useReducedMotion() ?? false;
@@ -178,7 +233,7 @@ export function LowerSpendCard({ className }: LowerSpendCardProps) {
 
           <div
             aria-hidden="true"
-            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-6 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
           >
             <motion.div
               animate={
@@ -189,141 +244,76 @@ export function LowerSpendCard({ className }: LowerSpendCardProps) {
                       y: [0, 5, 0],
                     }
               }
-              transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 7.4 }}
+              transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 7.2 }}
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_72%,rgba(255,255,255,0.06),transparent_22%),radial-gradient(circle_at_84%_28%,rgba(255,65,76,0.14),transparent_26%)]"
             />
 
             <motion.div
-              animate={reduceMotion ? undefined : { y: [0, -1.5, 0] }}
-              transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.8 }}
-              className="relative mx-auto grid h-[124px] w-full grid-cols-[1fr_auto_1fr] items-center gap-3 px-1 py-1"
+              animate={reduceMotion ? undefined : { y: [0, -1.2, 0] }}
+              transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.6 }}
+              className="relative flex h-full w-full flex-col px-1 py-1"
             >
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [0, -1.5, 0] }}
-                transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.8 }}
-                className="flex h-full flex-col justify-between"
-              >
-                <span className="w-fit rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-white/56">
-                  Traditional
-                </span>
-
-                <div className="flex h-[58px] items-end gap-2">
-                  <SpendBar
-                    className="h-[46px] w-2.5"
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.05, 1], opacity: [0.72, 0.88, 0.72] }}
-                    transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
-                  />
-                  <SpendBar
-                    className="h-[32px] w-2.5"
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.04, 1], opacity: [0.62, 0.78, 0.62] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 5.2, ease: "easeInOut", repeat: Infinity, delay: 0.3 }
-                    }
-                  />
-                  <SpendBar
-                    className="h-[52px] w-2.5"
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.03, 1], opacity: [0.76, 0.9, 0.76] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 5.6, ease: "easeInOut", repeat: Infinity, delay: 0.55 }
-                    }
-                  />
-                </div>
-
-                <span className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-white/34">
-                  Legacy spend
-                </span>
-              </motion.div>
-
-              <div className="relative flex h-full items-center justify-center">
-                <motion.span
-                  animate={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          opacity: [0.35, 0.75, 0.35],
-                        }
-                  }
-                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 3.4 }}
-                  className="h-[72px] w-px bg-gradient-to-b from-white/10 via-[#FF414C]/45 to-white/10"
+              <div className="relative mt-1 flex-1 px-1 pb-1 pt-2">
+                <motion.div
+                  animate={reduceMotion ? undefined : { opacity: [0.14, 0.24, 0.14] }}
+                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 5 }}
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-[radial-gradient(circle_at_22%_52%,rgba(255,255,255,0.08),transparent_54%)]"
                 />
-                <motion.span
-                  aria-hidden="true"
-                  animate={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          top: ["22%", "74%", "22%"],
-                          opacity: [0.16, 0.9, 0.16],
-                        }
-                  }
-                  transition={reduceMotion ? undefined : { duration: 4.6, ease: "easeInOut", repeat: Infinity }}
-                  className="absolute h-7 w-7 rounded-full bg-[radial-gradient(circle,rgba(255,65,76,0.24),transparent_72%)] blur-[8px]"
-                />
-              </div>
-
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [0, 1.5, 0] }}
-                transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, duration: 6.4, delay: 0.7 }}
-                className="relative flex h-full flex-col justify-between"
-              >
-                <span className="w-fit rounded-full border border-[#FF414C]/16 bg-[#FF414C]/8 px-2.5 py-1.5 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-white/82 shadow-[0_0_20px_rgba(255,65,76,0.08)]">
-                  Akash DB
-                </span>
-
-                <div className="relative flex h-[58px] items-end gap-2">
-                  <motion.div
-                    animate={
-                      reduceMotion
-                        ? undefined
-                        : {
-                            x: ["-14%", "14%", "-14%"],
-                            opacity: [0.16, 0.28, 0.16],
-                          }
-                    }
-                    transition={reduceMotion ? undefined : { duration: 4.9, ease: "easeInOut", repeat: Infinity }}
-                    className="absolute inset-y-1 left-0 right-0 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,65,76,0.18),transparent)] blur-[8px]"
-                  />
-
-                  <motion.span
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.03, 1], opacity: [0.88, 1, 0.88] }}
-                    transition={reduceMotion ? undefined : { duration: 4.6, ease: "easeInOut", repeat: Infinity }}
-                    className="block h-[28px] w-2.5 rounded-full bg-[#FF414C]/88 shadow-[0_0_18px_rgba(255,65,76,0.14)]"
-                    style={{ transformOrigin: "bottom center" }}
-                  />
-                  <motion.span
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.04, 1], opacity: [0.82, 0.96, 0.82] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 5, ease: "easeInOut", repeat: Infinity, delay: 0.35 }
-                    }
-                    className="block h-[20px] w-2.5 rounded-full bg-[#FF414C]/74 shadow-[0_0_18px_rgba(255,65,76,0.12)]"
-                    style={{ transformOrigin: "bottom center" }}
-                  />
-                  <motion.span
-                    animate={reduceMotion ? undefined : { scaleY: [1, 1.02, 1], opacity: [0.84, 1, 0.84] }}
-                    transition={
-                      reduceMotion
-                        ? undefined
-                        : { duration: 5.4, ease: "easeInOut", repeat: Infinity, delay: 0.55 }
-                    }
-                    className="block h-[34px] w-2.5 rounded-full bg-[#FF414C]/82 shadow-[0_0_18px_rgba(255,65,76,0.12)]"
-                    style={{ transformOrigin: "bottom center" }}
-                  />
-                </div>
-
-                <motion.span
-                  animate={reduceMotion ? undefined : { opacity: [0.42, 0.62, 0.42] }}
+                <motion.div
+                  animate={reduceMotion ? undefined : { opacity: [0.16, 0.32, 0.16] }}
                   transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2 }}
-                  className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-[#FF414C]"
-                >
-                  Lower cost
-                </motion.span>
-              </motion.div>
+                  className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_78%_42%,rgba(255,65,76,0.16),transparent_54%)]"
+                />
+                <div className="pointer-events-none absolute inset-y-1 left-[calc(4.4rem_+_0.75rem)] w-px bg-gradient-to-b from-transparent via-white/6 to-transparent" />
+                <div className="pointer-events-none absolute inset-y-1 left-[calc(4.4rem_+_0.75rem_+_50%_-_0.375rem)] w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-10 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+
+                <div className="grid grid-cols-[4.4rem_1fr_1fr] items-center gap-x-3 gap-y-3">
+                  <span />
+                  <span className="pb-1 text-[0.52rem] font-semibold uppercase tracking-[0.16em] text-white/42">
+                    Traditional deployments
+                  </span>
+                  <span className="pb-1 text-[0.52rem] font-semibold uppercase tracking-[0.16em] text-[#FF414C]">
+                    Akash deploy
+                  </span>
+
+                  {COMPARISON_ROWS.map((row) => (
+                    <div
+                      key={row.label}
+                      className="contents"
+                    >
+                      <span className="text-[0.56rem] font-semibold uppercase tracking-[0.14em] text-white/34">
+                        {row.label}
+                      </span>
+                      <ConsumptionTrack
+                        value={row.traditional}
+                        tone="traditional"
+                        delay={row.delay}
+                        reduceMotion={reduceMotion}
+                      />
+                      <ConsumptionTrack
+                        value={row.akash}
+                        tone="akash"
+                        delay={row.delay + 0.08}
+                        reduceMotion={reduceMotion}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex items-center justify-between pt-3">
+                  <span className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-white/34">
+                    Higher consumption
+                  </span>
+                  <motion.span
+                    animate={reduceMotion ? undefined : { opacity: [0.42, 0.64, 0.42] }}
+                    transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2 }}
+                    className="text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-[#FF414C]"
+                  >
+                    Lower consumption
+                  </motion.span>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -335,7 +325,7 @@ export function LowerSpendCard({ className }: LowerSpendCardProps) {
           <p className="mt-3 text-[0.97rem] font-medium leading-7 tracking-[-0.02em] text-white/90">
             Infrastructure costs with room to breathe
           </p>
-          <p className="mt-4 max-w-[32ch] text-[0.95rem] leading-7 text-white/62">
+          <p className="mt-4 text-[0.95rem] leading-7 text-white/62">
             Move managed Postgres onto Akash Network with materially lower spend
             and a cleaner operational footprint.
           </p>

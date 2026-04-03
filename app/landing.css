@@ -1161,10 +1161,23 @@
       }
 
       .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 22px;
         margin-top: 54px;
+      }
+
+      .feature-grid-row {
+        display: grid;
+        gap: 22px;
+      }
+
+      .feature-grid-row-duo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .feature-grid-row-trio {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .feature-card {
@@ -3026,7 +3039,7 @@
           grid-template-columns: 1fr;
         }
 
-        .feature-grid {
+        .feature-grid-row {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
@@ -3270,7 +3283,7 @@
           padding: 112px 0 92px;
         }
 
-        .feature-grid {
+        .feature-grid-row {
           grid-template-columns: 1fr;
         }
 

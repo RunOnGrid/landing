@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>akashDB Landing Mockup</title>
+    <title>Akash DB</title>
+    <link rel="icon" href="./app/icon.png" />
     <style>
       :root {
         --bg: #030303;
@@ -116,7 +117,10 @@
         padding: 12px 12px 0;
         font-family: "Inter", system-ui, sans-serif;
         pointer-events: none;
-        transition: padding 220ms ease;
+        transition:
+          padding 220ms ease,
+          transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       .site-header::before,
@@ -126,6 +130,11 @@
 
       .site-header.is-scrolled {
         padding-top: 10px;
+      }
+
+      .site-header.is-hidden {
+        transform: translateY(-110px);
+        opacity: 0.94;
       }
 
       .nav-shell {
@@ -531,40 +540,83 @@
       }
 
       .hero-media-inner {
+        position: relative;
         width: 100%;
         height: 100%;
+        overflow: hidden;
         transform: translate3d(var(--hero-shift-x), var(--hero-shift-y), 0) scale(1.08);
         transition: transform 260ms ease-out;
         will-change: transform;
+        background:
+          radial-gradient(circle at center, rgba(255, 65, 76, 0.16), transparent 22%),
+          radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 40%),
+          linear-gradient(180deg, rgba(3, 3, 3, 0.18), rgba(3, 3, 3, 0.92));
       }
 
-      .hero-media img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 38%;
-        filter: saturate(0.94) brightness(0.84) contrast(1.04);
+      .hero-media-inner::after {
+        content: "";
+        position: absolute;
+        inset: 18% 24% 20%;
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 104, 116, 0.34) 0%,
+          rgba(255, 104, 116, 0.12) 28%,
+          rgba(255, 255, 255, 0.06) 42%,
+          transparent 72%
+        );
+        filter: blur(52px);
+        opacity: 0.88;
+        pointer-events: none;
+      }
+
+      .hero-poster,
+      .hero-vortex-root {
+        position: absolute;
+        inset: -6%;
+      }
+
+      .hero-poster {
+        background:
+          radial-gradient(circle at 50% 42%, rgba(255, 65, 76, 0.2), transparent 24%),
+          linear-gradient(180deg, rgba(3, 3, 3, 0.06), rgba(3, 3, 3, 0.66)),
+          url("./public/hero-vortex-grok.jpg") center 38% / cover no-repeat;
+        filter: saturate(0.9) brightness(0.74) contrast(1.08);
+        opacity: 0.82;
+        transform: scale(1.04);
+      }
+
+      .hero-vortex-root {
+        pointer-events: none;
+        opacity: 0.98;
+        mix-blend-mode: screen;
+      }
+
+      .hero-vortex-root canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        filter: saturate(1.18) brightness(1.12) contrast(1.08);
       }
 
       .hero-overlay {
         background:
           linear-gradient(
             90deg,
-            rgba(3, 3, 3, 0.94) 0%,
-            rgba(3, 3, 3, 0.86) 18%,
-            rgba(3, 3, 3, 0.56) 44%,
-            rgba(3, 3, 3, 0.3) 58%,
-            rgba(3, 3, 3, 0.62) 100%
+            rgba(3, 3, 3, 0.72) 0%,
+            rgba(3, 3, 3, 0.54) 18%,
+            rgba(3, 3, 3, 0.2) 44%,
+            rgba(3, 3, 3, 0.08) 58%,
+            rgba(3, 3, 3, 0.4) 100%
           ),
           linear-gradient(
             180deg,
-            rgba(3, 3, 3, 0.22) 0%,
-            rgba(3, 3, 3, 0.08) 22%,
-            rgba(3, 3, 3, 0.38) 58%,
-            rgba(3, 3, 3, 0.84) 82%,
-            rgba(3, 3, 3, 1) 100%
+            rgba(3, 3, 3, 0.12) 0%,
+            rgba(3, 3, 3, 0.02) 22%,
+            rgba(3, 3, 3, 0.18) 58%,
+            rgba(3, 3, 3, 0.7) 82%,
+            rgba(3, 3, 3, 0.94) 100%
           ),
-          radial-gradient(circle at 57% 34%, rgba(255, 65, 76, 0.12), transparent 24%);
+          radial-gradient(circle at 50% 42%, rgba(255, 104, 116, 0.2), transparent 28%);
       }
 
       .hero-top-fade {
@@ -747,6 +799,7 @@
       }
 
       .hero-command-frame {
+        position: relative;
         padding: 18px;
         border: 1px solid rgba(81, 81, 81, 0.5);
         border-radius: 24px;
@@ -759,12 +812,29 @@
       .hero-command-top {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
         gap: 10px;
         margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(81, 81, 81, 0.34);
+      }
+
+      .hero-command-label {
+        color: rgba(255, 255, 255, 0.48);
+        font-family:
+          "JetBrains Mono",
+          "SFMono-Regular",
+          ui-monospace,
+          "Cascadia Code",
+          monospace;
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: lowercase;
       }
 
       .hero-command-row {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 14px;
@@ -772,21 +842,53 @@
         border: 1px solid rgba(81, 81, 81, 0.62);
         border-radius: 20px;
         background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.01)),
-          rgba(10, 10, 10, 0.88);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.008)),
+          linear-gradient(180deg, rgba(16, 16, 16, 0.96), rgba(9, 9, 9, 0.98));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.03),
+          0 10px 26px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero-command-row::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 10px;
+        width: 3px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255, 65, 76, 0.92), rgba(255, 65, 76, 0.14));
+        box-shadow: 0 0 18px rgba(255, 65, 76, 0.22);
+        pointer-events: none;
+      }
+
+      .hero-command-prompt {
+        flex-shrink: 0;
+        padding-left: 10px;
+        color: rgba(255, 65, 76, 0.94);
+        font-family:
+          "JetBrains Mono",
+          "SFMono-Regular",
+          ui-monospace,
+          "Cascadia Code",
+          monospace;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-shadow: 0 0 16px rgba(255, 65, 76, 0.18);
       }
 
       .hero-command-code {
         flex: 1;
         min-width: 0;
-        color: rgba(255, 255, 255, 0.92);
+        color: rgba(255, 255, 255, 0.96);
         font-size: 0.96rem;
         line-height: 1.65;
         letter-spacing: -0.02em;
         text-align: left;
         white-space: nowrap;
         overflow-x: auto;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
         font-family:
           "JetBrains Mono",
           "SFMono-Regular",
@@ -1238,6 +1340,770 @@
         color: rgba(245, 237, 232, 0.6);
         font-size: 0.95rem;
         line-height: 1.76;
+      }
+
+      .feature-scene-agent,
+      .feature-scene-spend,
+      .feature-scene-guardrail,
+      .feature-scene-flow,
+      .feature-scene-mesh,
+      .feature-scene-wheel {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .feature-scene-agent {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: 18px;
+        align-items: center;
+        padding: 0 18px;
+      }
+
+      .scene-agent-core {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        border-radius: 999px;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        background:
+          radial-gradient(circle at center, rgba(255, 65, 76, 0.2), transparent 62%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+          rgba(8, 8, 8, 0.88);
+        box-shadow:
+          0 0 34px rgba(255, 65, 76, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+
+      .scene-agent-core::before,
+      .scene-agent-core::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+      }
+
+      .scene-agent-core::before {
+        inset: 12px;
+        border: 1px solid rgba(255, 65, 76, 0.24);
+      }
+
+      .scene-agent-core::after {
+        inset: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .scene-agent-orbit {
+        position: absolute;
+        inset: -8px;
+        border: 1px dashed rgba(255, 65, 76, 0.2);
+        border-radius: 999px;
+        animation: mockup-spin 18s linear infinite;
+      }
+
+      .scene-agent-glyph {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .scene-agent-glyph img {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+        transform: scale(1.35);
+        filter: drop-shadow(0 0 16px rgba(255, 65, 76, 0.22));
+      }
+
+      .scene-agent-side {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .scene-agent-stream {
+        position: relative;
+        height: 2px;
+        margin: 0 12px 2px 0;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 65, 76, 0.6),
+          rgba(255, 65, 76, 0.2),
+          rgba(255, 255, 255, 0.1)
+        );
+      }
+
+      .scene-agent-dot {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 12px rgba(255, 65, 76, 0.42);
+        transform: translateY(-50%);
+        animation: mockup-line-travel 4.8s ease-in-out infinite;
+      }
+
+      .scene-agent-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .scene-agent-label,
+      .scene-agent-command {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 0.68rem;
+        font-weight: 600;
+      }
+
+      .scene-agent-label {
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        color: rgba(255, 255, 255, 0.58);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .scene-agent-command {
+        border: 1px solid rgba(255, 65, 76, 0.18);
+        background: rgba(255, 65, 76, 0.08);
+        color: #ffffff;
+        letter-spacing: -0.02em;
+        box-shadow: 0 0 20px rgba(255, 65, 76, 0.1);
+      }
+
+      .scene-agent-command-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 10px rgba(255, 65, 76, 0.5);
+      }
+
+      .scene-agent-status {
+        position: absolute;
+        left: 18px;
+        bottom: 14px;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .feature-scene-spend {
+        padding: 0 18px;
+      }
+
+      .scene-spend-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 14px;
+        width: 100%;
+        height: 124px;
+        align-items: center;
+      }
+
+      .scene-spend-column {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .scene-spend-pill {
+        width: fit-content;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        color: rgba(255, 255, 255, 0.56);
+        padding: 8px 10px;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .scene-spend-pill-accent {
+        border-color: rgba(255, 65, 76, 0.18);
+        background: rgba(255, 65, 76, 0.08);
+        color: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 0 20px rgba(255, 65, 76, 0.08);
+      }
+
+      .scene-spend-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 58px;
+      }
+
+      .scene-spend-bars span {
+        width: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .scene-spend-bars-accent span {
+        background: rgba(255, 65, 76, 0.82);
+        box-shadow: 0 0 18px rgba(255, 65, 76, 0.12);
+      }
+
+      .scene-spend-bar-46 {
+        height: 46px;
+      }
+
+      .scene-spend-bar-32 {
+        height: 32px;
+      }
+
+      .scene-spend-bar-52 {
+        height: 52px;
+      }
+
+      .scene-spend-bar-28 {
+        height: 28px;
+      }
+
+      .scene-spend-bar-20 {
+        height: 20px;
+      }
+
+      .scene-spend-bar-34 {
+        height: 34px;
+      }
+
+      .scene-spend-divider {
+        position: relative;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .scene-spend-divider::before {
+        content: "";
+        width: 1px;
+        height: 72px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 65, 76, 0.45),
+          rgba(255, 255, 255, 0.1)
+        );
+      }
+
+      .scene-spend-divider span {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(255, 65, 76, 0.24), transparent 72%);
+        filter: blur(8px);
+      }
+
+      .scene-spend-caption {
+        color: rgba(255, 255, 255, 0.34);
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .scene-spend-caption-accent {
+        color: #ff414c;
+      }
+
+      .feature-scene-guardrail,
+      .feature-scene-flow,
+      .feature-scene-mesh,
+      .feature-scene-wheel {
+        padding: 12px 14px;
+      }
+
+      .scene-guardrail-card,
+      .scene-flow-card,
+      .scene-mesh-card,
+      .scene-wheel-card {
+        position: relative;
+        width: 100%;
+        height: 124px;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 20px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.012)),
+          rgba(7, 7, 7, 0.88);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.04),
+          0 18px 34px rgba(0, 0, 0, 0.2);
+      }
+
+      .scene-guardrail-card {
+        padding: 14px;
+      }
+
+      .scene-guardrail-head,
+      .scene-mesh-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .scene-guardrail-kicker,
+      .scene-mesh-kicker,
+      .scene-flow-box span,
+      .scene-flow-bottom div span,
+      .scene-mesh-foot span:first-child {
+        color: rgba(255, 255, 255, 0.44);
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .scene-guardrail-title,
+      .scene-mesh-title,
+      .scene-flow-box p,
+      .scene-flow-bottom p {
+        margin: 4px 0 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .scene-guardrail-chip,
+      .scene-mesh-chip,
+      .scene-flow-badge,
+      .scene-mesh-visible {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 65, 76, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 65, 76, 0.08);
+        color: #ffffff;
+        padding: 8px 10px;
+        font-size: 0.56rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        box-shadow: 0 0 18px rgba(255, 65, 76, 0.12);
+      }
+
+      .scene-guardrail-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 18px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        padding: 10px 12px;
+      }
+
+      .scene-guardrail-row > span {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.92rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .scene-guardrail-live,
+      .scene-guardrail-backups,
+      .scene-guardrail-metrics {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .scene-guardrail-check {
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(255, 65, 76, 0.12);
+        color: #ff414c;
+      }
+
+      .scene-guardrail-live strong,
+      .scene-guardrail-metrics strong {
+        color: #ffffff;
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .scene-guardrail-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+        padding: 0 2px;
+      }
+
+      .scene-guardrail-backups span:last-child,
+      .scene-guardrail-metrics span {
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .scene-guardrail-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 10px rgba(255, 65, 76, 0.38);
+      }
+
+      .scene-guardrail-rule {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 10px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 65, 76, 0.45), transparent);
+      }
+
+      .scene-flow-card {
+        padding: 14px;
+      }
+
+      .scene-flow-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .scene-flow-box {
+        width: 4.3rem;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 15px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        padding: 9px 10px;
+      }
+
+      .scene-flow-box-accent {
+        border-color: rgba(255, 65, 76, 0.18);
+        background: rgba(255, 65, 76, 0.05);
+        box-shadow: 0 0 18px rgba(255, 65, 76, 0.06);
+      }
+
+      .scene-flow-rail {
+        position: relative;
+        height: 32px;
+        margin-top: 10px;
+      }
+
+      .scene-flow-line {
+        position: absolute;
+        left: 48px;
+        right: 48px;
+        top: 50%;
+        height: 1px;
+        transform: translateY(-50%);
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 65, 76, 0.35),
+          rgba(255, 255, 255, 0.08)
+        );
+      }
+
+      .scene-flow-pulse {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 12px rgba(255, 65, 76, 0.42);
+        transform: translate(-50%, -50%);
+      }
+
+      .scene-flow-chip {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.88);
+        color: rgba(255, 255, 255, 0.74);
+        padding: 8px 12px;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .scene-flow-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 10px;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 15px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        padding: 9px 10px;
+      }
+
+      .scene-mesh-card {
+        padding: 14px;
+      }
+
+      .scene-mesh-map {
+        position: relative;
+        height: 50px;
+        margin-top: 8px;
+      }
+
+      .scene-mesh-spine,
+      .scene-mesh-branch {
+        position: absolute;
+      }
+
+      .scene-mesh-spine {
+        left: 50%;
+        top: 2px;
+        width: 1px;
+        height: 34px;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, rgba(255, 65, 76, 0.3), rgba(255, 255, 255, 0.08));
+      }
+
+      .scene-mesh-branch {
+        top: 17px;
+        height: 1px;
+      }
+
+      .scene-mesh-branch-left {
+        left: 30%;
+        width: 30px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 65, 76, 0.3));
+      }
+
+      .scene-mesh-branch-right {
+        right: 30%;
+        width: 30px;
+        background: linear-gradient(90deg, rgba(255, 65, 76, 0.3), rgba(255, 255, 255, 0.08));
+      }
+
+      .scene-mesh-orbit {
+        position: absolute;
+        left: 50%;
+        top: 17px;
+        width: 54px;
+        height: 54px;
+        border: 1px dashed rgba(255, 65, 76, 0.18);
+        border-radius: 999px;
+        transform: translate(-50%, -50%);
+        animation: mockup-spin 18s linear infinite;
+      }
+
+      .scene-mesh-hub {
+        position: absolute;
+        left: 50%;
+        top: 17px;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 65, 76, 0.2);
+        background: rgba(255, 65, 76, 0.06);
+        box-shadow: 0 0 20px rgba(255, 65, 76, 0.1);
+        transform: translate(-50%, -50%);
+      }
+
+      .scene-mesh-hub::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 12px rgba(255, 65, 76, 0.45);
+        transform: translate(-50%, -50%);
+      }
+
+      .scene-mesh-node {
+        position: absolute;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+          rgba(10, 10, 10, 0.82);
+        color: rgba(255, 255, 255, 0.74);
+        padding: 8px 10px;
+        font-size: 0.56rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .scene-mesh-node-left {
+        left: 12px;
+        top: 3px;
+      }
+
+      .scene-mesh-node-right {
+        right: 12px;
+        top: 3px;
+      }
+
+      .scene-mesh-node-bottom {
+        left: 50%;
+        bottom: -4px;
+        transform: translateX(-50%);
+      }
+
+      .scene-mesh-trace {
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #ff414c;
+        box-shadow: 0 0 12px rgba(255, 65, 76, 0.38);
+        transform: translateX(-50%);
+      }
+
+      .scene-mesh-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 10px;
+        padding: 0 2px;
+      }
+
+      .scene-wheel-card {
+        overflow: hidden;
+        padding: 0 8px;
+      }
+
+      .scene-wheel-vignette,
+      .scene-wheel-window {
+        position: absolute;
+        inset-x: 0;
+        pointer-events: none;
+      }
+
+      .scene-wheel-vignette-top {
+        top: 0;
+        height: 28px;
+        background: linear-gradient(180deg, rgba(20, 20, 20, 0.74), rgba(20, 20, 20, 0.34), transparent);
+        z-index: 2;
+      }
+
+      .scene-wheel-vignette-bottom {
+        bottom: 0;
+        height: 28px;
+        background: linear-gradient(0deg, rgba(20, 20, 20, 0.74), rgba(20, 20, 20, 0.34), transparent);
+        z-index: 2;
+      }
+
+      .scene-wheel-window {
+        left: 8px;
+        right: 8px;
+        top: 50%;
+        height: 32px;
+        border: 1px solid rgba(81, 81, 81, 0.48);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.028);
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .scene-wheel-window::before,
+      .scene-wheel-window::after {
+        content: "";
+        position: absolute;
+        inset-x: 18px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+      }
+
+      .scene-wheel-window::before {
+        top: 0;
+      }
+
+      .scene-wheel-window::after {
+        bottom: 0;
+      }
+
+      .scene-wheel-track {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+      }
+
+      .scene-wheel-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+        color: rgba(255, 255, 255, 0.18);
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+      }
+
+      .scene-wheel-item.is-near {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.92rem;
+      }
+
+      .scene-wheel-item.is-active {
+        color: #ffffff;
+        font-size: 1.05rem;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+      }
+
+      .scene-wheel-item.is-far {
+        color: rgba(255, 255, 255, 0.1);
+        filter: blur(0.3px);
       }
 
       .scene-poster {
@@ -2949,6 +3815,29 @@
         }
       }
 
+      @keyframes mockup-spin {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes mockup-line-travel {
+        0%,
+        100% {
+          left: 0;
+          opacity: 0.28;
+        }
+
+        50% {
+          left: calc(100% - 8px);
+          opacity: 0.92;
+        }
+      }
+
       @media (max-width: 1080px) {
         .cli-grid,
         .proof-grid,
@@ -3124,10 +4013,31 @@
           align-items: flex-start;
         }
 
+        .hero-command-top {
+          gap: 12px;
+        }
+
         .hero-command-row {
           flex-direction: column;
           gap: 10px;
           padding: 10px;
+        }
+
+        .hero-command-row::before {
+          top: 10px;
+          bottom: auto;
+          left: 10px;
+          right: 10px;
+          width: auto;
+          height: 2px;
+        }
+
+        .hero-command-label {
+          font-size: 0.68rem;
+        }
+
+        .hero-command-prompt {
+          padding-left: 0;
         }
 
         .hero-command-code {
@@ -3154,6 +4064,34 @@
           grid-template-columns: 1fr;
         }
 
+        .feature-scene-agent {
+          grid-template-columns: 80px minmax(0, 1fr);
+          gap: 14px;
+          padding: 0 14px;
+        }
+
+        .scene-agent-core {
+          width: 80px;
+          height: 80px;
+        }
+
+        .scene-agent-status {
+          left: 14px;
+          font-size: 0.6rem;
+          letter-spacing: 0.18em;
+        }
+
+        .scene-spend-grid {
+          gap: 10px;
+        }
+
+        .scene-guardrail-card,
+        .scene-flow-card,
+        .scene-mesh-card,
+        .scene-wheel-card {
+          height: 116px;
+        }
+
         .terminal-meta,
         .footer-bottom {
           flex-direction: column;
@@ -3163,7 +4101,7 @@
     </style>
   </head>
   <body>
-    <div class="page">
+    <div class="page landing-page-root">
       <header class="site-header" id="siteHeader">
         <div class="nav-shell">
           <a class="brand" href="#top" aria-label="akashDB home">
@@ -3174,7 +4112,7 @@
           </a>
 
           <nav class="nav-links" aria-label="Primary">
-            <a class="nav-link" href="#cli">Docs</a>
+            <a class="nav-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">Docs</a>
             <a class="nav-link" href="#updates">Updates</a>
           </nav>
 
@@ -3203,7 +4141,7 @@
         <div class="mobile-panel-backdrop"></div>
         <div class="mobile-panel-content">
           <nav class="mobile-links" aria-label="Mobile">
-            <a class="mobile-link" href="#cli">Docs</a>
+            <a class="mobile-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">Docs</a>
             <a class="mobile-link" href="#updates">Updates</a>
           </nav>
 
@@ -3219,10 +4157,12 @@
         <section class="hero" id="cli">
           <div class="hero-media">
             <div class="hero-media-inner">
-              <img
-                src="./public/hero-vortex-grok.jpg"
-                alt="Large centered vortex formed by books and floating data cubes"
-              />
+              <div
+                class="hero-poster"
+                aria-hidden="true"
+                title="Hero fallback image"
+              ></div>
+              <div class="hero-vortex-root" id="heroVortexRoot" aria-hidden="true"></div>
             </div>
           </div>
           <div class="hero-overlay"></div>
@@ -3253,12 +4193,12 @@
                       <span class="terminal-dot" style="background:rgba(255,255,255,0.28)"></span>
                       <span class="terminal-dot" style="background:rgba(255,255,255,0.38)"></span>
                     </div>
+                    <span class="hero-command-label">akashdb / install</span>
                   </div>
 
                   <div class="hero-command-row">
-                    <code class="hero-command-code" id="heroInstallCommand"
-                      >curl -s https://akash.network/db-cli.sh | bash</code
-                    >
+                    <span class="hero-command-prompt" aria-hidden="true">$</span>
+                    <code class="hero-command-code" id="heroInstallCommand">npm i cli-akashdb</code>
                     <button
                       class="hero-copy-button"
                       type="button"
@@ -3283,13 +4223,11 @@
           <div class="section-inner">
             <div class="section-bridge-copy fade-up observe">
               <p class="section-kicker">Deployment Surface</p>
-              <h2 class="section-title">
-                Operator-grade primitives beneath the first command
-              </h2>
+              <h2 class="section-title">Why choose akashDB?</h2>
               <p class="section-copy">
-                A calmer operational layer for provisioning, visibility, and
-                cost control, designed to feel as clear and deliberate as the
-                first command itself.
+                A operational layer for provisioning, visibility, and cost
+                control, designed to feel as clear and deliberate as the first
+                command itself.
               </p>
             </div>
 
@@ -3307,15 +4245,26 @@
                     </span>
                     <span class="feature-number">01</span>
                   </div>
-                  <div class="feature-scene scene-poster">
-                    <div class="scene-poster-card">
-                      <div class="scene-poster-core">
-                        <span class="scene-poster-orbit"></span>
+                  <div class="feature-scene feature-scene-agent">
+                    <div class="scene-agent-core">
+                      <span class="scene-agent-orbit"></span>
+                      <span class="scene-agent-glyph">
                         <img src="./public/logo.png" alt="" />
-                      </div>
-                      <span class="scene-poster-spark"></span>
-                      <span class="scene-poster-caption">CLI Surface</span>
+                      </span>
                     </div>
+                    <div class="scene-agent-side">
+                      <div class="scene-agent-stream">
+                        <span class="scene-agent-dot"></span>
+                      </div>
+                      <div class="scene-agent-stack">
+                        <span class="scene-agent-label">Agent request</span>
+                        <span class="scene-agent-command">
+                          <span class="scene-agent-command-dot"></span>
+                          <span>postgres.deploy</span>
+                        </span>
+                      </div>
+                    </div>
+                    <span class="scene-agent-status">Context intact</span>
                   </div>
                 </div>
                 <div class="feature-card-body">
@@ -3340,22 +4289,30 @@
                     </span>
                     <span class="feature-number">02</span>
                   </div>
-                  <div class="feature-scene scene-network">
-                    <div class="scene-network-board"></div>
-                    <span class="scene-cost-pill scene-cost-pill-left">Traditional</span>
-                    <span class="scene-cost-pill scene-cost-pill-right">Akash DB</span>
-                    <div class="scene-cost-stack scene-cost-stack-left">
-                      <span class="scene-cost-bar"></span>
-                      <span class="scene-cost-bar"></span>
-                      <span class="scene-cost-bar"></span>
+                  <div class="feature-scene feature-scene-spend">
+                    <div class="scene-spend-grid">
+                      <div class="scene-spend-column">
+                        <span class="scene-spend-pill">Traditional</span>
+                        <div class="scene-spend-bars">
+                          <span class="scene-spend-bar-46"></span>
+                          <span class="scene-spend-bar-32"></span>
+                          <span class="scene-spend-bar-52"></span>
+                        </div>
+                        <span class="scene-spend-caption">Legacy spend</span>
+                      </div>
+                      <div class="scene-spend-divider">
+                        <span></span>
+                      </div>
+                      <div class="scene-spend-column">
+                        <span class="scene-spend-pill scene-spend-pill-accent">Akash DB</span>
+                        <div class="scene-spend-bars scene-spend-bars-accent">
+                          <span class="scene-spend-bar-28"></span>
+                          <span class="scene-spend-bar-20"></span>
+                          <span class="scene-spend-bar-34"></span>
+                        </div>
+                        <span class="scene-spend-caption scene-spend-caption-accent">Lower cost</span>
+                      </div>
                     </div>
-                    <div class="scene-cost-divider"></div>
-                    <div class="scene-cost-stack scene-cost-stack-right">
-                      <span class="scene-cost-bar"></span>
-                      <span class="scene-cost-bar"></span>
-                      <span class="scene-cost-bar"></span>
-                    </div>
-                    <span class="scene-cost-tag">Lower run cost</span>
                   </div>
                 </div>
                 <div class="feature-card-body">
@@ -3379,35 +4336,37 @@
                     </span>
                     <span class="feature-number">03</span>
                   </div>
-                  <div class="feature-scene scene-guardrails">
-                    <div class="scene-guardrails-panel">
-                      <div class="scene-guardrails-top">
-                        <span class="scene-guardrails-title">Health checks</span>
-                        <span class="scene-guardrails-badge">Passing</span>
+                  <div class="feature-scene feature-scene-guardrail">
+                    <div class="scene-guardrail-card">
+                      <div class="scene-guardrail-head">
+                        <div>
+                          <span class="scene-guardrail-kicker">Health checks</span>
+                          <p class="scene-guardrail-title">Runtime guardrails</p>
+                        </div>
+                        <span class="scene-guardrail-chip">Passing</span>
                       </div>
-                      <div class="scene-guardrails-list">
-                        <div class="scene-guardrails-row">
-                          <strong>Logs attached</strong>
-                          <span class="scene-guardrails-check">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+                      <div class="scene-guardrail-row">
+                        <span>Logs attached</span>
+                        <div class="scene-guardrail-live">
+                          <span class="scene-guardrail-check">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" aria-hidden="true">
                               <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                           </span>
-                        </div>
-                        <div class="scene-guardrails-row">
-                          <strong>Backups active</strong>
-                          <span class="scene-guardrails-check">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
-                              <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          </span>
-                        </div>
-                        <div class="scene-guardrails-row">
-                          <strong>Ready for deploy</strong>
-                          <span>42ms</span>
+                          <strong>Live</strong>
                         </div>
                       </div>
-                      <div class="scene-guardrails-glow"></div>
+                      <div class="scene-guardrail-foot">
+                        <div class="scene-guardrail-backups">
+                          <span class="scene-guardrail-dot"></span>
+                          <span>Backups active</span>
+                        </div>
+                        <div class="scene-guardrail-metrics">
+                          <span>Ready</span>
+                          <strong>42ms</strong>
+                        </div>
+                      </div>
+                      <div class="scene-guardrail-rule"></div>
                     </div>
                   </div>
                 </div>
@@ -3432,20 +4391,30 @@
                     </span>
                     <span class="feature-number">04</span>
                   </div>
-                  <div class="feature-scene scene-migration">
-                    <div class="scene-migration-panel">
-                      <div class="scene-handoff-card scene-handoff-card-left">
-                        <strong>Operator</strong>
-                        <span>Request</span>
+                  <div class="feature-scene feature-scene-flow">
+                    <div class="scene-flow-card">
+                      <div class="scene-flow-top">
+                        <div class="scene-flow-box">
+                          <span>Operator</span>
+                          <p>Request</p>
+                        </div>
+                        <div class="scene-flow-box scene-flow-box-accent">
+                          <span>Agent</span>
+                          <p>Deploy</p>
+                        </div>
                       </div>
-                      <div class="scene-handoff-card scene-handoff-card-right">
-                        <strong>Agent</strong>
-                        <span>Deploy</span>
+                      <div class="scene-flow-rail">
+                        <div class="scene-flow-line"></div>
+                        <span class="scene-flow-pulse"></span>
+                        <span class="scene-flow-chip">postgres.yaml</span>
                       </div>
-                      <span class="scene-handoff-pill">postgres.yaml</span>
-                      <span class="scene-handoff-dot scene-handoff-dot-left"></span>
-                      <span class="scene-handoff-dot scene-handoff-dot-right"></span>
-                      <span class="scene-handoff-caption">Shared handoff</span>
+                      <div class="scene-flow-bottom">
+                        <div>
+                          <span>Shared context</span>
+                          <p>Same spec, same handoff</p>
+                        </div>
+                        <span class="scene-flow-badge">Verified</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3472,20 +4441,30 @@
                     </span>
                     <span class="feature-number">05</span>
                   </div>
-                  <div class="feature-scene scene-support">
-                    <div class="scene-akash-network">
-                      <span class="scene-akash-link scene-akash-link-a"></span>
-                      <span class="scene-akash-link scene-akash-link-b"></span>
-                      <span class="scene-akash-link scene-akash-link-c"></span>
-                      <span class="scene-akash-link scene-akash-link-d"></span>
-                      <div class="scene-akash-hub">
-                        <img src="./public/logo.png" alt="" />
+                  <div class="feature-scene feature-scene-mesh">
+                    <div class="scene-mesh-card">
+                      <div class="scene-mesh-head">
+                        <div>
+                          <span class="scene-mesh-kicker">Akash mesh</span>
+                          <p class="scene-mesh-title">Placement stays visible</p>
+                        </div>
+                        <span class="scene-mesh-chip">Network</span>
                       </div>
-                      <span class="scene-akash-node scene-akash-node-a">US-East</span>
-                      <span class="scene-akash-node scene-akash-node-b">EU-West</span>
-                      <span class="scene-akash-node scene-akash-node-c">AP-South</span>
-                      <span class="scene-akash-node scene-akash-node-d">Hub</span>
-                      <span class="scene-akash-caption">Akash primitives</span>
+                      <div class="scene-mesh-map">
+                        <span class="scene-mesh-spine"></span>
+                        <span class="scene-mesh-branch scene-mesh-branch-left"></span>
+                        <span class="scene-mesh-branch scene-mesh-branch-right"></span>
+                        <span class="scene-mesh-orbit"></span>
+                        <span class="scene-mesh-hub"></span>
+                        <span class="scene-mesh-node scene-mesh-node-left">US-East</span>
+                        <span class="scene-mesh-node scene-mesh-node-right">EU-West</span>
+                        <span class="scene-mesh-node scene-mesh-node-bottom">AP-South</span>
+                        <span class="scene-mesh-trace"></span>
+                      </div>
+                      <div class="scene-mesh-foot">
+                        <span>Hub, region, ownership</span>
+                        <span class="scene-mesh-visible">Visible</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3511,141 +4490,30 @@
                     </span>
                     <span class="feature-number">06</span>
                   </div>
-                  <div class="feature-scene scene-observability">
-                    <div class="scene-ops-panel">
-                      <div class="scene-ops-header">
-                        <span class="scene-ops-title">Runtime posture</span>
-                        <span class="scene-ops-badge">Healthy</span>
-                      </div>
-                      <div class="scene-ops-list">
-                        <div class="scene-ops-row">
-                          <strong>Backups</strong>
-                          <span>Enabled</span>
-                        </div>
-                        <div class="scene-ops-row">
-                          <strong>Health checks</strong>
-                          <span>Live</span>
-                        </div>
-                        <div class="scene-ops-row">
-                          <strong>Logs</strong>
-                          <span>Streaming</span>
-                        </div>
-                      </div>
-                      <div class="scene-ops-footer">
-                        <span class="scene-ops-footer-bar"></span>
-                        <span class="scene-ops-footer-metric">99.9%</span>
+                  <div class="feature-scene feature-scene-wheel">
+                    <div class="scene-wheel-card">
+                      <div class="scene-wheel-vignette scene-wheel-vignette-top"></div>
+                      <div class="scene-wheel-vignette scene-wheel-vignette-bottom"></div>
+                      <div class="scene-wheel-window"></div>
+                      <div class="scene-wheel-track">
+                        <span class="scene-wheel-item is-far">vault</span>
+                        <span class="scene-wheel-item is-near">pg_graphql</span>
+                        <span class="scene-wheel-item is-active">pgvector</span>
+                        <span class="scene-wheel-item is-near">pg_cron</span>
+                        <span class="scene-wheel-item is-far">pg_net</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="feature-card-body">
                   <h3>Production posture</h3>
-                  <p class="feature-highlight">Sane defaults for real workloads</p>
+                  <p class="feature-highlight">Core Supabase extensions in one wheel</p>
                   <p class="feature-detail">
-                    Backups, observability, and operational checks stay close to
-                    the workflow before the system gets complex.
+                    pgvector, pg_cron, pg_net, pg_graphql, and Vault stay close
+                    to Postgres in a single operational surface.
                   </p>
                 </div>
               </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section section-proof">
-          <div class="section-inner">
-            <div class="proof-intro fade-up observe">
-              <div class="proof-intro-copy">
-                <p class="section-kicker">Why This Direction</p>
-                <h2 class="section-title">Minimal in the first screen. Credible underneath.</h2>
-                <p class="section-copy">
-                  Esta capa intermedia nos deja validar si la página, además de
-                  atmósfera, puede sostener señales de producto, costo y
-                  operación con la misma calma visual del hero.
-                </p>
-              </div>
-              <div class="proof-intro-note">
-                <span class="proof-intro-chip">Proof Layer</span>
-                <p>
-                  Signals, cost posture, and runtime readiness without empujar
-                  la página hacia un dashboard pesado.
-                </p>
-              </div>
-            </div>
-
-            <div class="proof-grid">
-              <div class="proof-panel fade-up observe">
-                <div class="proof-panel-header">
-                  <div>
-                    <p class="proof-panel-kicker">Signals</p>
-                    <h3>Operator confidence without dashboard bloat</h3>
-                  </div>
-                  <span class="proof-panel-chip">Calm by design</span>
-                </div>
-                <p class="proof-panel-copy">
-                  Este bloque funciona como una zona de prueba para validar cómo
-                  podrían convivir benchmarks, arquitectura y screenshots sin
-                  que la página pierda aire ni se vuelva una consola antes de
-                  tiempo.
-                </p>
-
-                <div class="proof-row">
-                  <div class="proof-item">
-                    <span class="proof-item-label">Surface</span>
-                    <strong>1 CLI</strong>
-                    <span>One clean surface for provisioning and handoff.</span>
-                  </div>
-                  <div class="proof-item">
-                    <span class="proof-item-label">Spend</span>
-                    <strong>80%</strong>
-                    <span>Potential infrastructure savings message placeholder.</span>
-                  </div>
-                  <div class="proof-item">
-                    <span class="proof-item-label">Operations</span>
-                    <strong>24/7</strong>
-                    <span>Operational framing for real workloads and uptime.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="metric-panel fade-up observe delay-1">
-                <div class="metric-hero">
-                  <div class="metric-topline">
-                    <span class="metric-chip">Runtime Slice</span>
-                    <span class="metric-status">Live mock</span>
-                  </div>
-                  <h3>Mockup Dashboard Slice</h3>
-                  <p>
-                    No es producto real todavía. Es una superficie de prueba para
-                    ver cómo conviven los mensajes de costo, provisioning y salud.
-                  </p>
-                </div>
-
-                <div class="metric-stack">
-                  <div class="metric-row">
-                    <span>Provisioning status</span>
-                    <strong class="metric-ready">Ready</strong>
-                  </div>
-                  <div class="metric-row">
-                    <span>Database engine</span>
-                    <strong>Postgres 16</strong>
-                  </div>
-                  <div class="metric-row">
-                    <span>Deploy target</span>
-                    <strong>Akash Network</strong>
-                  </div>
-                  <div class="metric-row">
-                    <span>Observed latency</span>
-                    <strong>42ms</strong>
-                  </div>
-                </div>
-                <div class="metric-footer">
-                  <span class="metric-footer-bar"></span>
-                  <div class="metric-footer-meta">
-                    <span>Health trend</span>
-                    <strong>Stable</strong>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -3691,7 +4559,7 @@
               <div class="footer-column fade-up observe delay-1">
                 <h3>Resources</h3>
                 <ul class="footer-links">
-                  <li><a href="#cli">Docs</a></li>
+                  <li><a href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">Docs</a></li>
                   <li><a href="#updates">Updates</a></li>
                   <li><a href="#cli">Install Guide</a></li>
                 </ul>
@@ -3729,9 +4597,26 @@
       const mobileLinks = mobilePanel.querySelectorAll("a");
       const observedItems = document.querySelectorAll(".observe");
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let lastScrollY = 0;
 
       function syncScrollState() {
-        header.classList.toggle("is-scrolled", window.scrollY > 18);
+        const currentScroll = window.scrollY;
+        header.classList.toggle("is-scrolled", currentScroll > 18);
+
+        const delta = currentScroll - lastScrollY;
+        if (Math.abs(delta) > 4) {
+          const nextHidden =
+            delta > 0 &&
+            currentScroll > 140 &&
+            menuToggle.getAttribute("aria-expanded") !== "true";
+          header.classList.toggle("is-hidden", nextHidden);
+          lastScrollY = currentScroll;
+        }
+
+        if (currentScroll < 24) {
+          header.classList.remove("is-hidden");
+          lastScrollY = currentScroll;
+        }
       }
 
       function syncMobileTop() {
@@ -3744,6 +4629,9 @@
         mobilePanel.classList.toggle("is-open", isOpen);
         mobilePanel.setAttribute("aria-hidden", String(!isOpen));
         body.classList.toggle("menu-open", isOpen);
+        if (isOpen) {
+          header.classList.remove("is-hidden");
+        }
         syncMobileTop();
       }
 
@@ -3846,6 +4734,279 @@
       );
 
       observedItems.forEach((item) => observer.observe(item));
+    </script>
+
+    <script type="module">
+      import React, { useLayoutEffect, useMemo, useRef } from "https://esm.sh/react@19.1.0";
+      import { createRoot } from "https://esm.sh/react-dom@19.1.0/client";
+      import htm from "https://esm.sh/htm@3.1.1";
+      import * as THREE from "https://esm.sh/three@0.183.2";
+      import { Canvas, useFrame } from "https://esm.sh/@react-three/fiber@9.5.0?deps=react@19.1.0,react-dom@19.1.0,three@0.183.2";
+      import { Sparkles, Stars } from "https://esm.sh/@react-three/drei@10.7.7?deps=react@19.1.0,react-dom@19.1.0,three@0.183.2,@react-three/fiber@9.5.0";
+
+      const html = htm.bind(React.createElement);
+      const mountNode = document.getElementById("heroVortexRoot");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function createRandom(seed) {
+        return function random() {
+          seed |= 0;
+          seed = (seed + 0x6d2b79f5) | 0;
+          let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function buildRackDescriptors(count) {
+        const random = createRandom(1107);
+        const from = new THREE.Color("#101115");
+        const to = new THREE.Color("#ff4a55");
+
+        return Array.from({ length: count }, (_, index) => {
+          const lane = index % 12;
+
+          return {
+            angle: index * 0.43 + lane * 0.35 + random() * 0.6,
+            depth: index * 1.15 + random() * 1.2,
+            radius: THREE.MathUtils.lerp(5.4, 8.6, Math.pow(random(), 0.72)),
+            twist: THREE.MathUtils.lerp(0.07, 0.15, random()),
+            verticalScale: THREE.MathUtils.lerp(0.68, 0.94, random()),
+            floatSpeed: THREE.MathUtils.lerp(0.32, 0.74, random()),
+            rotationAmp: THREE.MathUtils.lerp(0.08, 0.18, random()),
+            speed: THREE.MathUtils.lerp(6.8, 8.4, random()),
+            scale: [
+              THREE.MathUtils.lerp(0.8, 1.8, random()),
+              THREE.MathUtils.lerp(1.3, 3.1, random()),
+              THREE.MathUtils.lerp(0.24, 0.58, random()),
+            ],
+            rotX: (random() - 0.5) * 0.55,
+            rotY: (random() - 0.5) * 0.5,
+            rotZ: (random() - 0.5) * 0.45,
+            radiusDrift: THREE.MathUtils.lerp(0.08, 0.5, random()),
+            wobble: random() * Math.PI * 2,
+            color: from.clone().lerp(to, 0.08 + random() * 0.42),
+            facingOffset: Math.PI * 0.5,
+            seed: random() * Math.PI * 2,
+          };
+        });
+      }
+
+      function buildShelfDescriptors(count) {
+        const random = createRandom(9284);
+        const from = new THREE.Color("#181b20");
+        const to = new THREE.Color("#ffb6bd");
+
+        return Array.from({ length: count }, (_, index) => {
+          const lane = index % 10;
+
+          return {
+            angle: index * 0.58 + lane * 0.48 + random() * 0.8,
+            depth: index * 1.65 + random() * 1.4,
+            radius: THREE.MathUtils.lerp(2.4, 5.4, Math.pow(random(), 0.78)),
+            twist: THREE.MathUtils.lerp(0.11, 0.2, random()),
+            verticalScale: THREE.MathUtils.lerp(0.72, 1.02, random()),
+            floatSpeed: THREE.MathUtils.lerp(0.44, 0.96, random()),
+            rotationAmp: THREE.MathUtils.lerp(0.14, 0.28, random()),
+            speed: THREE.MathUtils.lerp(5.6, 7.2, random()),
+            scale: [
+              THREE.MathUtils.lerp(0.55, 1.2, random()),
+              THREE.MathUtils.lerp(0.14, 0.28, random()),
+              THREE.MathUtils.lerp(1.1, 2.5, random()),
+            ],
+            rotX: (random() - 0.5) * 0.95,
+            rotY: (random() - 0.5) * 0.85,
+            rotZ: (random() - 0.5) * 0.95,
+            radiusDrift: THREE.MathUtils.lerp(0.12, 0.42, random()),
+            wobble: random() * Math.PI * 2,
+            color: from.clone().lerp(to, 0.1 + random() * 0.35),
+            facingOffset: random() * Math.PI,
+            seed: random() * Math.PI * 2,
+          };
+        });
+      }
+
+      function InstancedField({ descriptors, material, travelMultiplier = 1 }) {
+        const meshRef = useRef(null);
+        const dummy = useMemo(() => new THREE.Object3D(), []);
+        const tunnelDepth = useMemo(
+          () => descriptors[descriptors.length - 1].depth + 18,
+          [descriptors],
+        );
+
+        useLayoutEffect(() => {
+          const mesh = meshRef.current;
+          if (!mesh) {
+            return;
+          }
+
+          descriptors.forEach((item, index) => {
+            mesh.setColorAt(index, item.color);
+          });
+
+          if (mesh.instanceColor) {
+            mesh.instanceColor.needsUpdate = true;
+          }
+        }, [descriptors]);
+
+        useFrame((state) => {
+          const mesh = meshRef.current;
+          if (!mesh) {
+            return;
+          }
+
+          const t = state.clock.getElapsedTime();
+          const tunnelSpin = t * 0.095;
+
+          for (let index = 0; index < descriptors.length; index += 1) {
+            const item = descriptors[index];
+            const wrappedDepth = THREE.MathUtils.euclideanModulo(
+              item.depth - t * item.speed * travelMultiplier,
+              tunnelDepth,
+            );
+            const z = 9 - wrappedDepth;
+            const angle = item.angle + tunnelSpin + z * item.twist;
+            const radius = item.radius + Math.sin(t * 0.34 + item.seed) * item.radiusDrift;
+            const pulse = 1 + Math.sin(t * item.floatSpeed + item.wobble) * 0.08;
+
+            dummy.position.set(
+              Math.cos(angle) * radius,
+              Math.sin(angle) * radius * item.verticalScale,
+              z,
+            );
+            dummy.rotation.set(
+              item.rotX + Math.cos(t * item.floatSpeed + item.seed) * item.rotationAmp,
+              item.rotY + angle + item.facingOffset,
+              item.rotZ +
+                Math.sin(t * (item.floatSpeed * 0.8) + item.seed) * item.rotationAmp * 0.85,
+            );
+            dummy.scale.set(
+              item.scale[0] * pulse,
+              item.scale[1] * (1 + (pulse - 1) * 0.32),
+              item.scale[2] * pulse,
+            );
+            dummy.updateMatrix();
+            mesh.setMatrixAt(index, dummy.matrix);
+          }
+
+          mesh.instanceMatrix.needsUpdate = true;
+        });
+
+        return html`
+          <instancedMesh ref=${meshRef} args=${[null, null, descriptors.length]} frustumCulled=${false}>
+            <boxGeometry args=${[1, 1, 1]} />
+            <meshStandardMaterial
+              color=${material.color}
+              roughness=${material.roughness}
+              metalness=${material.metalness}
+              emissive=${material.emissive}
+              emissiveIntensity=${material.emissiveIntensity}
+              vertexColors=${true}
+            />
+          </instancedMesh>
+        `;
+      }
+
+      function TunnelScene({ reducedMotion }) {
+        const racks = useMemo(() => buildRackDescriptors(reducedMotion ? 440 : 760), [reducedMotion]);
+        const shelves = useMemo(
+          () => buildShelfDescriptors(reducedMotion ? 180 : 320),
+          [reducedMotion],
+        );
+        const sceneRef = useRef(null);
+
+        useFrame((state) => {
+          const t = state.clock.getElapsedTime();
+          const settle = Math.min(t * (reducedMotion ? 0.006 : 0.018), 1.35);
+
+          state.camera.position.x = Math.sin(t * 0.16) * 0.2;
+          state.camera.position.y = Math.cos(t * 0.22) * 0.16;
+          state.camera.position.z = 7.3 - settle;
+          state.camera.lookAt(0, 0, state.camera.position.z - 18);
+
+          if (sceneRef.current) {
+            sceneRef.current.rotation.z = Math.sin(t * 0.08) * 0.11;
+            sceneRef.current.rotation.x = Math.cos(t * 0.06) * 0.045;
+          }
+        });
+
+        return html`
+          <group ref=${sceneRef}>
+            <fogExp2 attach="fog" args=${["#020202", 0.034]} />
+            <ambientLight intensity=${0.48} />
+            <hemisphereLight intensity=${0.7} color="#fff4f5" groundColor="#050505" />
+            <pointLight position=${[0, 0.4, 6]} intensity=${24} color="#ff6d77" distance=${24} />
+            <pointLight position=${[0, 0, -12]} intensity=${17} color="#ffe8eb" distance=${28} />
+            <pointLight position=${[0, 0, -28]} intensity=${13} color="#a7b0ff" distance=${34} />
+            <${InstancedField}
+              descriptors=${racks}
+              travelMultiplier=${reducedMotion ? 0.45 : 1}
+              material=${{
+                color: "#262a32",
+                roughness: 0.28,
+                metalness: 0.94,
+                emissive: "#4a0f16",
+                emissiveIntensity: 0.95,
+              }}
+            />
+            <${InstancedField}
+              descriptors=${shelves}
+              travelMultiplier=${reducedMotion ? 0.38 : 0.78}
+              material=${{
+                color: "#343a45",
+                roughness: 0.42,
+                metalness: 0.42,
+                emissive: "#2a0d13",
+                emissiveIntensity: 0.62,
+              }}
+            />
+            <${Sparkles}
+              count=${reducedMotion ? 36 : 74}
+              scale=${[2.2, 2.2, 20]}
+              position=${[0, 0, -12]}
+              size=${2.2}
+              speed=${0.18}
+              opacity=${0.48}
+              color="#ffd7db"
+            />
+            <${Sparkles}
+              count=${reducedMotion ? 22 : 42}
+              scale=${[0.9, 0.9, 9]}
+              position=${[0, 0, -4]}
+              size=${2.5}
+              speed=${0.24}
+              opacity=${0.56}
+              color="#ffffff"
+            />
+            <${Stars}
+              radius=${48}
+              depth=${56}
+              count=${reducedMotion ? 1100 : 2400}
+              factor=${2.2}
+              saturation=${0}
+              fade=${true}
+              speed=${0.28}
+            />
+          </group>
+        `;
+      }
+
+      function HeroVortex() {
+        return html`
+          <${Canvas}
+            dpr=${[1, 1.6]}
+            camera=${{ position: [0, 0, 7.3], fov: 52, near: 0.1, far: 120 }}
+            gl=${{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+            onCreated=${({ gl }) => gl.setClearColor("#020202", 0)}
+          >
+            <${TunnelScene} reducedMotion=${prefersReducedMotion} />
+          </${Canvas}>
+        `;
+      }
+
+      if (mountNode) {
+        createRoot(mountNode).render(html`<${HeroVortex} />`);
+      }
     </script>
   </body>
 </html>

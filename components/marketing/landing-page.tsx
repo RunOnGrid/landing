@@ -6,7 +6,6 @@ import { AkashNativeCard } from "@/components/marketing/akash-native-card";
 import { useSmoothScroll } from "@/components/animations/smooth-scroll-provider";
 import { useLandingAnimations } from "@/components/animations/use-landing-animations";
 import { AgentFirstCard } from "@/components/marketing/agent-first-card";
-import { CleanHandoffsCard } from "@/components/marketing/clean-handoffs-card";
 import { GuardrailsCard } from "@/components/marketing/guardrails-card";
 import { LowerSpendCard } from "@/components/marketing/lower-spend-card";
 import { SupabaseExtensionsCard } from "@/components/marketing/supabase-extensions-card";
@@ -336,17 +335,16 @@ export function LandingPage() {
             </div>
 
             <div className="feature-grid">
-              <AgentFirstCard />
+              <div className="feature-grid-row feature-grid-row-duo">
+                <AgentFirstCard />
+                <LowerSpendCard />
+              </div>
 
-              <LowerSpendCard />
-
-              <GuardrailsCard />
-
-              <CleanHandoffsCard />
-
-              <AkashNativeCard />
-
-              <SupabaseExtensionsCard />
+              <div className="feature-grid-row feature-grid-row-trio">
+                <GuardrailsCard />
+                <AkashNativeCard />
+                <SupabaseExtensionsCard />
+              </div>
             </div>
           </div>
         </section>

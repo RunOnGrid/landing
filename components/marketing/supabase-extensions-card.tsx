@@ -10,12 +10,17 @@ const CALM_TRANSITION = {
   duration: 0.45,
   ease: CALM_EASE,
 };
+const SOFT_PULSE = {
+  duration: 3.8,
+  ease: "easeInOut" as const,
+  repeat: Infinity,
+};
 const EXTENSIONS = ["pgvector", "pg_cron", "pg_net", "pg_graphql", "vault"] as const;
-const ROW_HEIGHT = 32;
-const VIEWPORT_HEIGHT = 128;
+const ROW_HEIGHT = 38;
+const VIEWPORT_HEIGHT = 132;
 const CENTER_OFFSET = (VIEWPORT_HEIGHT - ROW_HEIGHT) / 2;
-const ADVANCE_MS = 2250;
-const WHEEL_DURATION_MS = 720;
+const ADVANCE_MS = 2400;
+const WHEEL_DURATION_MS = 760;
 
 function ExtensionsGlyph() {
   return (
@@ -128,6 +133,7 @@ export function SupabaseExtensionsCard({ className }: SupabaseExtensionsCardProp
       };
 
   const wheelItems = [...EXTENSIONS, ...EXTENSIONS, ...EXTENSIONS];
+  const activeIndex = ((wheelIndex % itemCount) + itemCount) % itemCount;
 
   return (
     <motion.div {...revealProps} className={cn("h-full min-h-[390px]", className)}>
@@ -222,78 +228,110 @@ export function SupabaseExtensionsCard({ className }: SupabaseExtensionsCardProp
 
           <div
             aria-hidden="true"
-            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            className="relative mt-5 flex h-[178px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-6 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,255,255,0.05),transparent_20%),radial-gradient(circle_at_82%_78%,rgba(255,65,76,0.12),transparent_26%)]" />
 
-            <div className="relative mx-auto flex h-[130px] w-full items-center justify-center px-1">
-              <div
-                className="relative w-full overflow-hidden rounded-[20px] px-2"
-                style={{ height: `${VIEWPORT_HEIGHT}px`, perspective: "1200px" }}
-              >
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_26%,rgba(255,255,255,0.03),transparent_22%),radial-gradient(circle_at_82%_72%,rgba(255,65,76,0.065),transparent_26%)]" />
-                <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-10 bg-gradient-to-b from-[rgba(20,20,20,0.72)] via-[rgba(20,20,20,0.34)] to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-10 bg-gradient-to-t from-[rgba(20,20,20,0.72)] via-[rgba(20,20,20,0.34)] to-transparent" />
+            <div className="relative flex h-full w-full items-center justify-center">
+              <div className="relative h-full w-full overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_26%,rgba(255,255,255,0.03),transparent_22%),radial-gradient(circle_at_82%_72%,rgba(255,65,76,0.07),transparent_28%)]" />
+                <div className="pointer-events-none absolute inset-x-12 top-1/2 z-10 h-16 -translate-y-1/2 bg-[radial-gradient(circle_at_center,rgba(255,65,76,0.12),transparent_72%)]" />
 
-                <div
-                  className="pointer-events-none absolute inset-x-2 top-1/2 z-20 h-8 -translate-y-1/2 rounded-full border border-white/6 bg-white/[0.028]"
-                >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/16 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/16 to-transparent" />
-                  <div className="absolute inset-x-6 inset-y-0 rounded-[14px] bg-[radial-gradient(circle_at_center,rgba(255,65,76,0.12),transparent_72%)]" />
+                <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between gap-3 px-1">
+                  <span className="text-[0.52rem] font-semibold uppercase tracking-[0.22em] text-white/42">
+                    Extensions
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {EXTENSIONS.map((extension, index) => (
+                      <motion.span
+                        key={extension}
+                        animate={
+                          reduceMotion
+                            ? undefined
+                            : {
+                                opacity: index === activeIndex ? [0.82, 1, 0.82] : [0.26, 0.38, 0.26],
+                                scale: index === activeIndex ? [1, 1.08, 1] : 1,
+                              }
+                        }
+                        transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 3.2, delay: index * 0.05 }}
+                        className={cn(
+                          "block h-1.5 rounded-full transition-all duration-300",
+                          index === activeIndex ? "w-5 bg-[#FF414C]" : "w-1.5 bg-white/28",
+                        )}
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                <motion.div
-                  animate={{ y: CENTER_OFFSET - wheelIndex * ROW_HEIGHT }}
-                  transition={
-                    instant || reduceMotion
-                      ? { duration: 0 }
-                      : { duration: WHEEL_DURATION_MS / 1000, ease: PICKER_EASE }
-                  }
-                  className="absolute inset-x-0 top-0"
+                <div
+                  className="absolute inset-x-0 top-[1.45rem] bottom-0 overflow-hidden"
+                  style={{ height: `${VIEWPORT_HEIGHT}px`, perspective: "1200px" }}
                 >
-                  {wheelItems.map((name, index) => {
-                    const distance = index - wheelIndex;
-                    const absDistance = Math.abs(distance);
+                  <motion.div
+                    animate={{ y: CENTER_OFFSET - wheelIndex * ROW_HEIGHT }}
+                    transition={
+                      instant || reduceMotion
+                        ? { duration: 0 }
+                        : { duration: WHEEL_DURATION_MS / 1000, ease: PICKER_EASE }
+                    }
+                    className="absolute inset-x-0 top-0"
+                  >
+                    {wheelItems.map((name, index) => {
+                      const distance = index - wheelIndex;
+                      const absDistance = Math.abs(distance);
 
-                    let opacity = 0;
-                    if (absDistance === 0) opacity = 1;
-                    if (absDistance === 1) opacity = 0.34;
-                    if (absDistance === 2) opacity = 0.1;
+                      let opacity = 0;
+                      if (absDistance === 0) opacity = 1;
+                      if (absDistance === 1) opacity = 0.42;
+                      if (absDistance === 2) opacity = 0.14;
 
-                    const scale = absDistance === 0 ? 1 : absDistance === 1 ? 0.92 : 0.82;
-                    const rotateX = distance * -22;
-                    const blur = absDistance === 0 ? 0 : absDistance === 1 ? 0.2 : 0.6;
-                    const fontSize =
-                      absDistance === 0 ? "1.05rem" : absDistance === 1 ? "0.92rem" : "0.82rem";
+                      const scale = absDistance === 0 ? 1 : absDistance === 1 ? 0.93 : 0.84;
+                      const rotateX = distance * -18;
+                      const blur = absDistance === 0 ? 0 : absDistance === 1 ? 0.25 : 0.8;
+                      const fontSize =
+                        absDistance === 0 ? "1rem" : absDistance === 1 ? "0.88rem" : "0.78rem";
 
-                    return (
-                      <div
-                        key={`${name}-${index}`}
-                        className="flex items-center justify-center"
-                        style={{ height: `${ROW_HEIGHT}px` }}
-                      >
-                        <span
-                          className="font-medium tracking-[-0.03em] text-white"
-                          style={{
-                            opacity,
-                            filter: `blur(${blur}px)`,
-                            fontSize,
-                            transform: `perspective(900px) rotateX(${rotateX}deg) scale(${scale})`,
-                            textShadow:
-                              absDistance === 0 ? "0 0 20px rgba(255,255,255,0.08)" : "none",
-                            transition:
-                              instant || reduceMotion
-                                ? "none"
-                                : "transform 720ms cubic-bezier(0.25, 1, 0.5, 1), opacity 720ms cubic-bezier(0.25, 1, 0.5, 1), filter 720ms cubic-bezier(0.25, 1, 0.5, 1), font-size 720ms cubic-bezier(0.25, 1, 0.5, 1)",
-                          }}
+                      return (
+                        <div
+                          key={`${name}-${index}`}
+                          className="flex items-center justify-center"
+                          style={{ height: `${ROW_HEIGHT}px` }}
                         >
-                          {name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </motion.div>
+                          <div
+                            className="flex items-center justify-center"
+                            style={{
+                              opacity,
+                              filter: `blur(${blur}px)`,
+                              fontSize,
+                              transform: `perspective(900px) rotateX(${rotateX}deg) scale(${scale})`,
+                              textShadow:
+                                absDistance === 0 ? "0 0 20px rgba(255,255,255,0.08)" : "none",
+                              transition:
+                                instant || reduceMotion
+                                  ? "none"
+                                  : "transform 760ms cubic-bezier(0.25, 1, 0.5, 1), opacity 760ms cubic-bezier(0.25, 1, 0.5, 1), filter 760ms cubic-bezier(0.25, 1, 0.5, 1), font-size 760ms cubic-bezier(0.25, 1, 0.5, 1)",
+                            }}
+                          >
+                            <span
+                              className={cn(
+                                "inline-flex items-center justify-center gap-2 px-4 py-1.5 font-medium tracking-[-0.03em] text-white transition-all duration-300",
+                                absDistance === 0
+                                  ? "min-w-[11.25rem] rounded-full border border-white/8 bg-[linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] text-white shadow-[0_0_20px_rgba(255,65,76,0.08)]"
+                                  : "min-w-[10rem] text-white/70",
+                              )}
+                            >
+                              {absDistance === 0 ? (
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#FF414C] shadow-[0_0_10px_rgba(255,65,76,0.45)]" />
+                              ) : null}
+                              {name}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+                </div>
+
               </div>
             </div>
           </div>

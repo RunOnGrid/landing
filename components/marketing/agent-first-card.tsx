@@ -154,7 +154,7 @@ export function AgentFirstCard({ className }: AgentFirstCardProps) {
 
           <div
             aria-hidden="true"
-            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            className="relative mt-5 flex h-[170px] items-center overflow-hidden rounded-[26px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012)),rgba(10,10,10,0.88)] px-6 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
           >
             <motion.div
               aria-hidden="true"
@@ -170,150 +170,154 @@ export function AgentFirstCard({ className }: AgentFirstCardProps) {
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_50%,rgba(255,65,76,0.18),transparent_28%),radial-gradient(circle_at_84%_18%,rgba(255,255,255,0.08),transparent_18%)]"
             />
 
-            <motion.div
-              animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
-              transition={reduceMotion ? undefined : AMBIENT_FLOAT}
-              className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[radial-gradient(circle_at_center,rgba(255,65,76,0.2),transparent_66%),rgba(255,255,255,0.02)] shadow-[0_0_36px_rgba(255,65,76,0.12)]"
-            >
-              <span className="absolute inset-3 rounded-full border border-[#FF414C]/30" />
-              <span className="absolute inset-6 rounded-full border border-white/10" />
-              <motion.span
-                animate={reduceMotion ? undefined : { rotate: 360 }}
-                transition={reduceMotion ? undefined : ORBIT_SPIN}
-                variants={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        rest: { scale: 1, opacity: 0.72 },
-                        hover: { scale: 1.04, opacity: 1, transition: CALM_TRANSITION },
-                      }
-                }
-                className="absolute -inset-2 rounded-full border border-dashed border-[#FF414C]/25"
-              />
               <motion.div
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        scale: [1, 1.03, 1],
-                        opacity: [0.92, 1, 0.92],
-                      }
-                }
-                transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2 }}
-                className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-[#FF414C]"
+                className="relative flex h-full w-full items-center"
               >
-                <AgentGlyph />
-              </motion.div>
-            </motion.div>
-
-            <div className="relative ml-5 flex flex-1 items-center">
               <motion.div
-                variants={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        rest: { opacity: 0.72 },
-                        hover: { opacity: 1, transition: CALM_TRANSITION },
-                      }
-                }
-                className="absolute left-0 right-5 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-[#FF414C]/60 via-[#FF414C]/20 to-white/10"
-              />
-              <motion.span
-                aria-hidden="true"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        left: ["8%", "72%", "8%"],
-                        opacity: [0.28, 0.92, 0.28],
-                      }
-                }
-                transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
-                className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#FF414C] shadow-[0_0_12px_rgba(255,65,76,0.45)]"
-              />
-              <motion.span
-                aria-hidden="true"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        left: ["4%", "68%", "4%"],
-                        opacity: [0, 0.6, 0],
-                      }
-                }
-                transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
-                className="absolute top-1/2 h-4 w-14 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,65,76,0.28),transparent)] blur-[6px]"
-              />
-
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [0, 2, 0] }}
-                transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, delay: 0.8, duration: 6.4 }}
-                className="relative ml-auto flex w-[11rem] flex-col gap-3"
+                animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
+                transition={reduceMotion ? undefined : AMBIENT_FLOAT}
+                className="relative flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[radial-gradient(circle_at_center,rgba(255,65,76,0.2),transparent_66%),rgba(255,255,255,0.02)] shadow-[0_0_36px_rgba(255,65,76,0.12)]"
               >
+                <span className="absolute inset-3 rounded-full border border-[#FF414C]/30" />
+                <span className="absolute inset-6 rounded-full border border-white/10" />
+                <motion.div
+                  variants={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          rest: { scale: 1, opacity: 0.72 },
+                          hover: { scale: 1.04, opacity: 1, transition: CALM_TRANSITION },
+                        }
+                  }
+                  animate={reduceMotion ? undefined : { rotate: 360 }}
+                  transition={reduceMotion ? undefined : ORBIT_SPIN}
+                  className="absolute -inset-2 rounded-full border border-dashed border-[#FF414C]/25"
+                />
                 <motion.div
                   animate={
                     reduceMotion
                       ? undefined
                       : {
-                          opacity: [0.5, 0.7, 0.5],
+                          scale: [1, 1.03, 1],
+                          opacity: [0.92, 1, 0.92],
                         }
                   }
-                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.4 }}
-                  className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/58"
+                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2 }}
+                  className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-[#FF414C]"
                 >
-                  Agent request
+                  <AgentGlyph />
                 </motion.div>
+              </motion.div>
+
+              <div className="relative ml-5 flex flex-1 items-center">
                 <motion.div
-                  animate={reduceMotion ? undefined : { y: [0, -1.5, 0] }}
-                  transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.8 }}
                   variants={
                     reduceMotion
                       ? undefined
                       : {
-                          rest: {
-                            backgroundColor: "rgba(255, 65, 76, 0.08)",
-                            borderColor: "rgba(255, 65, 76, 0.18)",
-                          },
-                          hover: {
-                            backgroundColor: "rgba(255, 65, 76, 0.12)",
-                            borderColor: "rgba(255, 65, 76, 0.28)",
-                            transition: CALM_TRANSITION,
-                          },
+                          rest: { opacity: 0.72 },
+                          hover: { opacity: 1, transition: CALM_TRANSITION },
                         }
                   }
-                  className="flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium tracking-[-0.02em] text-white shadow-[0_0_20px_rgba(255,65,76,0.1)]"
+                  className="absolute left-0 right-5 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-[#FF414C]/60 via-[#FF414C]/20 to-white/10"
+                />
+                <motion.span
+                  aria-hidden="true"
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          left: ["8%", "72%", "8%"],
+                          opacity: [0.28, 0.92, 0.28],
+                        }
+                  }
+                  transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
+                  className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#FF414C] shadow-[0_0_12px_rgba(255,65,76,0.45)]"
+                />
+                <motion.span
+                  aria-hidden="true"
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          left: ["4%", "68%", "4%"],
+                          opacity: [0, 0.6, 0],
+                        }
+                  }
+                  transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Infinity }}
+                  className="absolute top-1/2 h-4 w-14 -translate-y-1/2 rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,65,76,0.28),transparent)] blur-[6px]"
+                />
+
+                <motion.div
+                  animate={reduceMotion ? undefined : { y: [0, 2, 0] }}
+                  transition={reduceMotion ? undefined : { ...AMBIENT_FLOAT, delay: 0.8, duration: 6.4 }}
+                  className="relative ml-auto flex w-[11rem] flex-col gap-3"
                 >
-                  <motion.span
-                    aria-hidden="true"
+                  <motion.div
                     animate={
                       reduceMotion
                         ? undefined
                         : {
-                            scale: [0.95, 1.15, 0.95],
-                            opacity: [0.68, 1, 0.68],
+                            opacity: [0.5, 0.7, 0.5],
                           }
                     }
-                    transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 2.8 }}
-                    className="h-2 w-2 rounded-full bg-[#FF414C] shadow-[0_0_10px_rgba(255,65,76,0.5)]"
-                  />
-                  <span>postgres.deploy</span>
-                </motion.div>
-              </motion.div>
-            </div>
-
-            <motion.span
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      opacity: [0.34, 0.5, 0.34],
+                    transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.4 }}
+                    className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white/58"
+                  >
+                    Agent request
+                  </motion.div>
+                  <motion.div
+                    animate={reduceMotion ? undefined : { y: [0, -1.5, 0] }}
+                    transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.8 }}
+                    variants={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            rest: {
+                              backgroundColor: "rgba(255, 65, 76, 0.08)",
+                              borderColor: "rgba(255, 65, 76, 0.18)",
+                            },
+                            hover: {
+                              backgroundColor: "rgba(255, 65, 76, 0.12)",
+                              borderColor: "rgba(255, 65, 76, 0.28)",
+                              transition: CALM_TRANSITION,
+                            },
+                          }
                     }
-              }
-              transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2, delay: 0.6 }}
-              className="absolute bottom-4 left-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/42"
-            >
-              Context intact
-            </motion.span>
+                    className="flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-medium tracking-[-0.02em] text-white shadow-[0_0_20px_rgba(255,65,76,0.1)]"
+                  >
+                    <motion.span
+                      aria-hidden="true"
+                      animate={
+                        reduceMotion
+                          ? undefined
+                          : {
+                              scale: [0.95, 1.15, 0.95],
+                              opacity: [0.68, 1, 0.68],
+                            }
+                      }
+                      transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 2.8 }}
+                      className="h-2 w-2 rounded-full bg-[#FF414C] shadow-[0_0_10px_rgba(255,65,76,0.5)]"
+                    />
+                    <span>postgres.deploy</span>
+                  </motion.div>
+                </motion.div>
+              </div>
+
+              <motion.span
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        opacity: [0.34, 0.5, 0.34],
+                      }
+                }
+                transition={reduceMotion ? undefined : { ...SOFT_PULSE, duration: 4.2, delay: 0.6 }}
+                className="absolute bottom-1 left-0 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-white/42"
+              >
+                Context intact
+              </motion.span>
+            </motion.div>
           </div>
         </div>
 
@@ -324,7 +328,7 @@ export function AgentFirstCard({ className }: AgentFirstCardProps) {
           <p className="mt-3 text-[0.97rem] font-medium leading-7 tracking-[-0.02em] text-white/90">
             One command into deployment
           </p>
-          <p className="mt-4 max-w-[32ch] text-[0.95rem] leading-7 text-white/62">
+          <p className="mt-4 text-[0.95rem] leading-7 text-white/62">
             A single CLI surface for operators and agents to request, provision,
             and hand off Postgres without losing context.
           </p>
