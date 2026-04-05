@@ -154,7 +154,7 @@ export function LandingPage() {
           </a>
 
           <nav className="nav-links" aria-label="Primary">
-            <a className="nav-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">
+            <a className="nav-link" href="/docs">
               Docs
             </a>
             <a className="nav-link" href="#updates">
@@ -165,7 +165,7 @@ export function LandingPage() {
           <div className="nav-actions">
             <motion.a
               className="nav-cta desktop-only"
-              href="#cli"
+              href="/docs#installation"
               whileHover={
                 reduceMotion
                   ? undefined
@@ -204,7 +204,7 @@ export function LandingPage() {
         <div className="mobile-panel-backdrop"></div>
         <div className="mobile-panel-content">
           <nav className="mobile-links" aria-label="Mobile">
-            <a className="mobile-link" href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
+            <a className="mobile-link" href="/docs" onClick={() => setIsMenuOpen(false)}>
               Docs
             </a>
             <a className="mobile-link" href="#updates" onClick={() => setIsMenuOpen(false)}>
@@ -215,7 +215,7 @@ export function LandingPage() {
           <div>
             <motion.a
               className="nav-cta"
-              href="#cli"
+              href="/docs#installation"
               style={{ width: "100%" }}
               onClick={() => setIsMenuOpen(false)}
               whileHover={
@@ -385,7 +385,7 @@ export function LandingPage() {
                 <h3>Resources</h3>
                 <ul className="footer-links">
                   <li>
-                    <a href="https://www.npmjs.com/package/cli-akashdb" target="_blank" rel="noopener noreferrer">Docs</a>
+                    <a href="/docs">Docs</a>
                   </li>
                   <li>
                     <a href="#updates">Updates</a>
